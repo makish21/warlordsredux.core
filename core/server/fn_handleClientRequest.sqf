@@ -132,6 +132,66 @@ if (_action == "orderArsenal") exitWith {
 	};
 };
 
+// #define DEBUG_MARKERS
+
+if (_action == "fastTravelSeized") exitWith {
+	private _sector = _param1;
+	private _tagAlong = _param2;
+
+	private _cost = (getMissionConfigValue ["BIS_WL_fastTravelCostSeized", 0]);
+	private _hasFunds = (playerFunds >= _cost);
+	if (_hasFunds) then {
+		(-_cost) call WL2_fnc_fundsDatabaseWrite;
+		private _infantrySpawnPositions = _sector getVariable ["BIS_WL_infantrySpawnPositions", []];
+
+		private _vehicleFreePositions = _infantrySpawnPositions select {
+			private _nearVics = _x nearObjects ["AllVehicles", 6];
+			count _nearVics == 0;
+		};
+
+		private _safePositions = [];
+		private _dangerPositions = [/*[distanceToNearestEnemy, spawnPosition], ...*/];
+
+		{
+			private _position = _x;
+
+			private _nearbyEnemies = [_position, side _sender] call WL2_fnc_getContestingPlayersInPosition;
+
+			if (count _nearbyEnemies == 0) then {
+				_safePositions pushBack _position;
+			} else {
+				private _nearestEnemyDistance = 10000;
+
+				{
+					private _distance = _position distance _x;
+					if (_distance < _nearestEnemyDistance) then { 
+						_nearestEnemyDistance = _distance; 
+					};
+				} forEach _nearbyEnemies;
+
+				_dangerPositions pushBack [_nearestEnemyDistance, _position];
+			};
+		} forEach _vehicleFreePositions;
+
+		private _destination = if (count _safePositions > 0) then {
+			selectRandom _safePositions;
+		} else {
+			_dangerPositions sort /*ascending=*/false;
+			(_dangerPositions # 0) # 1; // most distant position from enemy
+		};
+
+		{
+			_x setVehiclePosition [_destination, [], 3, "NONE"];
+		} forEach _tagAlong;
+		_sender setVehiclePosition [_destination, [], 0, "NONE"];
+	};
+
+#define MODE_SEIZED 0
+	sleep 1; // TODO sleep at least 1 sec
+	
+	[/*fastTravelMode=*/MODE_SEIZED] remoteExec ["WL2_fnc_completeFastTravel", _sender];
+};
+
 if (_action == "fastTravelContested") exitWith {
 	_cost = _param1;
 	_hasFunds = (playerFunds >= _cost);

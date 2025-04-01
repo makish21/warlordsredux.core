@@ -144,6 +144,9 @@ waitUntil {!isNil "BIS_WL_base1" && {!isNil "BIS_WL_base2"}};
 	_agent = _agentGrp createUnit ["Logic", _sectorPos, [], 0, "CAN_COLLIDE"];
 	_agent enableSimulationGlobal false;
 	_sector setVariable ["BIS_WL_agentGrp", _agentGrp, true];
+
+	private _infantrySpawnPositions = [_sector, /*rimWidth=*/0, /*infantryOnly=*/true] call WL2_fnc_findSpawnPositions;
+	_sector setVariable ["BIS_WL_infantrySpawnPositions", _infantrySpawnPositions, /*public=*/true];
 } forEach BIS_WL_allSectors;
 
 #if WL_OVERRIDE_BASES

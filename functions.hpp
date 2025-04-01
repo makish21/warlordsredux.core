@@ -303,6 +303,7 @@ class CfgFunctions {
 		class ClientOrder {
 			file = "src\core\client\order";
 			class cancelVehicleOrder {};
+			class completeFastTravel {};
 			class deployment {};
 			class executeFastTravel {};
 			class fastTravelConflictMarker {};
@@ -375,6 +376,7 @@ class CfgFunctions {
 			class findSpawnPositions {};
 			class getAssetSide {};
 			class getAssetTypeName {};
+			class getContestingPlayersInPosition {};
 			class getMagazineName {};
 			class getMoneySign {};
 			class getVehicleWeapons {};

@@ -25,10 +25,23 @@ private _sectorPos = if (isNil "BIS_WL_targetSector") then {
 	(BIS_WL_targetSector getVariable "objectAreaComplete") # 0;
 };
 
+private _tagAlong = (units player) select {
+	(_x distance2D player <= 100) &&
+	(isNull objectParent _x) &&
+	(alive _x) &&
+	(_x != player) &&
+	_x getVariable ["BIS_WL_ownerAsset", "123"] == getPlayerUID player
+};
+
+#define SERVER_ID 2
+
+if (_fastTravelMode == 1) exitWith {
+	// asynchronous server-side fast travel
+	[player, "fastTravelSeized", BIS_WL_targetSector, _tagAlong] remoteExec ["WL2_fnc_handleClientRequest", SERVER_ID];
+};
+
+// synchronous client-side fast travel modes
 switch (_fastTravelMode) do {
-	case 0: {
-		_destination = selectRandom ([BIS_WL_targetSector, 0, true] call WL2_fnc_findSpawnPositions);
-	};
 	case 1: {
 		private _spawnPositions = [_marker, 0, true] call WL2_fnc_findSpawnPositions;
 		_destination = if (count _spawnPositions > 0) then {
@@ -81,18 +94,9 @@ switch (_fastTravelMode) do {
 	};
 };
 
-private _tagAlong = (units player) select {
-	(_x distance2D player <= 100) &&
-	(isNull objectParent _x) &&
-	(alive _x) &&
-	(_x != player) &&
-	_x getVariable ["BIS_WL_ownerAsset", "123"] == getPlayerUID player
-};
-
 private _directionToSector = _destination getDir _sectorPos;
 
 switch (_fastTravelMode) do {
-	case 0;
 	case 1: {
 		{
 			_x setVehiclePosition [_destination, [], 3, "NONE"];
@@ -186,22 +190,4 @@ switch (_fastTravelMode) do {
 
 sleep 1;
 
-titleCut ["", "BLACK IN", 1];
-
-switch (_fastTravelMode) do {
-	case 0: {
-		["TaskFastTravelSeized"] call WLT_fnc_taskComplete;
-	};
-	case 1: {
-		["TaskFastTravelConflict"] call WLT_fnc_taskComplete;
-	};
-	case 2: {
-		["TaskAirAssault"] call WLT_fnc_taskComplete;
-	};
-	case 3: {
-		["TaskVehicleParadrop"] call WLT_fnc_taskComplete;
-	};
-	case 4: {
-		["TaskFastTravelTent"] call WLT_fnc_taskComplete;
-	};
-};
+[_fastTravelMode] call BIS_fnc_completeFastTravel;
