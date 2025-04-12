@@ -83,7 +83,7 @@ switch (_fastTravelMode) do {
 		};
 	};
 	case WL_FAST_TRAVEL_MODE_FOB;
-	case 7: {
+	case WL_FAST_TRAVEL_MODE_VEHICLE_PARADROP_FOB: {
 		private _spawnPositions = [_marker, 0, true] call WL2_fnc_findSpawnPositions;
 		if (count _spawnPositions > 0) then {
 			_destination = selectRandom _spawnPositions;
@@ -121,7 +121,7 @@ switch (_fastTravelMode) do {
 		[player] spawn WL2_fnc_parachuteSetup;
 	};
 	case WL_FAST_TRAVEL_MODE_VEHICLE_PARADROP;
-	case 7: {
+	case WL_FAST_TRAVEL_MODE_VEHICLE_PARADROP_FOB: {
 		private _vehicle = vehicle player;
 
 		private _parachuteClass = switch (BIS_WL_playerSide) do {
