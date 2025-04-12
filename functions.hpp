@@ -345,7 +345,6 @@ class CfgFunctions {
 			class findSpawnPositions {};
 			class getAssetSide {};
 			class getAssetTypeName {};
-			class getContestingPlayersInPosition {};
 			class getMagazineName {};
 			class getMoneySign {};
 			class getVehicleWeapons {};
