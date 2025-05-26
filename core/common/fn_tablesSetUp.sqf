@@ -74,6 +74,7 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 				private _requisitionUnitSpawn = getNumber (_x >> "unitSpawn");
 				private _requisitionVehicleSpawn = getNumber (_x >> "vehicleSpawn");
 				private _requisitionAircraftSpawn = getNumber (_x >> "aircraftSpawn");
+				private _requisitionNavalSpawn = getNumber (_x >> "navalSpawn");
 
 				private _requisitionTurretOverrides = "inheritsFrom _x == (missionConfigFile >> 'WLTurretDefaults')" configClasses _x;
 
@@ -135,16 +136,20 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 					_flagOffsetHashMap set [_requisitonName, _requisitionFlagOffset];
 				};
 
-				if (_requisitionUnitSpawn != 0) then {
-					_populateUnitPoolList pushBack _requisitonName;
+				for "_i" from 1 to _requisitionUnitSpawn do {
+					_populateUnitPoolList pushBack _requisitionName;
 				};
 
-				if (_requisitionVehicleSpawn != 0) then {
-					_populateVehiclePoolList pushBack _requisitonName;
+				for "_i" from 1 to _requisitionVehicleSpawn do {
+					_populateVehiclePoolList pushBack _requisitionName;
 				};
 
-				if (_requisitionAircraftSpawn != 0) then {
-					_populateAircraftPoolList pushBack _requisitonName;
+				for "_i" from 1 to _requisitionAircraftSpawn do {
+					_populateAircraftPoolList pushBack _requisitionName;
+				};
+
+				for "_i" from 1 to _requisitionNavalSpawn do {
+					_populateNavalPoolList pushBack _requisitionName;
 				};
 
 				if (count _requisitionDisallowMagazines > 0) then {
@@ -209,6 +214,7 @@ if (isServer) then {
 	serverNamespace setVariable ["WL2_populateUnitPoolList", _populateUnitPoolList];
 	serverNamespace setVariable ["WL2_populateVehiclePoolList", _populateVehiclePoolList];
 	serverNamespace setVariable ["WL2_populateAircraftPoolList", _populateAircraftPoolList];
+	serverNamespace setVariable ["WL2_populateNavalPoolList", _populateNavalPoolList];
 
 	serverNamespace setVariable ["WL2_staticsGarbageCollector", _garbageCollectHashMap];
 	serverNamespace setVariable ["garbageCollector",
