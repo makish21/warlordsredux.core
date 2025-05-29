@@ -32,14 +32,27 @@ class welcomeScreen
 		class welcomeMainImg: RscPictureMRTM
 		{
 			idc = -1;
-			text = "a3\map_altis\data\picturemap_ca.paa";
-			style = ST_MULTI + ST_TITLE_BAR;
+			type = CT_STATIC;
+			text = "a3\map_tanoabuka\data\picturemap_ca.paa";
+			style = ST_TILE_PICTURE;
 			x = 0.257656 * safezoneW + safezoneX;
 			y = 0.181 * safezoneH + safezoneY;
 			w = 0.484688 * safezoneW;
 			h = 0.649 * safezoneH;
+			tileW = 1;
+			tileH = (safezoneH min safeZoneW) / (safezoneH max safezoneW);
 		};
-
+		
+		class welcomeMainImgDim: IGUIBackMRTM
+		{
+			idc = -1;
+			x = 0.257656 * safezoneW + safezoneX;
+			y = 0.181 * safezoneH + safezoneY;
+			w = 0.484688 * safezoneW;
+			h = 0.649 * safezoneH;
+			colorBackground[] = {0,0,0,0.3};
+		};
+		
 		class welcomeText: RscStructuredTextMRTM
 		{
 			idc = 9005;

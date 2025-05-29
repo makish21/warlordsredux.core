@@ -96,6 +96,20 @@ private _ret = [];
 private _blacklistedMapObjects = ["BUILDING", "HOUSE", "CHURCH", "CHAPEL", "BUNKER", "FORTRESS", "FOUNTAIN", "VIEW-TOWER", "LIGHTHOUSE", "FUELSTATION", "HOSPITAL", "BUSSTOP", "TRANSMITTER", "STACK", "RUIN", "WATERTOWER", "ROCK", "ROCKS", "POWERSOLAR", "POWERWIND", "SHIPWRECK"];
 if !(_infantryOnly) then {_blacklistedMapObjects append ["TREE", "FOREST BORDER", "FOREST TRIANGLE", "FOREST SQUARE", "CROSS", "WALL", "FOREST", "POWER LINES"]};
 
+private _markers = (allMapMarkers inAreaArrayIndexes _rimArea) apply {
+	allMapMarkers # _x;
+} select {
+	markerPos _x call _areaCheck && ["WL_spawn", _x] call BIS_fnc_inString;
+};
+
+{
+	private _finalPos = markerPos _x;
+	private _nearObjs = _finalPos nearObjects ["AllVehicles", 6];
+	if (0 == count _nearObjs) then {
+		_ret pushBack _finalPos;
+	};
+} forEach _markers;
+
 for [{_axisYSpawnCheck = _areaStart # 1}, {_axisYSpawnCheck < (_areaEnd # 1)}, {_axisYSpawnCheck = _axisYSpawnCheck + _axisStep}] do {
 	for [{_axisXSpawnCheck = _areaStart # 0}, {_axisXSpawnCheck < (_areaEnd # 0)}, {_axisXSpawnCheck = _axisXSpawnCheck + _axisStep}] do {
 		_spawnCheckPos = [_axisXSpawnCheck, _axisYSpawnCheck, 0];

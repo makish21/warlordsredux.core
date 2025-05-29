@@ -21,6 +21,7 @@ private _flagOffsetHashMap = createHashMap;
 private _populateUnitPoolList = [];
 private _populateVehiclePoolList = [];
 private _populateAircraftPoolList = [];
+private _populateNavalPoolList = [];
 
 private _disallowMagazinesForVehicle = createHashMap;
 private _allowPylonMagazines = createHashMap;
@@ -43,7 +44,7 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 			private _requisitionCategory = configName _x;
 			private _requisitionClasses = configProperties [_x];
 			{
-				private _requisitonName = configName _x;
+				private _requisitionName = configName _x;
 				private _requisitionNameOverride = getText (_x >> "name");
 				private _requisitionDescription = getText (_x >> "description");
 				private _requisitionSpawn = getText (_x >> "spawn");
@@ -78,62 +79,62 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 
 				private _requisitionTurretOverrides = "inheritsFrom _x == (missionConfigFile >> 'WLTurretDefaults')" configClasses _x;
 
-				_categoryHashMap set [_requisitonName, _requisitionCategory];
+				_categoryHashMap set [_requisitionName, _requisitionCategory];
 
 				if (_requisitionNameOverride != "") then {
-					_nameHashMap set [_requisitonName, _requisitionNameOverride];
+					_nameHashMap set [_requisitionName, _requisitionNameOverride];
 				};
 
 				if (_requisitionDescription != "") then {
-					_descriptionHashMap set [_requisitonName, _requisitionDescription];
+					_descriptionHashMap set [_requisitionName, _requisitionDescription];
 				};
 
 				if (_requisitionSpawn != "") then {
-					_spawnHashMap set [_requisitonName, _requisitionSpawn];
+					_spawnHashMap set [_requisitionName, _requisitionSpawn];
 				};
 
 				if (_requisitionVariant != 0) then {
-					_variantHashMap set [_requisitonName, _requisitionVariant];
+					_variantHashMap set [_requisitionName, _requisitionVariant];
 				};
 
 				if (_requisitionCost != 0) then {
-					_costHashMap set [_requisitonName, _requisitionCost];
+					_costHashMap set [_requisitionName, _requisitionCost];
 				};
 
 				if (_requisitionRearmTime != 0) then {
-					_rearmTimerHashMap set [_requisitonName, _requisitionRearmTime];
+					_rearmTimerHashMap set [_requisitionName, _requisitionRearmTime];
 				};
 
 				if (_requisitionKillReward != 0) then {
-					_killRewardHashMap set [_requisitonName, _requisitionKillReward];
+					_killRewardHashMap set [_requisitionName, _requisitionKillReward];
 				};
 
 				if (count _requisitionTextures > 0) then {
-					_texturesHashMap set [_requisitonName, _requisitionTextures];
+					_texturesHashMap set [_requisitionName, _requisitionTextures];
 				};
 
 				if (_requisitionCapValue != 0) then {
-					_capValueHashMap set [_requisitonName, _requisitionCapValue];
+					_capValueHashMap set [_requisitionName, _requisitionCapValue];
 				};
 
 				if (_requisitionAps != 0) then {
-					_apsHashMap set [_requisitonName, _requisitionAps - 1]; // 0-indexed
+					_apsHashMap set [_requisitionName, _requisitionAps - 1]; // 0-indexed
 				};
 
 				if (_requisitionGarbageCollect != 0) then {
-					_garbageCollectHashMap set [_requisitonName, true];
+					_garbageCollectHashMap set [_requisitionName, true];
 				};
 
 				if (_requisitionDemolishable != 0) then {
-					_demolishableHashMap set [_requisitonName, true];
+					_demolishableHashMap set [_requisitionName, true];
 				};
 
 				if (count _requisitionLoadable > 0) then {
-					_loadableHashMap set [_requisitonName, _requisitionLoadable];
+					_loadableHashMap set [_requisitionName, _requisitionLoadable];
 				};
 
 				if (count _requisitionFlagOffset > 0) then {
-					_flagOffsetHashMap set [_requisitonName, _requisitionFlagOffset];
+					_flagOffsetHashMap set [_requisitionName, _requisitionFlagOffset];
 				};
 
 				for "_i" from 1 to _requisitionUnitSpawn do {
@@ -157,7 +158,7 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 					{
 						_disallowListForVehicle pushBack _x;
 					} forEach _requisitionDisallowMagazines;
-					_disallowMagazinesForVehicle set [_requisitonName, _disallowListForVehicle];
+					_disallowMagazinesForVehicle set [_requisitionName, _disallowListForVehicle];
 				};
 
 				if (count _requisitionAllowPylonMagazines > 0) then {
@@ -165,31 +166,31 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 					{
 						_allowListForAircraft pushBack _x;
 					} forEach _requisitionAllowPylonMagazines;
-					_allowPylonMagazines set [_requisitonName, _allowListForAircraft];
+					_allowPylonMagazines set [_requisitionName, _allowListForAircraft];
 				};
 
 				if (_requisitionHasGPSMunition != 0) then {
-					_hasGPSMunition set [_requisitonName, true];
+					_hasGPSMunition set [_requisitionName, true];
 				};
 
 				if (_requisitionHasHMD != 0) then {
-					_hasHMD set [_requisitonName, true];
+					_hasHMD set [_requisitionName, true];
 				};
 
 				if (_requisitionHasRemoteBomb != 0) then {
-					_hasRemoteBomb set [_requisitonName, true];
+					_hasRemoteBomb set [_requisitionName, true];
 				};
 
 				if (_requisitionHasScanner != 0) then {
-					_hasScanner set [_requisitonName, true];
+					_hasScanner set [_requisitionName, true];
 				};
 
 				if (_requisitionHasAWACS != 0) then {
-					_hasAWACS set [_requisitonName, true];
+					_hasAWACS set [_requisitionName, true];
 				};
 
 				if (count _requisitionTurretOverrides > 0) then {
-					_turretOverridesHashMap set [_requisitonName, _requisitionTurretOverrides];
+					_turretOverridesHashMap set [_requisitionName, _requisitionTurretOverrides];
 				};
 
 				if (count _requisitionAmmoOverrides > 0) then {
@@ -197,7 +198,7 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 					{
 						_ammoOverridesMap set [_x # 0, _x # 1];
 					} forEach _requisitionAmmoOverrides;
-					_ammoOverridesHashMap set [_requisitonName, _ammoOverridesMap];
+					_ammoOverridesHashMap set [_requisitionName, _ammoOverridesMap];
 				};
 			} forEach _requisitionClasses;
 		} forEach _requisitionCategories;
