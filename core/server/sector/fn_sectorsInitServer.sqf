@@ -140,6 +140,37 @@ waitUntil {!isNil "BIS_WL_base1" && {!isNil "BIS_WL_base2"}};
 		_sector setVariable ["BIS_WL_vehiclesToSpawn", _sectorVehiclesArray];
 	};
 
+	private _sectorUnits = allUnits inAreaArray (_sector getVariable "objectAreaComplete");
+	private _sectorGroups = [];
+	{
+		_sectorGroups pushBackUnique group _x;
+	} forEach _sectorUnits;
+	private _sectorGroupsArray = [];
+	{
+		private _group = _x;
+		private _array = [side _group];
+		private _waypoints = +(waypoints _group);
+		reverse _waypoints;
+		_waypoints resize ((count _waypoints) - .5);
+		reverse _waypoints;
+		_waypoints = _waypoints apply {[waypointPosition _x, waypointType _x, waypointSpeed _x, waypointBehaviour _x, waypointTimeout _x]};
+		_array pushBack _waypoints;
+		private _units = units _group;
+		private _unitsArray = [];
+		{
+			_unitsArray pushBack [typeOf _x, position _x, skill _x, getUnitLoadout _x];
+			deleteVehicle _x;
+		} forEach _units;
+		_array pushBack _unitsArray;
+		if (count units _group == 0) then {deleteGroup _group};
+
+		_sectorGroupsArray pushBack _array;
+	} forEach _sectorGroups;
+	
+	if (count _sectorGroupsArray > 0) then {
+		_sector setVariable ["BIS_WL_groupsToSpawn", _sectorGroupsArray];
+	};
+
 	_agentGrp = createGroup CIVILIAN;
 	_agent = _agentGrp createUnit ["Logic", _sectorPos, [], 0, "CAN_COLLIDE"];
 	_agent enableSimulationGlobal false;

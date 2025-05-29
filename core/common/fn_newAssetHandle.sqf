@@ -2,6 +2,12 @@
 
 params ["_asset", ["_owner", objNull]];
 
+private _side = if (isNull _owner) then {
+	independent;
+} else {
+	side _owner;
+};
+
 [_asset] call WL2_fnc_lastHitHandler;
 
 if (isServer) then {
@@ -19,6 +25,7 @@ if (isPlayer _owner) then {
 };
 
 if (_asset isKindOf "Man") then {
+	_asset setUnitLoadout (missionConfigFile >> "CfgWLRequisitionPresets" >> "A3ReduxAll" >> str _side >> "Infantry" >> typeOf _asset >> "Loadout");
 	_asset call APS_fnc_setupProjectiles;
 
 	if (isPlayer _owner) then {

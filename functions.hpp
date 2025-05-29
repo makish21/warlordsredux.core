@@ -343,6 +343,7 @@ class CfgFunctions {
 			file = "src\core\common";
 			class accessControl {};
 			class cleanupCarrier {};
+			class findNavalSpawnPositions {};
 			class findSpawnPositions {};
 			class getAssetSide {};
 			class getAssetTypeName {};
