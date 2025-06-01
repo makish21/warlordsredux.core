@@ -1,7 +1,7 @@
 ["Initialize", [player, [], true]] call BIS_fnc_EGSpectator;
 
 // hide spectator on land
-player setPosASL [705.543,11269.2,8.63412]; // TODO world-specific location shuld be in mission config
+player setPosASL (getArray (missionConfigFile >> "spectatorHideSpotASL"));
 player allowDamage false;
 
 private _sectors = [BIS_WL_allSectors, [], { _x getVariable "BIS_WL_name" }, "ASCEND"] call BIS_fnc_sortBy;

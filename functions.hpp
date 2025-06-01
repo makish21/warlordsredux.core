@@ -133,6 +133,7 @@ class CfgFunctions {
 			class restrictedArea {};
 			class revive {};
 			class rita {};
+			class spawnDebugMarkers {};
 			class spectator {};
 			class sideToFaction {};
 			class spectrumInterface {};
