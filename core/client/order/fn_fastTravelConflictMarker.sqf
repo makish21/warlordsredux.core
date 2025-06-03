@@ -25,19 +25,17 @@ _startArr = _startArr apply {
 };
 _startArr sort true;
 
-private _start = (_startArr # 0) # 1;
-private _area = WL_TARGET_FRIENDLY getVariable "objectArea";
-private _size = if (_area # 3) then {
-    sqrt (((_area # 0) ^ 2) + ((_area # 1) ^ 2));
-} else {
-    (_area # 0) max (_area # 1);
-};
+private _targetSector = WL_TARGET_FRIENDLY;
+private _startPosition = ((_startArr # 0) # 1);
 
-private _marker = createMarkerLocal ["localMarker", [WL_TARGET_FRIENDLY, _size + _offset, WL_TARGET_FRIENDLY getDir _start] call BIS_fnc_relPos];
+private _ftRegion = [_targetSector, _startPosition] call WL2_fnc_makeFastTravelContestedArea;
+_ftRegion params ["_pos", "_a", "_b", "_angle"];
+
+private _marker = createMarkerLocal ["localMarker", _pos];
 _marker setMarkerShapeLocal "RECTANGLE";
 _marker setMarkerColorLocal BIS_WL_colorMarkerFriendly;
-_marker setMarkerDirLocal (WL_TARGET_FRIENDLY getDir _start);
-_marker setMarkerSizeLocal [_size, WL_FAST_TRAVEL_RANGE_AXIS];
+_marker setMarkerDirLocal _angle;
+_marker setMarkerSizeLocal [_a, _b];
 
 _markerText = createMarkerLocal ["localMarkerText", markerPos _marker];
 _markerText setMarkerColorLocal BIS_WL_colorMarkerFriendly;

@@ -118,6 +118,7 @@ class CfgFunctions {
 			class initClient {};
 			class interceptAction {};
 			class lagMessageDisplay {};
+			class makeFastTravelContestedArea {};
 			class mineLimitHint {};
 			class onPause {};
 			class onPlayerRespawn {};

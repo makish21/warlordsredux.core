@@ -392,3 +392,7 @@ call WL2_fnc_createInfoMarkers;
 0 spawn WL2_fnc_drawRadarName;
 [BIS_WL_playerSide] spawn WL2_fnc_strongholdScanner;
 0 spawn WL2_fnc_drawIncomingMissiles;
+
+#if WL_SPAWN_DEBUG
+call WL2_fnc_spawnDebugMarkers;
+#endif
