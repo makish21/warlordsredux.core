@@ -26,7 +26,7 @@ private _infoMarkers = [
 
 	private _marker = createMarkerLocal [
 		format ["WL2_infoMarker_%1", _forEachIndex],
-		[31000, 30600 - _forEachIndex * 300, 0]
+		[worldSize + 280, worldSize - 120 - _forEachIndex * 300, 0]
 	];
 	_marker setMarkerTextLocal (_x # 0);
 	_marker setMarkerTypeLocal (_x # 1);

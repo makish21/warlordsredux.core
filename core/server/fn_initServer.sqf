@@ -56,6 +56,7 @@ call WL2_fnc_processRunways;
 0 spawn WL2_fnc_cleanupCarrier;
 0 spawn WL2_fnc_laserTracker;
 
+#if WL_STATIC_WEATHER
 0 spawn {
 	while {!BIS_WL_missionEnd} do {
 		_overcastPreset = random 1;
@@ -71,6 +72,7 @@ call WL2_fnc_processRunways;
 		};
 	};
 };
+#endif // WL_STATIC_WEATHER
 
 0 spawn WL2_fnc_updateVehicleList;
 
@@ -80,7 +82,7 @@ call WL2_fnc_processRunways;
 } forEach (allMissionObjects "ModuleCurator_F");
 #endif
 
-if !(["(EU) #11", serverName] call BIS_fnc_inString) then {
+if (["TEST", serverName] call BIS_fnc_inString) then {
 	0 spawn {
 		while {!BIS_WL_missionEnd} do {
 			private _allEntities = entities [[], ["Logic"], true];
