@@ -1,5 +1,3 @@
-#include "..\..\mission_constants.ext"
-
 // Live: 0
 #define WL_HARD_AI_MODE 0
 #define WL_FACTION_THREE_ENABLED 0
@@ -80,3 +78,8 @@
 #define WL_FOB_MIN_DISTANCE 3000
 #define WL_FORTIFICATION_TIME 2700
 #define WL_MAP_RESTRICTION_BUFFER 5000
+
+#define WL_POPULATE_GROUP_SIZE floor (10 + random 3)
+
+
+#include "..\..\mission_constants.ext"

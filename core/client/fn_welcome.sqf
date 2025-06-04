@@ -14,18 +14,7 @@ hRead = false;
 	};
 }];
 
-0 spawn {
-	if (["(EU) #11", serverName] call BIS_fnc_inString) then {
-		while {dialog} do {
-			waitUntil {sleep 0.1; hRead};
-			_time = serverTime + 5;
-			waitUntil {sleep 0.1; serverTime > _time};
-			ctrlEnable [1, true];
-		};
-	} else {
-		ctrlEnable [1, true];
-	};
-};
+ctrlEnable [1, true];
 
 _side = [west, east] find BIS_WL_playerSide;
 _color = [[0, 0.3, 0.5, 1], [0.5, 0, 0, 1]] select _side;

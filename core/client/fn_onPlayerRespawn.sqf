@@ -20,7 +20,7 @@ if !(_ownedVehicles isEqualTo _newOwnedVehicles) then {
 	missionNamespace setVariable [_ownedVehiclesVar, _newOwnedVehicles, [2, clientOwner]];
 };
 
-if !(["(EU) #11", serverName] call BIS_fnc_inString) then {
+if (["TEST", serverName] call BIS_fnc_inString) then {
 	player addAction [
 		"+$10K",
 		{[player, "10K"] remoteExec ["WL2_fnc_handleClientRequest", 2];}

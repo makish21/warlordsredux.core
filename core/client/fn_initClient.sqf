@@ -300,7 +300,7 @@ WL_LoadingState = 12;
 	};
 };
 
-if !(["(EU) #11", serverName] call BIS_fnc_inString) then {
+if (["TEST", serverName] call BIS_fnc_inString) then {
 	player addAction [
 		"+$10K",
 		{
@@ -372,7 +372,9 @@ if (!isServer) then {
 	0 spawn WL2_fnc_cleanupCarrier;
 };
 0 spawn WL2_fnc_reviveAction;
+#if WL_HMD_ENABLED
 0 spawn WL2_fnc_helmetInterface;
+#endif
 0 spawn WLT_fnc_init;
 
 0 spawn WL2_fnc_updateLevelDisplay;

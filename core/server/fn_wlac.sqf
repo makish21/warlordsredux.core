@@ -1,5 +1,5 @@
 private _oldFundsDB = (serverNamespace getVariable "fundsDatabase");
-private _serverCheck = (["(EU) #11", serverName] call BIS_fnc_inString);
+private _serverCheck = !(["TEST", serverName] call BIS_fnc_inString);
 
 while {!BIS_WL_missionEnd && _serverCheck} do {
 	private _sleep = 10;

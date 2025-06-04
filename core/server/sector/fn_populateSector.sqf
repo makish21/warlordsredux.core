@@ -240,7 +240,7 @@ while {_i < _garrisonSize} do {
 	*/
 	private _newGrp = createGroup _owner;
 	_infantryGroups pushBack _newGrp;
-	private _grpSize = floor (10 + random 3);
+	private _grpSize = WL_POPULATE_GROUP_SIZE;
 	private _cnt = (count allPlayers) max 1;
 
 	private _i2 = 0;
