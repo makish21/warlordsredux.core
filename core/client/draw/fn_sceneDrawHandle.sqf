@@ -1,3 +1,5 @@
+#include "..\..\warlords_constants.inc"
+
 addMissionEventHandler ["Draw3D", {
 	if !(isNull (missionNamespace getVariable format ["BIS_WL_currentTarget_%1", BIS_WL_playerSide])) then {
 		drawIcon3D [
@@ -64,7 +66,7 @@ addMissionEventHandler ["Draw3D", {
 				[1, 1, 1, 0.8]
 			};
 		};
-		private _size = if (_isInMySquad) then { 0.04 } else { 0.03 };
+		private _size = if (_isInMySquad) then { WL_SQUAD_UNIT_TEXT_SIZE } else { WL_TARGET_UNIT_TEXT_SIZE };
 		private _levelDisplay = _x getVariable ["WL_playerLevel", "Recruit"];
 		private _displayName = format ["%1 [%2]", name _x, _levelDisplay];
 
@@ -86,4 +88,33 @@ addMissionEventHandler ["Draw3D", {
 			"center"
 		];
 	} forEach _displayedPlayers;
+
+#if WL_DRAW_LOCKED_LASER
+	playerTargetLock params ["_target", "_lock", "_cfg"];
+	if (_lock <= 0) exitWith {};
+	if !(_target isKindOf "LaserTarget") exitWith {};
+
+	private _responsiblePlayer = _target getVariable ["WL_laserPlayer", objNull];
+    if (isNull _responsiblePlayer) exitWith {};
+
+    private _playerName = name _responsiblePlayer;
+    if (_playerName == "Error: No vehicle") exitWith {};
+	
+	drawIcon3D [
+		/*texture=*/"\A3\ui_f\data\IGUI\RscCustomInfo\Sensors\Targets\LaserTarget_ca.paa",
+		/*color=*/[1, 0, 0, 1],
+		/*position=*/getPosATLVisual _target,
+		/*width=*/0.6,
+		/*height=*/0.6,
+		/*angle=*/0,
+		/*text=*/_playerName,
+		/*shadow=*/2, // outline
+		/*textSize=*/0.043,
+		/*font=*/"RobotoCondensed",
+		/*textAlign=*/"center",
+		/*drawSideArrows=*/true,
+		/*offsetX=*/0,
+		/*offsetY=*/0.010
+	];
+#endif // WL_DRAW_LOCKED_LASER
 }];
