@@ -53,6 +53,38 @@ if !(isDedicated) then {
 0 spawn WL2_fnc_wlac;
 call WL2_fnc_processRunways;
 
+#if WL_RANDOM_START_TIME
+skipTime (random 24);
+#endif // WL_RANDOM_START_TIME
+
+0 spawn {
+	private _sunriseSunset = date call BIS_fnc_sunriseSunsetTime;
+	_sunriseSunset params ["_sunriseTime", "_sunsetTime"];
+
+	if (daytime > _sunriseTime && daytime <= _sunsetTime) then {
+		setTimeMultiplier WL_TIME_MULTIPLIER_DAY;
+		sleep ((_sunsetTime - daytime) * 60 * 60 / WL_TIME_MULTIPLIER_DAY);
+	} else {
+		setTimeMultiplier WL_TIME_MULTIPLIER_NIGHT;
+		private _sleepHours = if (daytime > _sunsetTime) then {
+			24 - daytime + _sunriseTime;
+		} else {
+			_sunriseTime - daytime;
+		};
+		sleep (_sleepHours * 60 * 60 / WL_TIME_MULTIPLIER_NIGHT);
+	};
+
+	while {!BIS_WL_missionEnd} do {
+		if (daytime > _sunriseTime && daytime <= _sunsetTime) then {
+			setTimeMultiplier WL_TIME_MULTIPLIER_DAY;
+			sleep ((_sunsetTime - daytime) * 60 * 60 / WL_TIME_MULTIPLIER_DAY);
+		} else {
+			setTimeMultiplier WL_TIME_MULTIPLIER_NIGHT;
+			sleep ((24 - daytime + _sunriseTime) * 60 * 60 / WL_TIME_MULTIPLIER_NIGHT);
+		};
+	};
+};
+
 0 spawn WL2_fnc_cleanupCarrier;
 0 spawn WL2_fnc_laserTracker;
 

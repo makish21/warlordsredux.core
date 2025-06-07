@@ -43,11 +43,13 @@ player spawn APS_fnc_setupProjectiles;
 
 0 spawn WL2_fnc_updateLevelDisplay;
 
+#if WL_HMD_ENABLED
 if (player getVariable ["WL_hasGoggles", false]) then {
 	player addGoggles "G_Tactical_Clear";
 } else {
 	removeGoggles player;
 };
+#endif
 
 call WL2_fnc_setupForwardBaseAction;
 call WL2_fnc_rappelAction;

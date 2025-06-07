@@ -1,3 +1,5 @@
+#include "..\warlords_constants.inc"
+
 params ["_unit", "_killer", "_instigator"];
 
 private _isSpawnedAsset = _unit getVariable ["WL_spawnedAsset", false];
@@ -80,9 +82,11 @@ if (!isNull _responsiblePlayer && { isPlayer [_responsiblePlayer] }) then {
     };
 };
 
+#if WL_DEATH_INFO_ENABLED
 if (_isUnitPlayer) then {	// use alt syntax to exclude vehicle kills
     [_unit, _responsiblePlayer, _killer] remoteExec ["WL2_fnc_deathInfo", _unit];
 };
+#endif // WL_DEATH_INFO_ENABLED
 
 _unit spawn {
     params ["_unit"];

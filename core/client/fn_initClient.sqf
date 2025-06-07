@@ -379,7 +379,9 @@ if (!isServer) then {
 
 0 spawn WL2_fnc_updateLevelDisplay;
 
+#if WL_HMD_ENABLED
 removeGoggles player;
+#endif
 
 0 spawn WL2_fnc_restrictedArea;
 

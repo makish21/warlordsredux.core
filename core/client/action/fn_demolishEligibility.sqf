@@ -3,6 +3,7 @@ if (isNull cursorObject) exitWith { false };
 
 private _demolishTarget = cursorObject;
 if !(_demolishTarget getVariable ["WL2_canDemolish", false]) exitWith { false };
+if ((_demolishTarget getVariable ["BIS_WL_ownerAsset", "123"]) == (getPlayerUID player)) exitWith { false };
 if (player distance2D _demolishTarget > 10) exitWith { false };
 
 private _strongholdSector = _demolishTarget getVariable ["WL_strongholdSector", objNull];

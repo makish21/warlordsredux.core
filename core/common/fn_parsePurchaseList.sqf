@@ -43,7 +43,9 @@ private _savedLoadoutHandled = FALSE;
 			if (_category == "Gear") then {
 				_data pushBack ["Arsenal", (getMissionConfigValue ["BIS_WL_arsenalCost", 1000]), [], (localize "STR_A3_Arsenal"), "\A3\Data_F_Warlords\Data\preview_arsenal.jpg", localize "STR_A3_WL_arsenal_open"];
 				_data pushBack ["Customization", 0, [], "Customization", "\A3\Data_F_Warlords\Data\preview_arsenal.jpg", "Customization menu for respawn loadout."];
+				#if WL_HMD_ENABLED
 				_data pushBack ["BuyGlasses", 1000, [], "Buy AR Glasses", "\A3\Data_F_Warlords\Data\preview_arsenal.jpg", "Buy AR glasses."];
+				#endif WL_HMD_ENABLED
 			};
 
 			if (_category == "Gear" && !_lastLoadoutHandled) then {

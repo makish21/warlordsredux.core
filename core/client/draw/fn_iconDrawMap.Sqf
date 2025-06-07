@@ -455,3 +455,40 @@ _sideVehicles = _sideVehicles arrayIntersect _sideVehicles;
 		"right"
 	];
 } forEach (_sideVehicles select { alive _x });
+
+
+// laser targets
+#if WL_MAP_DRAW_LASER_TARGETS
+private _laserTargets = entities "LaserTarget";
+private _laserIcons = [];
+{
+	private _size = call WL2_fnc_iconSize;
+    private _target = _x;
+
+    private _responsiblePlayer = _target getVariable ["WL_laserPlayer", objNull];
+    if (isNull _responsiblePlayer) then {
+        continue;
+    };
+    private _playerName = name _responsiblePlayer;
+    if (_playerName == "Error: No vehicle") then {
+        continue;
+    };
+    if ([_responsiblePlayer] call WL2_fnc_getAssetSide != _side) then {
+        continue;
+    };
+	
+	_m drawIcon [
+		/*texture=*/"\A3\ui_f\data\IGUI\RscCustomInfo\Sensors\Targets\LaserTarget_ca.paa",
+		/*color=*/[1, 0, 0, 1],
+		/*position=*/getPosATL _target,
+		/*width=*/_size,
+		/*height=*/_size,
+		/*angle=*/0,
+		/*text=*/_playerName,
+		/*shadow=*/0,
+		/*textSize=*/0.043,
+		/*font=*/"PuristaBold",
+		/*align=*/"right"
+	];
+} forEach _laserTargets;
+#endif  // WL_MAP_DRAW_LASER_TARGETS
