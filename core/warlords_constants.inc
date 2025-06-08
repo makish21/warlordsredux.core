@@ -23,6 +23,7 @@
 #define WL_SPECTATOR_ENABLED 1
 #define WL_FOB_ENABLED 1
 #define WL_FOB_SQUAD_REQUIREMENT 1
+#define WL_FT_POD_ENABLED 1
 
 // Live: do not change
 #define WL_RESPAWN_MARKERS_CNT 20

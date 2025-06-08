@@ -168,8 +168,8 @@ if (typeof _asset == "Land_TentA_F") then {
     }, true] call WL2_fnc_addTargetMapButton;
 };
 
-private _spawnTruckTypes = ["B_Truck_01_medical_F", "O_Truck_03_medical_F"];
-private _spawnPodTypes = ["B_Slingload_01_Medevac_F", "Land_Pod_Heli_Transport_04_medevac_F"];
+private _spawnTruckTypes = WL_SPAWN_TRUCK_TYPES;
+private _spawnPodTypes = WL_SPAWN_POD_TYPES;
 
 if (typeof _asset in _spawnTruckTypes) then {
     ["FAST TRAVEL TRUCK", {

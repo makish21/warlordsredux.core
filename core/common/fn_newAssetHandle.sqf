@@ -1,4 +1,5 @@
 #include "..\warlords_constants.inc"
+#include "..\server_macros.inc"
 
 params ["_asset", ["_owner", objNull]];
 
@@ -334,12 +335,17 @@ if (_asset isKindOf "Man") then {
 		[_asset] call WL2_fnc_uavConnectRefresh;
 	};
 
-	private _respawnVehicles = createHashMapFromArray [
-		["B_Truck_01_medical_F", true],
-		["O_Truck_03_medical_F", true],
-		["Land_Pod_Heli_Transport_04_medevac_F", true],
-		["B_Slingload_01_Medevac_F", true]
-	];
+	private _spawnTruckTypes = WL_SPAWN_TRUCK_TYPES;
+	private _spawnPodTypes = WL_SPAWN_POD_TYPES;
+
+	private _respawnVehicles = createHashMap;  
+	{
+		_respawnVehicles set [_x, true];
+	} forEach _spawnTruckTypes;
+	{
+		_respawnVehicles set [_x, true];
+	} forEach _spawnPodTypes;
+
 	if (_respawnVehicles getOrDefault [typeOf _asset, false]) then {
 		[_asset] spawn {
 			params ["_asset"];
