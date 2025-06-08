@@ -317,6 +317,12 @@ _fastTravelArr = _fastTravelArr select {
 };
 #endif
 
+#if WL_FT_POD_ENABLED == 0
+_fastTravelArr = _fastTravelArr select {
+	!(_x # 0 in ["RespawnPodFT", "RespawnPod"])
+};
+#endif  // WL_FT_POD_ENABLED == 0
+
 _sortedArray pushBack _fastTravelArr;
 
 private _strategyArr = [

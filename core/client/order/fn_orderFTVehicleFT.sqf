@@ -1,7 +1,9 @@
+#include "..\..\server_macros.inc"
+
 "RequestMenu_close" call WL2_fnc_setupUI;
 
 private _side = [west, east] find BIS_WL_playerSide;
-private _vic = ["B_Truck_01_medical_F", "O_Truck_03_medical_F"] select _side;
+private _vic = WL_SPAWN_TRUCK_TYPES select _side;
 
 {
 	titleCut ["", "BLACK OUT", 1];

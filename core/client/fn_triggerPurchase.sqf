@@ -1,4 +1,5 @@
 #include "..\warlords_constants.inc"
+#include "..\server_macros.inc"
 
 params [
     "_className",
@@ -88,7 +89,7 @@ switch (_className) do {
     case "LockVehicles": {
         {
             _x setVariable ["WL2_accessControl", 6, true];
-        } forEach ((missionNamespace getVariable [format ["BIS_WL_ownedVehicles_%1", getPlayerUID player], []]) select {alive _x && {(!(typeOf _x == "B_Truck_01_medical_F")) && {!(typeOf _x == "O_Truck_03_medical_F") && {!(typeOf _x == "B_Slingload_01_Medevac_F") && {!(typeOf _x == "Land_Pod_Heli_Transport_04_medevac_F")}}}}});
+        } forEach ((missionNamespace getVariable [format ["BIS_WL_ownedVehicles_%1", getPlayerUID player], []]) select {alive _x && {(!(typeOf _x in WL_SPAWN_TRUCK_TYPES)) && {!(typeOf _x in WL_SPAWN_POD_TYPES)}}});
         [toUpper localize "STR_A3_WL_feature_lock_all_msg"] spawn WL2_fnc_smoothText;
     };
     case "UnlockVehicles": {
@@ -210,6 +211,7 @@ switch (_className) do {
     case "RespawnVicFT": {
         0 spawn WL2_fnc_orderFTVehicleFT;
     };
+#if WL_FT_POD_ENABLED
     case "RespawnPod" : {
         "RequestMenu_close" call WL2_fnc_setupUI;
         [player, "orderFTPod"] remoteExec ["WL2_fnc_handleClientRequest", 2];
@@ -217,6 +219,7 @@ switch (_className) do {
     case "RespawnPodFT" : {
         0 spawn WL2_fnc_orderFTPodFT;
     };
+#endif  // WL_FT_POD_ENABLED
     case "RespawnBag": {
         [player, "orderRespawnBag"] remoteExec ["WL2_fnc_handleClientRequest", 2];
         [true] call WL2_fnc_respawnBagAction;
