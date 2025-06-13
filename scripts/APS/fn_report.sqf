@@ -12,23 +12,23 @@ private _assetApsType = _vehicle getVariable ["apsType", -1];
 if (_assetApsType == -1) exitWith {};
 
 private _type = switch (_vehicle getVariable "apsType") do {
-	case 2: { "Heavy APS" };
-	case 1: { "Medium APS" };
-	case 0: { "Light APS" };
+	case 2: { localize "STR_A3_WL2_aps_type_heavy" };
+	case 1: { localize "STR_A3_WL2_aps_type_medium" };
+	case 0: { localize "STR_A3_WL2_aps_type_light" };
 	default { "Dazzler" };
 };
 
 private _text = _type;
 if (_assetApsType == 3) then {
-	_text = _text + (if ([_vehicle] call APS_fnc_active) then {
-		" is active.";
+	_text = (if ([_vehicle] call APS_fnc_active) then {
+		format [localize "STR_A3_WL2_aps_now_active", _type];
 	} else {
-		" is inactive.";
+		format [localize "STR_A3_WL2_aps_now_inactive", _type];
 	});
 } else {
 	private _apsAmmo = _vehicle getVariable ["apsAmmo", 0];
 	_apsAmmo = _apsAmmo max 0;
-	_text = _text + format[" Charges: %1/%2", _apsAmmo, _vehicle call APS_fnc_getMaxAmmo];
+	_text = _text + "<br/>" + format[localize "STR_A3_WL2_aps_charges", _apsAmmo, _vehicle call APS_fnc_getMaxAmmo];
 
 	if (_apsAmmo == 0) then {
 		playSoundUI ["a3\sounds_f\vehicles\air\noises\heli_alarm_rotor_low.wss", 1, 0.5];
@@ -64,7 +64,7 @@ if (_indicator) then {
 };
 
 _indicatorBackground ctrlSetBackgroundColor [0, 0, 0, 0.7];
-_indicatorText ctrlSetText _text;
+_indicatorText ctrlSetStructuredText parseText _text;
 
 uiNamespace setVariable ["WL_APS_showScreenExpire", time + 7];
 

@@ -189,7 +189,12 @@ if (typeof _asset in (_spawnTruckTypes + _spawnPodTypes)) then {
         private _deleteTeamAssetExecute = {
             params ["_asset"];
             private _displayName = [_asset] call WL2_fnc_getAssetTypeName;
-            private _result = ["Delete team asset", format ["Are you sure you would like to delete: %1", _displayName], "Yes", "Cancel"] call WL2_fnc_prompt;
+            private _result = [
+                localize "STR_A3_WL2_team_asset_delete_dialog_title", 
+                format [localize "STR_A3_WL2_asset_delete_dialog_message", _displayName], 
+                localize "STR_A3_WL2_prune_assets_dialog_button_positive", 
+                localize "STR_A3_WL2_prune_assets_dialog_button_negative"
+            ] call WL2_fnc_prompt;
 
             if (_result) then {
                 deleteVehicle _asset;

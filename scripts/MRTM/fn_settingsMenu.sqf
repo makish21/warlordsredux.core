@@ -1,4 +1,4 @@
-private _actionText = "<t color='#FF0000'>Settings</t>";
+private _actionText = format ["<t color='#FF0000'>%1</t>", localize "STR_A3_WL2_action_warlords_settings"];
 private _actionImage = "<img size='3' image='\a3\3den\Data\Displays\Display3DEN\PanelRight\submode_logic_module_ca'/>";
 private _settingActionID = player addAction [_actionText, MRTM_fnc_openMenu, [], -99, false, false, "", ''];
 player setUserActionText [_settingActionID, _actionText, _actionImage];

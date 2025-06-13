@@ -22,28 +22,28 @@ private _color = switch (_accessControl) do {
 
 private _lockLabel = switch (_accessControl) do {
     case 0: {
-        "Access: All (Full)";
+        localize "STR_A3_WL_access_control_all_full";
     };
     case 1: {
-        "Access: All (Operate)";
+        localize "STR_A3_WL_access_control_all_operate";
     };
     case 2: {
-        "Access: All (Passenger Only)";
+        localize "STR_A3_WL_access_control_all_passenger";
     };
     case 3: {
-        "Access: Squad (Full)";
+        localize "STR_A3_WL_access_control_squad_full";
     };
     case 4: {
-        "Access: Squad (Operate)";
+        localize "STR_A3_WL_access_control_squad_operate";
     };
     case 5: {
-        "Access: Squad (Passenger Only)";
+        localize "STR_A3_WL_access_control_squad_passenger";
     };
     case 6: {
-        "Access: Personal";
+        localize "STR_A3_WL_access_control_personal";
     };
     case 7: {
-        "Access: Locked";
+        localize "STR_A3_WL_access_control_locked";
     };
 };
 

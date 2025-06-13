@@ -36,7 +36,7 @@ private _savedLoadoutHandled = FALSE;
 			};
 
 			if (_category == "Infantry") then {
-				private _buildABear = ["BuildABear", 300, [], "Customized Unit", "\A3\Data_F_Warlords\Data\preview_loadout.jpg", "Buy infantry with your customized loadout."];
+				private _buildABear = ["BuildABear", 300, [], localize "STR_A3_WL_CustomizedUnit", "\A3\Data_F_Warlords\Data\preview_loadout.jpg", localize "STR_A3_WL_CustomizedUnit_info"];
 				_data insert [0, [_buildABear]];
 			};
 

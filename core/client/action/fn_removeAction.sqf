@@ -9,11 +9,16 @@ private _removeActionID = _asset addAction [
 		private _unit = _this # 0;
 
 		private _displayName = [_unit] call WL2_fnc_getAssetTypeName;
-		private _result = ["Delete asset", format ["Are you sure you would like to delete: %1", _displayName], "Yes", "Cancel"] call WL2_fnc_prompt;
+		private _result = [
+			localize "STR_A3_WL2_asset_delete_dialog_title", 
+			format [localize "STR_A3_WL2_asset_delete_dialog_message", _displayName], 
+			localize "STR_A3_WL2_prune_assets_dialog_button_positive", 
+			localize "STR_A3_WL2_prune_assets_dialog_button_negative"
+		] call WL2_fnc_prompt;
 
 		private _access = [_unit, player, "full"] call WL2_fnc_accessControl;
 		if !(_access # 0) exitWith {
-			systemChat format ["Can't remove: %1", _access # 1];
+			systemChat format [localize "STR_A3_WL2_asset_delete_impossible", _access # 1];
 			playSound "AddItemFailed";
 		};
 
@@ -33,7 +38,7 @@ private _removeActionID = _asset addAction [
 	false,
 	true,
 	"",
-	"vehicle _this != _target && {getPlayerUID _this == (_target getVariable ['BIS_WL_ownerAsset', '123'])}",
+	"vehicle _this != _target && {getPlayerUID _this == (_target getVariable ['BIS_WL_ownerAsset', '123']) && {alive _target}}",
 	30,
 	false
 ];

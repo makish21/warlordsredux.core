@@ -32,7 +32,7 @@ if (!isNull _playerVehicle) then {
 			private _cooldownDisplay = [_cooldown, "MM:SS"] call BIS_fnc_secondsToString;
 			_cdText = format ["<t color = '#ff0000' size = '%1' shadow = '2'>%2</t>", _scale, _cooldownDisplay];
 		} else {
-			_cdText = format ["<t color = '#00ff00' size = '%1' shadow = '2'>Ready</t>", _scale];
+			_cdText = format ["<t color = '#00ff00' size = '%1' shadow = '2'>%2</t>", _scale, localize "STR_A3_WL_OSD_rearm_ready"];
 		};
 	};
 };
@@ -41,7 +41,8 @@ private _rearm_possible = uiNamespace getVariable "BIS_WL_osd_rearm_possible";
 if !(_accessControl # 0) then {
 	private _vehicleOwner = _playerVehicle getVariable ["BIS_WL_ownerAsset", "123"];
 	private _vehicleOwnerUnit = _vehicleOwner call BIS_fnc_getUnitByUid;
-	_rearm_possible ctrlSetStructuredText parseText format ["<t color = '#ff0000' size = '%1' shadow = '2' align = 'center'>Owner: %2 (%3)</t>", _scale, name _vehicleOwnerUnit, _accessControl # 1];
+	private _vehicleOwnerText = format[localize "STR_A3_WL_OSD_owner", name _vehicleOwnerUnit, _accessControl # 1];
+	_rearm_possible ctrlSetStructuredText parseText format ["<t color = '#ff0000' size = '%1' shadow = '2' align = 'center'>%2</t>", _scale, _vehicleOwnerText];
 } else {
 	if (BIS_WL_showHint_maintenance) then {
 		if (_cdText != "") then {
@@ -50,7 +51,7 @@ if !(_accessControl # 0) then {
 		_rearm_possible ctrlSetStructuredText parseText format ["<t color = '#00ff00' size = '%1' shadow = '2' align = 'center'>%2 %3</t>", _scale, localize "STR_A3_WL_OSD_rearm_possible", _cdText];
 	} else {
 		if (_cdText != "") then {
-			_cdText = format ["Rearm: %1", _cdText];
+			_cdText = format [localize "STR_A3_WL_OSD_rearm_cooldown", _cdText];
 		};
 		_rearm_possible ctrlSetStructuredText parseText format ["<t color = '#ffffff' size = '%1' shadow = '2' align = 'center'>%2</t>", _scale, _cdText];
 	};

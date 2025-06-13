@@ -5,7 +5,7 @@ if (isDedicated) exitWith {};
 if (_asset isKindOf "Building") exitWith {};
 
 _index = _asset addAction [
-	format ["Modify/%1", localize "STR_rearm"],
+	format ["%1/%2", localize "STR_A3_WL2_action_modify_vehicle", localize "STR_rearm"],
 	{
 		params ["_asset"];
 		_asset spawn WLM_fnc_initMenu;
@@ -20,4 +20,4 @@ _index = _asset addAction [
 	false
 ];
 
-_asset setUserActionText [_index, format ["<t color = '#4bff58'>Modify/%1</t>", localize "STR_rearm"], "<img size='1.5' image='a3\ui_f\data\igui\cfg\simpletasks\types\rearm_ca.paa'/>"];
+_asset setUserActionText [_index, format ["<t color = '#4bff58'>%1/%2</t>", localize "STR_A3_WL2_action_modify_vehicle", localize "STR_rearm"], "<img size='1.5' image='a3\ui_f\data\igui\cfg\simpletasks\types\rearm_ca.paa'/>"];

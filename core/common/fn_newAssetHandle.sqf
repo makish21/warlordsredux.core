@@ -170,9 +170,15 @@ if (_asset isKindOf "Man") then {
 			["TaskBuyTechnical"] call WLT_fnc_taskComplete;
 		};
 
+		case "B_T_MBT_01_cannon_F";
+		case "B_T_MBT_01_TUSK_F";
 		case "B_MBT_01_cannon_F";
 		case "B_MBT_01_TUSK_F";
 		case "B_MBT_03_cannon_F";
+		case "O_T_MBT_02_cannon_ghex_F";
+		case "O_T_MBT_04_cannon_F";
+		case "O_T_MBT_04_command_F";
+		case "O_T_MBT_02_railgun_ghex_F";
 		case "O_MBT_02_cannon_export_F";
 		case "O_MBT_02_cannon_F";
 		case "O_MBT_04_cannon_F";
@@ -207,6 +213,7 @@ if (_asset isKindOf "Man") then {
 		};
 
 		// Logistics
+		case "B_T_Truck_01_flatbed_F";
 		case "B_Truck_01_flatbed_F": {
 			[_asset] remoteExec ["WL2_fnc_deployableAddAction", 0, true];
 		};
@@ -385,7 +392,7 @@ if (_asset isKindOf "Man") then {
 	if (getNumber (configFile >> "CfgVehicles" >> typeOf _asset >> "transportAmmo") > 0) then {
 		[_asset, 0] remoteExec ["setAmmoCargo", 0];
 		_amount = 10000;
-		if (typeOf _asset == "B_Truck_01_ammo_F" || {typeOf _asset == "O_Truck_03_ammo_F" || {typeOf _asset == "Land_Pod_Heli_Transport_04_ammo_F" || {typeOf _asset == "B_Slingload_01_Ammo_F"}}}) then {
+		if (typeOf _asset in ["B_Truck_01_ammo_F", "B_T_Truck_01_ammo_F", "O_Truck_03_ammo_F", "O_T_Truck_02_Ammo_F", "Land_Pod_Heli_Transport_04_ammo_F", "B_Slingload_01_Ammo_F"]) then {
 			_amount = ((getNumber (configfile >> "CfgVehicles" >> typeof _asset >> "transportAmmo")) min 30000);
 		};
 		_asset setVariable ["WLM_ammoCargo", _amount, true];
@@ -430,7 +437,7 @@ if (_asset isKindOf "Man") then {
 		};
 	};
 
-	if (typeOf _asset == "B_APC_Tracked_01_AA_F" || typeOf _asset == "O_APC_Tracked_02_AA_F") then {
+	if (typeOf _asset in ["B_APC_Tracked_01_AA_F", "O_APC_Tracked_02_AA_F", "B_T_APC_Tracked_01_AA_F", "O_T_APC_Tracked_02_AA_ghex_F"]) then {
 		_asset addEventHandler ["Fired", {
 			params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
 			if (_muzzle == "autocannon_35mm") then {
