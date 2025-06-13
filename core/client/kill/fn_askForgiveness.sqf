@@ -14,27 +14,23 @@ if (isNil "WL2_ffBuffer") then {
 			private _victim = _params # 1;
 			private _assetType = _params # 2;
 
-			private _result = if (isPlayer _victim) then {
-				private _askForgiveness = [
-					"Forgive Friendly Fire",
-					format ["Choose to forgive %1?", name _killer],
-					"Forgive", "Don't forgive"
-				] call WL2_fnc_prompt;
-
-				WL2_ffBuffer deleteAt 0;
-				_busy = false;
-				_askForgiveness;
-			} else {
-				private _askForgiveness = [
-					"Forgive Friendly Fire",
-					format ["Choose to forgive %1 for killing %2?", name _killer, _assetType],
-					"Forgive", "Don't forgive"
-				] call WL2_fnc_prompt;
-
-				WL2_ffBuffer deleteAt 0;
-				_busy = false;
-				_askForgiveness;
+			private _message = switch true do {
+				case (isPlayer _victim): { format [localize "STR_A3_WL2_forgive_friendly_fire_dialog_message", name _killer] };
+				case (_victim isKindOf "Man"): { format [localize "STR_A3_WL2_forgive_friendly_fire_subordinate_dialog_message", name _killer, _assetType]};
+				default { format [localize "STR_A3_WL2_forgive_friendly_fire_vehicle_dialog_message", name _killer, _assetType] };
 			};
+
+			private _askForgiveness = [
+				localize "STR_A3_WL2_forgive_friendly_fire_dialog_title",
+				_message,
+				localize "STR_A3_WL2_forgive_friendly_fire_dialog_button_yes", 
+				localize "STR_A3_WL2_forgive_friendly_fire_dialog_button_no"
+			] call WL2_fnc_prompt;
+
+			WL2_ffBuffer deleteAt 0;
+			_busy = false;
+			private _result = _askForgiveness;
+
 			[_killer, player, _result, _victim] remoteExec ["WL2_fnc_forgiveTeamkill", 2];
 		};
 		WL2_ffBuffer = nil;

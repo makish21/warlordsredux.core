@@ -320,7 +320,7 @@ if (_displayClass == "OSD") then {
 			localize "STR_A3_WL_SectorDefense",
 			localize "STR_A3_rscdisplaygarage_tab_naval",
 			localize "STR_A3_rscdisplaywelcome_exp_parb_list4_title",
-			"Fast Travel",
+			localize "STR_A3_WL_FastTravel",
 			localize "STR_A3_WL_menu_strategy"
 		];
 		_purchase_category lbSetCurSel ((uiNamespace getVariable ["BIS_WL_purchaseMenuLastSelection", [0, 0, 0]]) # 0);

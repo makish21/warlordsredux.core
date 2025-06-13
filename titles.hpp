@@ -248,7 +248,7 @@ class RscTitles {
 				shadow = 1;
 				size = 0.032;
 			};
-			class RscWLAPSDisplayText: RscText {
+			class RscWLAPSDisplayText: RscStructuredText {
 				idc = 7100;
 				x = 1 - safeZoneX - 0.32;
 				y = 0.3 * 4 / 3;

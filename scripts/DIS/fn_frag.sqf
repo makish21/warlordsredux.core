@@ -39,7 +39,7 @@ private _targetPosition = getPosASL _targetDetected;
 private _detonationPoint = vectorLinearConversion [0, 1, 0.75, _projectilePosition, _targetPosition];
 
 private _finalDistance = _targetPosition distance _detonationPoint;
-systemChat format ["SAM detonation %1M away from target.", round _finalDistance];
+systemChat format [localize "STR_A3_WL2_chat_sam_frag", round _finalDistance];
 
 // Burst Explosion
 _projectile setPosASL _detonationPoint;
