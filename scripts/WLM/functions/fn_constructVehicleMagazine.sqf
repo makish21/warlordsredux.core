@@ -43,6 +43,17 @@ private _disallowListForVehicle = missionNamespace getVariable ["WL2_disallowMag
 private _ammoOverridesHashMap = missionNamespace getVariable ["WL2_ammoOverrides", createHashMap];
 private _assetAmmoOverrides = _ammoOverridesHashMap getOrDefault [_assetActualType, createHashMap];
 
+
+private _magWeight = {
+    params ["_mag"];
+
+    switch (_mag) do {
+        case "4Rnd_120mm_LG_cannon_missiles": { 12 };
+
+        default { getNumber (configFile >> "CfgMagazines" >> _mag >> "count") };
+    };
+};
+
 {
     private _turretPath = _x;
 
@@ -152,7 +163,7 @@ private _assetAmmoOverrides = _ammoOverridesHashMap getOrDefault [_assetActualTy
             };
 
             {
-                private _magSize = getNumber (configFile >> "CfgMagazines" >> _x >> "count");
+                private _magSize = [_x] call _magWeight;
                 if (_magSize <= _ammoRemaining) then {
                     private _ammoType = getText (configFile >> "CfgMagazines" >> _x >> "ammo");
                     private _actualAmmoType = _assetAmmoOverrides getOrDefault [_ammoType, [_ammoType]];
@@ -182,7 +193,7 @@ private _assetAmmoOverrides = _ammoOverridesHashMap getOrDefault [_assetActualTy
             private _actualSelection = lbCurSel _selectBox;
 
             private _actualSelectionData = _selectBox lbData _actualSelection;
-            private _actualMagSize = getNumber (configFile >> "CfgMagazines" >> _actualSelectionData >> "count");
+            private _actualMagSize = [_actualSelectionData] call _magWeight;
             if (_actualMagSize > _ammoRemaining) then {
                 _selectBox lbSetCurSel 0;
                 _actualSelection = 0;
