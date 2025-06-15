@@ -1,10 +1,14 @@
 params ["_accessControl"];
 
 private _lockStatus = [
-    "ALL (FULL)", "ALL (OPERATE)", "ALL (PASSENGER)",
-    "SQUAD (FULL)", "SQUAD (OPERATE)", "SQUAD (PASSENGER)",
-    "PERSONAL",
-    "LOCKED"
+    toUpper localize "STR_A3_WL_access_control_all_full",
+    toUpper localize "STR_A3_WL_access_control_all_operate",
+    toUpper localize "STR_A3_WL_access_control_all_passenger",
+    toUpper localize "STR_A3_WL_access_control_squad_full",
+    toUpper localize "STR_A3_WL_access_control_squad_operate",
+    toUpper localize "STR_A3_WL_access_control_squad_passenger",
+    toUpper localize "STR_A3_WL_access_control_personal",
+    toUpper localize "STR_A3_WL_access_control_locked"
 ] select _accessControl;
 
 private _lockColor = [
@@ -14,5 +18,6 @@ private _lockColor = [
     "#ff4b4b"
 ] select _accessControl;
 
-private _lockText = format ["ACCESS: <t color='%1'>%2</t>", _lockColor, _lockStatus];
+private _structuredStatus = format ["<t color='%1'>%2</t>", _lockColor, _lockStatus];
+private _lockText = format [toUpper localize "STR_A3_WL_access_control", _structuredStatus];
 _lockText;
