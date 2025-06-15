@@ -28,9 +28,9 @@ class SquadsMenu
 			text = $STR_SQUADS_squadMenuText;
 			colorBackground[] = {0,0,0,0};
 			x = 0.267969 * safezoneW + safezoneX;
-			y = 0.235 * safezoneH + safezoneY;
+			y = 0.236 * safezoneH + safezoneY;
 			w = 0.154687 * safezoneW;
-			h = 0.033 * safezoneH;
+			h = 0.022 * safezoneH;
 			class Attributes
 			{
 				font = "PuristaMedium";
@@ -44,11 +44,12 @@ class SquadsMenu
 		{
 			idc = 5004;
 			text = $STR_SQUADS_welcomeText;
+			style = ST_MULTI;
 			colorBackground[] = {0, 0, 0, 0};
 			x = 0.267969 * safezoneW + safezoneX;
 			y = 0.2706 * safezoneH + safezoneY;
 			w = 0.214687 * safezoneW;
-			h = 0.073 * safezoneH;
+			h = 0.099 * safezoneH;
 			class Attributes
 			{
 				font = "PuristaMedium";
@@ -68,9 +69,9 @@ class SquadsMenu
 			colorBackground[] = {0, 0, 0, 0.9};
 			type = CT_TREE;
 			x = 0.275 * safezoneW + safezoneX;
-			y = 0.34 * safezoneH + safezoneY;
+			y = 0.36 * safezoneH + safezoneY;
 			w = 0.209187 * safezoneW;
-			h = 0.427 * safezoneH;
+			h = 0.407 * safezoneH;
 			autoScrollSpeed = -1;
 			autoScrollDelay = 5;
 			autoScrollRewind = 0;
@@ -178,9 +179,9 @@ class SquadsMenu
 			sizeEx = "0.021 / (getResolution select 5)";
 			colorBackground[] = {0, 0, 0, 0.9};
 			action = "['leave'] spawn SQD_fnc_client;";
-			x = 0.33 * safezoneW + safezoneX;
+			x = 0.360781 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
+			w = 0.0825 * safezoneW;
 			h = 0.03 * safezoneH;
 			font = "PuristaMedium";
 		};
@@ -192,9 +193,9 @@ class SquadsMenu
 			colorBackground[] = {0, 0, 0, 0.9};
 			onLoad = "(_this # 0) ctrlShow false;";
 			action = "['promote'] spawn SQD_fnc_client;";
-			x = 0.39 * safezoneW + safezoneX;
+			x = 0.453594 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
+			w = 0.0825 * safezoneW;
 			h = 0.03 * safezoneH;
 			font = "PuristaMedium";
 		};
@@ -206,9 +207,9 @@ class SquadsMenu
 			colorBackground[] = {0, 0, 0, 0.9};
 			onLoad = "(_this # 0) ctrlShow false;";
 			action = "['kick'] spawn SQD_fnc_client;";
-			x = 0.45 * safezoneW + safezoneX;
+			x = 0.546406 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
+			w = 0.0825 * safezoneW;
 			h = 0.03 * safezoneH;
 			font = "PuristaMedium";
 		};
@@ -220,9 +221,9 @@ class SquadsMenu
 			colorBackground[] = {0, 0, 0, 0.9};
 			onLoad = "";
 			action = "['rename'] spawn SQD_fnc_client;";
-			x = 0.51 * safezoneW + safezoneX;
+			x = 0.639219 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
+			w = 0.0825 * safezoneW;
 			h = 0.03 * safezoneH;
 			font = "PuristaMedium";
 		};
@@ -233,9 +234,9 @@ class SquadsMenu
 			sizeEx = "0.021 / (getResolution select 5)";
 			colorBackground[] = {0, 0, 0, 0.9};
 			action = "['create'] spawn SQD_fnc_client;";
-			x = 0.27 * safezoneW + safezoneX;
+			x = 0.269206 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
+			w = 0.0825 * safezoneW;
 			h = 0.03 * safezoneH;
 			font = "PuristaMedium";
 		};
