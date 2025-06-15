@@ -247,9 +247,9 @@ class WLM_PylonUI {
 
         class WLM_Frame_T: RscPicture {
             idc = -1;
-            x = 0;
+            x = 0.02;
             y = -0.1;
-            w = 1;
+            w = 0.96;
             h = 0.08;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_T_ca.paa";
@@ -257,9 +257,9 @@ class WLM_PylonUI {
         };
         class WLM_Frame_B: RscPicture {
             idc = -1;
-            x = 0;
+            x = 0.02;
             y = 0.97;
-            w = 1;
+            w = 0.96;
             h = 0.08;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_B_ca.paa";
@@ -267,29 +267,29 @@ class WLM_PylonUI {
         };
         class WLM_Frame_L: RscPicture {
             idc = -1;
-            x = -0.05;
-            y = -0.05;
-            w = 0.08;
-            h = 1.05;
+            x = -0.04;
+            y = -0.02;
+            w = 0.06;
+            h = 0.99;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_L_ca.paa";
             moving = 1;
         };
         class WLM_Frame_R: RscPicture {
             idc = -1;
-            x = 0.975;
-            y = -0.05;
-            w = 0.08;
-            h = 1.05;
+            x = 0.98;
+            y = -0.02;
+            w = 0.06;
+            h = 0.99;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_R_ca.paa";
             moving = 1;
         };
         class WLM_Frame_TL: RscPicture {
             idc = -1;
-            x = -0.05;
+            x = -0.04;
             y = -0.1;
-            w = 0.08;
+            w = 0.06;
             h = 0.08;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_TL_ca.paa";
@@ -297,9 +297,9 @@ class WLM_PylonUI {
         };
         class WLM_Frame_TR: RscPicture {
             idc = -1;
-            x = 0.975;
+            x = 0.98;
             y = -0.1;
-            w = 0.08;
+            w = 0.06;
             h = 0.08;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_TR_ca.paa";
@@ -307,9 +307,9 @@ class WLM_PylonUI {
         };
         class WLM_Frame_BL: RscPicture {
             idc = -1;
-            x = -0.05;
+            x = -0.04;
             y = 0.97;
-            w = 0.08;
+            w = 0.06;
             h = 0.08;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_BL_ca.paa";
@@ -317,9 +317,9 @@ class WLM_PylonUI {
         };
         class WLM_Frame_BR: RscPicture {
             idc = -1;
-            x = 0.975;
+            x = 0.98;
             y = 0.97;
-            w = 0.08;
+            w = 0.06;
             h = 0.08;
             style = ST_PICTURE;
             text = "A3\ui_f\data\GUI\Rsc\RscMiniMapSmall\GPS_BR_ca.paa";
