@@ -22,28 +22,28 @@ private _color = switch (_accessControl) do {
 
 private _lockLabel = switch (_accessControl) do {
     case 0: {
-        localize "STR_A3_WL_access_control_all_full";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_all_full"];
     };
     case 1: {
-        localize "STR_A3_WL_access_control_all_operate";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_all_operate"];
     };
     case 2: {
-        localize "STR_A3_WL_access_control_all_passenger";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_all_passenger"];
     };
     case 3: {
-        localize "STR_A3_WL_access_control_squad_full";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_squad_full"];
     };
     case 4: {
-        localize "STR_A3_WL_access_control_squad_operate";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_squad_operate"];
     };
     case 5: {
-        localize "STR_A3_WL_access_control_squad_passenger";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_squad_passenger"];
     };
     case 6: {
-        localize "STR_A3_WL_access_control_personal";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_personal"];
     };
     case 7: {
-        localize "STR_A3_WL_access_control_locked";
+        format [localize "STR_A3_WL_access_control", localize "STR_A3_WL_access_control_locked"];
     };
 };
 
