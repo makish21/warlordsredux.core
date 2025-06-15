@@ -1,5 +1,8 @@
 import RscStructuredText;
 
+#define ST_CENTER	 0x02
+#define ST_UPPERCASE 0xC0
+
 class welcomeScreen
 {
 	idd = 9000;
@@ -376,8 +379,8 @@ class MRTM_settingsMenu
 		class MRTMBackground: IGUIBackMRTM
 		{
 			idc = -1;
-			colorBackground[] = {0,0,0,0.9};
-			x = 0.26836 * safezoneW + safezoneX;
+			colorBackground[] = {0,0,0,0.8};
+			x = 0.267969 * safezoneW + safezoneX;
 			y = 0.2646 * safezoneH + safezoneY;
 			w = 0.45375 * safezoneW;
 			h = 0.517 * safezoneH;
@@ -394,7 +397,7 @@ class MRTM_settingsMenu
 		class MRTMHeaderTextLeft: RscStructuredTextMRTM
 		{
 			idc = -1;
-			text = "Option menu";
+			text = "$STR_A3_WL_settings_title";
 			colorBackground[] = {0,0,0,0};
 			x = 0.267969 * safezoneW + safezoneX;
 			y = 0.235 * safezoneH + safezoneY;
@@ -416,7 +419,7 @@ class MRTM_settingsMenu
 			x = 0.502344 * safezoneW + safezoneX;
 			y = 0.235 * safezoneH + safezoneY;
 			w = 0.219 * safezoneW;
-			h = 0.025 * safezoneH;
+			h = 0.033 * safezoneH;
 			class Attributes
 			{
 				font = "PuristaMedium";
@@ -426,18 +429,29 @@ class MRTM_settingsMenu
 				shadow = 1;
 			};
 		};
-		class MRTMdiscordImg: RscPictureMRTM
-		{
-			idc = -1;
-			text = "src\img\discord_ca.paa";
-			style = ST_MULTI + ST_TITLE_BAR;
-			x = 0.493344 * safezoneW + safezoneX;
-			y = 0.236 * safezoneH + safezoneY;
-			w = 0.014244 * safezoneW;
-			h = 0.022 * safezoneH;
-		};
+		// class MRTMdiscordImg: RscPictureMRTM
+		// {
+		// 	idc = -1;
+		// 	text = "src\img\discord_ca.paa";
+		// 	style = ST_MULTI + ST_TITLE_BAR;
+		// 	x = 0.493344 * safezoneW + safezoneX;
+		// 	y = 0.236 * safezoneH + safezoneY;
+		// 	w = 0.014244 * safezoneW;
+		// 	h = 0.022 * safezoneH;
+		// };
 		class MRTMMainCtrlsGroup: RscControlsGroupMRTM
 		{
+#define CTRLS_GROUP_WIDTH (0.45375 * safezoneW)
+#define CTRLS_GROUP_CENTER (CTRLS_GROUP_WIDTH * 0.5)
+
+			type = CT_CONTROLS_GROUP;
+			idc = 8999;
+			x = 0.267969 * safezoneW + safezoneX;
+			y = 0.2646 * safezoneH + safezoneY;
+			w = CTRLS_GROUP_WIDTH;
+			h = 0.517 * safezoneH;
+			style = ST_MULTI;
+
 			deletable = 0;
 			fade = 0;
 			class VScrollbar: ScrollBar
@@ -457,15 +471,22 @@ class MRTM_settingsMenu
 
 			class Controls
 			{
+#define SPACE_W (0.005 * safezoneW)
+#define OPTION_TEXT_W (CTRLS_GROUP_CENTER - SPACE_W * 0.5)
+#define OPTION_CONTROL_X (CTRLS_GROUP_CENTER + SPACE_W * 0.5)
+
+#define SLIDER_W (0.1 * safezoneW)
+#define SLIDER_EDIT_X (OPTION_CONTROL_X + SLIDER_W + SPACE_W)
+#define SLIDER_EDIT_W (0.03525 * safezoneW)
 				class MRTMViewHeaderText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "View Distance:";
+					text = "$STR_A3_WL_settings_view_distance_title";
 					colorBackground[] = {0.3,0.3,0.3,0.7};
-					x = 0.327969 * safezoneW + safezoneX;
+					x = 0;
 					y = 0;
-					w = 0.451 * safezoneW;
-					h = 0.026 * safezoneH;
+					w = CTRLS_GROUP_WIDTH;
+					h = 0.023 * safezoneH;
 					class Attributes {
 						shadow = 0;
 					};
@@ -474,9 +495,9 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
-					x = 0.0842;
-					y = 0.047;
-					w = 1.093;
+					x = 0;
+					y = 0.041;
+					w = CTRLS_GROUP_WIDTH;
 					h = 0;
 					text = "";
 					colorBackground[] = {0,0,0,0};
@@ -485,10 +506,10 @@ class MRTM_settingsMenu
 				class MRTMViewInfText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "While on foot:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_view_distance_on_foot";
+					x = 0;
 					y = 0.259 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -501,27 +522,27 @@ class MRTM_settingsMenu
 					idc = 8003;
 					text = "";
 					onSliderPosChanged = "[0, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.258 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMViewInfEdit: RscEditMRTM
 				{
 					idc = 8004;
 					onKeyUp = "[_this select 0, 'inf'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.258 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMViewGroundText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "While in a ground vehicle:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_view_distance_in_vehicle";
+					x = 0;
 					y = 0.294 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -534,27 +555,27 @@ class MRTM_settingsMenu
 					idc = 8005;
 					text = "";
 					onSliderPosChanged = "[1, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.293 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMViewVehiclesEdit: RscEditMRTM
 				{
 					idc = 8006;
 					onKeyUp = "[_this select 0, 'ground'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.293 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMViewAirText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "While in an aircraft:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_view_distance_in_aircraft";
+					x = 0;
 					y = 0.329 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -567,27 +588,27 @@ class MRTM_settingsMenu
 					idc = 8007;
 					text = "";
 					onSliderPosChanged = "[2, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.328 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMViewAirEdit: RscEditMRTM
 				{
 					idc = 8008;
 					onKeyUp = "[_this select 0, 'air'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.328 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMViewDronesText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "While operating a UAV/UGV:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_view_distance_in_uav";
+					x = 0;
 					y = 0.364 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -600,27 +621,27 @@ class MRTM_settingsMenu
 					idc = 8009;
 					text = "";
 					onSliderPosChanged = "[4, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.363 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMViewDronesEdit: RscEditMRTM
 				{
 					idc = 8010;
 					onKeyUp = "[_this select 0, 'drones'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.363 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMObjectsButtonText: RscStructuredTextMRTM
 				{
 					idc = 8011;
-					text = "Sync object rendering with view distance:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_view_distance_sync_objects";
+					x = 0;
 					y = 0.399 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -632,7 +653,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8013;
 					action = "profileNamespace setVariable ['MRTM_syncObjects', !(profileNamespace getVariable 'MRTM_syncObjects')]; 0 spawn MRTM_fnc_openMenu;";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.398 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -640,10 +661,10 @@ class MRTM_settingsMenu
 				class MRTMViewObjectsText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Objects rendering distance:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_view_distance_objects";
+					x = 0;
 					y = 0.434 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -656,29 +677,29 @@ class MRTM_settingsMenu
 					idc = 8012;
 					text = "";
 					onSliderPosChanged = "[3, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.433 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMViewObjectsEdit: RscEditMRTM
 				{
 					idc = 8014;
 					onKeyUp = "[_this select 0, 'objects'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.433 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMRWRHeaderText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Radar Warning Reciever:";
+					text = "$STR_A3_WL_settings_RWR_title";
 					colorBackground[] = {0.3,0.3,0.3,0.7};
-					x = 0.327969 * safezoneW + safezoneX;
-					y = 0.44;
-					w = 0.451 * safezoneW;
-					h = 0.026 * safezoneH;
+					x = 0;
+					y = 0.443;
+					w = CTRLS_GROUP_WIDTH;
+					h = 0.023 * safezoneH;
 					class Attributes {
 						shadow = 0;
 					};
@@ -687,9 +708,9 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
-					x = 0.0842;
-					y = 0.488;
-					w = 1.093;
+					x = 0;
+					y = 0.485;
+					w = CTRLS_GROUP_WIDTH;
 					h = 0;
 					text = "";
 					colorBackground[] = {0,0,0,0};
@@ -698,10 +719,10 @@ class MRTM_settingsMenu
 				class MRTMRWRSettingText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Enable the voice warning system on aircraft:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_RWR_enable_voice";
+					x = 0;
 					y = 0.499 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -713,7 +734,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8023;
 					action = "profileNamespace setVariable ['MRTM_EnableRWR', !(profileNamespace getVariable ['MRTM_EnableRWR', true])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.498 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -721,10 +742,10 @@ class MRTM_settingsMenu
 				class MRTMRWRText1: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Pull up volume:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_RWR_pull_up_volume";
+					x = 0;
 					y = 0.534 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -737,27 +758,27 @@ class MRTM_settingsMenu
 					idc = 8015;
 					text = "";
 					onSliderPosChanged = "[5, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.533 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMRWREdit1: RscEditMRTM
 				{
 					idc = 8016;
 					onKeyUp = "[_this select 0, 'RWR1'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.533 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMRWRText2: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Altitude volume:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_RWR_altitude_volume";
+					x = 0;
 					y = 0.569 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -770,27 +791,27 @@ class MRTM_settingsMenu
 					idc = 8017;
 					text = "";
 					onSliderPosChanged = "[6, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.568 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMRWREdit2: RscEditMRTM
 				{
 					idc = 8018;
 					onKeyUp = "[_this select 0, 'RWR2'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.568 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMRWRText3: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Warning volume:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_RWR_warning_volume";
+					x = 0;
 					y = 0.604 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -803,11 +824,11 @@ class MRTM_settingsMenu
 					idc = 8019;
 					text = "";
 					onSliderPosChanged = "[7, _this select 1] call MRTM_fnc_onSliderChanged;";
-					toolTip = "This option is disabled";
+					toolTip = "$STR_A3_WL_settings_RWR_warning_volume_disabled_tooltip";
 					onLoad =  "(_this # 0) ctrlEnable false;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.603 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMRWREdit3: RscEditMRTM
@@ -815,18 +836,18 @@ class MRTM_settingsMenu
 					idc = 8020;
 					onKeyUp = "[_this select 0, 'RWR3'] call MRTM_fnc_onChar;";
 					onLoad =  "(_this # 0) ctrlEnable false;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.603 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMRWRText4: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Other:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_RWR_other_volume";
+					x = 0;
 					y = 0.639 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -839,29 +860,29 @@ class MRTM_settingsMenu
 					idc = 8021;
 					text = "";
 					onSliderPosChanged = "[8, _this select 1] call MRTM_fnc_onSliderChanged;";
-					x = 0.562969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.638 * safezoneH + safezoneY;
-					w = 0.1 * safezoneW;
+					w = SLIDER_W;
 					h = 0.026 * safezoneH;
 				};
 				class MRTMRWREdit4: RscEditMRTM
 				{
 					idc = 8022;
 					onKeyUp = "[_this select 0, 'RWR4'] call MRTM_fnc_onChar;";
-					x = 0.667969 * safezoneW + safezoneX;
+					x = SLIDER_EDIT_X;
 					y = 0.638 * safezoneH + safezoneY;
-					w = 0.03525 * safezoneW;
+					w = SLIDER_EDIT_W;
 					h = 0.025 * safezoneH;
 				};
 				class MRTMGeneralSettingsHeaderText: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "General Settings:";
+					text = "$STR_A3_WL_settings_general_title";
 					colorBackground[] = {0.3,0.3,0.3,0.7};
-					x = 0.327969 * safezoneW + safezoneX;
-					y = 0.805;
-					w = 0.451 * safezoneW;
-					h = 0.026 * safezoneH;
+					x = 0;
+					y = 0.808;
+					w = CTRLS_GROUP_WIDTH;
+					h = 0.023 * safezoneH;
 					class Attributes {
 						shadow = 0;
 					};
@@ -870,9 +891,9 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
-					x = 0.0842;
-					y = 0.854;
-					w = 1.093;
+					x = 0;
+					y = 0.851;
+					w = CTRLS_GROUP_WIDTH;
 					h = 0;
 					text = "";
 					colorBackground[] = {0,0,0,0};
@@ -881,10 +902,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText1: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Disable 3rd person view (x2 CP):";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_3rd_person";
+					x = 0;
 					y = 0.702 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -895,10 +916,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText2: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Mute the warlords voice informer:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_voice_informer";
+					x = 0;
 					y = 0.735 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -909,10 +930,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText3: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Play sound for kill reward:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_kill_sound";
+					x = 0;
 					y = 0.77 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -923,10 +944,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText4: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Autonomous mode off by default:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_autonomous_mode";
+					x = 0;
 					y = 0.803 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -937,10 +958,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText5: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Small announcer font:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_small_announcer_font";
+					x = 0;
 					y = 0.838 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -951,10 +972,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText6: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Spawn vehicles with empty inventory:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_empty_vehicles";
+					x = 0;
 					y = 0.873 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -965,10 +986,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText7: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Disable missile cameras:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_missile_camera";
+					x = 0;
 					y = 0.908 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -979,10 +1000,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText8: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Show user-defined markers:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_user_markers";
+					x = 0;
 					y = 0.943 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -993,10 +1014,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText9: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "No voice speaker:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_no_voice_speaker";
+					x = 0;
 					y = 0.978 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -1007,10 +1028,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText10: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Mute task start notifications:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_tasks_notifications";
+					x = 0;
 					y = 1.013 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -1021,10 +1042,10 @@ class MRTM_settingsMenu
 				class MRTMOtherText11: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Parachute Auto Deploy:";
-					x = 0.327969 * safezoneW + safezoneX;
+					text = "$STR_A3_WL_settings_general_parachute_auto_deploy";
+					x = 0;
 					y = 1.048 * safezoneH + safezoneY;
-					w = 0.23 * safezoneW;
+					w = OPTION_TEXT_W;
 					h = 0.033 * safezoneH;
 					class Attributes
 					{
@@ -1036,7 +1057,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8024;
 					action = "['MRTM_3rdPersonDisabled', 300] call MRTM_fnc_updateSettings;";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.701 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1045,7 +1066,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8025;
 					action = "profileNamespace setVariable ['MRTM_muteVoiceInformer', !(profileNamespace getVariable ['MRTM_muteVoiceInformer', false])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.734 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1054,7 +1075,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8026;
 					action = "profileNamespace setVariable ['MRTM_playKillSound', !(profileNamespace getVariable ['MRTM_playKillSound', true])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.769 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1063,7 +1084,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8027;
 					action = "profileNamespace setVariable ['MRTM_enableAuto', !(profileNamespace getVariable ['MRTM_enableAuto', true])]";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.802 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1072,7 +1093,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8028;
 					action = "profileNamespace setVariable ['MRTM_smallAnnouncerText', !(profileNamespace getVariable ['MRTM_smallAnnouncerText', false])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.837 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1081,7 +1102,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8029;
 					action = "profileNamespace setVariable ['MRTM_spawnEmpty', !(profileNamespace getVariable ['MRTM_spawnEmpty', false])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.872 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1090,7 +1111,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8030;
 					action = "profileNamespace setVariable ['MRTM_disableMissileCameras', !(profileNamespace getVariable ['MRTM_disableMissileCameras', false])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.907 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1099,7 +1120,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8031;
 					action = "profileNamespace setVariable ['MRTM_showMarkers', !(profileNamespace getVariable ['MRTM_showMarkers', true])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.942 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1108,7 +1129,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8032;
 					action = "profileNamespace setVariable ['MRTM_noVoiceSpeaker', !(profileNamespace getVariable ['MRTM_noVoiceSpeaker', false])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 0.977 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1117,7 +1138,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8033;
 					action = "profileNamespace setVariable ['MRTM_muteTaskNotifications', !(profileNamespace getVariable ['MRTM_muteTaskNotifications', false])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 1.012 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
@@ -1126,25 +1147,19 @@ class MRTM_settingsMenu
 				{
 					idc = 8034;
 					action = "profileNamespace setVariable ['MRTM_parachuteAutoDeploy', !(profileNamespace getVariable ['MRTM_parachuteAutoDeploy', true])];";
-					x = 0.560969 * safezoneW + safezoneX;
+					x = OPTION_CONTROL_X;
 					y = 1.047 * safezoneH + safezoneY;
 					w = 0.0204688 * safezoneW;
 					h = 0.028 * safezoneH;
 				};
 			};
-
-			type = CT_CONTROLS_GROUP;
-			idc = 8999;
-			x = 0.2355 * safezoneW + safezoneX;
-			y = 0.269 * safezoneH + safezoneY;
-			w = 0.486 * safezoneW;
-			h = 0.5 * safezoneH;
-			style = ST_MULTI;
 		};
+
 		class MRTMCloseButton: RscButtonMRTM
 		{
 			idc = 1604;
-			text = "CLOSE";
+			text = "$STR_A3_WL_settings_button_close";
+			style = ST_CENTER + ST_UPPERCASE;
 			sizeEx = "0.021 / (getResolution select 5)";
 			x = 0.267969 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
@@ -1153,25 +1168,26 @@ class MRTM_settingsMenu
 			font = "PuristaMedium";
 			action =  "(findDisplay 8000) closeDisplay 1;";
 		};
-		class MRTMGroupsButton: RscButtonMRTM
-		{
-			idc = 1605;
-			text = "SQUADS";
-			sizeEx = "0.021 / (getResolution select 5)";
-			x = 0.327969 * safezoneW + safezoneX;
-			y = 0.786 * safezoneH + safezoneY;
-			w = 0.0567187 * safezoneW;
-			h = 0.022 * safezoneH;
-			font = "PuristaMedium";
-			action =  "(findDisplay 8000) closeDisplay 1; [true] call SQD_fnc_menu;";
-		};
+		// class MRTMGroupsButton: RscButtonMRTM
+		// {
+		// 	idc = 1605;
+		// 	text = "$STR_A3_WL_settings_button_squads";
+		// 	sizeEx = "0.021 / (getResolution select 5)";
+		// 	x = 0.327969 * safezoneW + safezoneX;
+		// 	y = 0.786 * safezoneH + safezoneY;
+		// 	w = 0.0567187 * safezoneW;
+		// 	h = 0.022 * safezoneH;
+		// 	font = "PuristaMedium";
+		// 	action =  "(findDisplay 8000) closeDisplay 1; [true] call SQD_fnc_menu;";
+		// };
 		class MRTMDebugButton: RscButtonMRTM
 		{
 			idc = 1609;
-			text = "Debug";
-			onLoad = "(_this # 0) ctrlEnable (getPlayerUID player in getArray (missionConfigFile >> 'adminIDs'));";
+			text = "$STR_A3_WL_settings_button_debug";
+			style = ST_CENTER + ST_UPPERCASE;
+			onLoad = "(_this # 0) ctrlShow (getPlayerUID player in getArray (missionConfigFile >> 'adminIDs'));";
 			sizeEx = "0.021 / (getResolution select 5)";
-			x = 0.664969 * safezoneW + safezoneX;
+			x = 0.6 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
@@ -1181,9 +1197,10 @@ class MRTM_settingsMenu
 		class MRTMReportButton: RscButtonMRTM
 		{
 			idc = 1609;
-			text = "REPORT";
+			text = "$STR_A3_WL_settings_button_report";
+			style = ST_CENTER + ST_UPPERCASE;
 			sizeEx = "0.021 / (getResolution select 5)";
-			x = 0.6 * safezoneW + safezoneX;
+			x = 0.664969 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
@@ -1354,7 +1371,7 @@ class Fxr_ReportDialog
 		class MRTMReportHeaderTextLeft: RscStructuredTextMRTM
 		{
 			idc = 73003;
-			text = "Report menu";
+			text = "$STR_A3_WL_report_menu_title";
 			colorBackground[] = {0,0,0,0};
 			x = 0.38836 * safezoneW + safezoneX;
 			y = 0.235 * safezoneH + safezoneY;
@@ -1395,7 +1412,8 @@ class Fxr_ReportDialog
 		class MRTMReportCloseButton: RscButtonMRTM
 		{
 			idc = 73005;
-			text = "CLOSE";
+			text = "$STR_A3_WL_report_menu_button_close";
+			style = ST_CENTER + ST_UPPERCASE;
 			sizeEx = "0.021 / (getResolution select 5)";
 			x = 0.38836 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
