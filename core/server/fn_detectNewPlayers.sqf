@@ -1,3 +1,5 @@
+#include "../warlords_constants.inc"
+
 private _previousAIMax = -1;
 while { !BIS_WL_missionEnd } do {
 	private _allPlayers = call BIS_fnc_listPlayers;
@@ -9,7 +11,7 @@ while { !BIS_WL_missionEnd } do {
 		_x spawn WL2_fnc_setupNewPlayer;
 	} forEach _newPlayers;
 
-	private _thresholds = [8, 15, 20, 30, 40];
+	private _thresholds = WL_MAX_SUBORDINATES_THRESHOLDS;
 
 	private _players = (playersNumber west) + (playersNumber east);
 	private _value = 1;

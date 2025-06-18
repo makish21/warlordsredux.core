@@ -51,7 +51,7 @@ for "_i" from 0 to count _aliveTimers - 1 do {
 	private _unit = _slot # 1;
 	private _timer = _slot # 0 - serverTime;
 	private _timerText = if (_timer < 0) then {
-		"<t color = '#00ff00'>Ready</t>";
+		format ["<t color = '#00ff00'>%1</t>", localize "STR_A3_WL_subordinate_ready"];
 	} else {
 		private _timeString = [_timer, "MM:SS"] call BIS_fnc_secondsToString;
 		format ["<t color = '#ff0000'>%1</t>", _timeString];
@@ -63,10 +63,10 @@ for "_i" from 0 to count _deadTimers - 1 do {
 	private _slot = _deadTimers # _i;
 	private _timer = _slot # 0 - serverTime;
 	private _timerText = [_timer, "MM:SS"] call BIS_fnc_secondsToString;
-	_slotsArray pushBack format ["Waiting <t color = '#ff0000'>(%1)</t>", _timerText];
+	_slotsArray pushBack format ["%1 <t color = '#ff0000'>(%2)</t>", localize "STR_A3_WL_subordinate_waiting",  _timerText];
 };
 for "_i" from 1 to _maxSubordinates - count _slotsArray do {
-	_slotsArray pushBack "<t color = '#00ff00'>Ready</t>";
+	_slotsArray pushBack format ["<t color = '#00ff00'>%1</t>", localize "STR_A3_WL_subordinate_ready"];
 };
 
 private _refreshTimerText = _slotsArray joinString ", ";
@@ -75,7 +75,7 @@ private _slotsScale = 0.7 call WL2_fnc_purchaseMenuGetUIScale;
 (_display displayCtrl 103) ctrlSetStructuredText parseText format [
 	"<t align = 'left' size = '%2'>%1</t>",
 	[
-		format ["Subordinates (Max: %1)<br/><t size = '%2'>%3</t>", _maxSubordinates, _slotsScale, _refreshTimerText],
+		format ["%1<br/><t size = '%2'>%3</t>", format [localize "STR_A3_WL_subordinates_status", _maxSubordinates], _slotsScale, _refreshTimerText],
 		localize "STR_A3_WL_LightVehicle_Info",
 		localize "STR_A3_WL_HeavyVehicle_Info",
 		localize "STR_A3_WL_RotaryWing_Info",

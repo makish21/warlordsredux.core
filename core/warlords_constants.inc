@@ -96,5 +96,6 @@
 #define WL_TARGET_UNIT_TEXT_SIZE 0.03
 #define WL_SQUAD_UNIT_TEXT_SIZE 0.04
 
+#define WL_MAX_SUBORDINATES_THRESHOLDS [8, 15, 20, 30, 40]
 
 #include "..\..\mission_constants.ext"
