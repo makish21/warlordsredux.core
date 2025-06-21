@@ -7,9 +7,9 @@ private _dazzlerColor = if (_dazzlerActivated) then {
     "#ff4b4b"
 };
 private _dazzlerText = if (_dazzlerActivated) then {
-    "ON"
+    toUpper localize "STR_A3_WL_map_asset_dazzler_on"
 } else {
-    "OFF"
+    toUpper localize "STR_A3_WL_map_asset_dazzler_off"
 };
-private _buttonText = format ["DAZZLER: <t color='%1'>%2</t>", _dazzlerColor, _dazzlerText];
+private _buttonText = format [toUpper localize "STR_A3_WL_map_asset_dazzler", format ["<t color='%1'>%2</t>", _dazzlerColor, _dazzlerText]];
 _buttonText;

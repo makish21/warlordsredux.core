@@ -7,10 +7,10 @@ private _radarColor = if (_radarOperation) then {
     "#ff4b4b"
 };
 private _radarOnText = if (_radarOperation) then {
-    "ON"
+    toUpper localize "STR_A3_WL_map_asset_radar_operate_on"
 } else {
-    "OFF"
+    toUpper localize "STR_A3_WL_map_asset_radar_operate_off"
 };
 
-private _buttonText = format ["RADAR CONTROL: <t color='%1'>%2</t>", _radarColor, _radarOnText];
+private _buttonText = format [toUpper localize "STR_A3_WL_map_asset_radar_operate", format ["<t color='%1'>%2</t>", _radarColor, _radarOnText]];
 _buttonText;

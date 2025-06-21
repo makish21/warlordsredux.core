@@ -58,22 +58,6 @@ if (!isNull WL_SectorActionTarget && isNull BIS_WL_highlightedSector && WL_Secto
 	];
 };
 
-// Draw player tent
-private _respawnBag = player getVariable ["WL2_respawnBag", objNull];
-if (alive _respawnBag) then {
-	private _bagPos = getPosATL _respawnBag;
-	_drawIcons pushBack [
-		"\A3\ui_f\data\map\markers\military\triangle_CA.paa",
-		[player] call WL2_fnc_iconColor,
-		getPosATL _respawnBag,
-		50,
-		50,
-		0,
-		"Tent"
-	];
-	_drawIconsSelectable pushBack [_respawnBag, _bagPos];
-};
-
 // Draw forward bases
 private _forwardBases = missionNamespace getVariable ["WL2_forwardBases", []];
 {
@@ -350,7 +334,7 @@ private _draw = (ctrlMapScale _map) < 0.3;
 		_size,
 		call WL2_fnc_getDir,
 		if (_draw) then {
-			private _levelDisplay = _x getVariable ["WL_playerLevel", "Recruit"];
+			private _levelDisplay = _x getVariable ["WL_playerLevel", localize "STR_A3_WL_map_player_level_recruit"];
 			private _displayName = format ["%1 [%2]", name _x, _levelDisplay];
 			_displayName
 		} else {""},
@@ -372,7 +356,7 @@ private _draw = (ctrlMapScale _map) < 0.3;
 		_size,
 		_size,
 		call WL2_fnc_getDir,
-		if (_draw) then {format ["%1 [AI]", (name _x)]} else {""},
+		if (_draw) then {format [localize "STR_A3_WL_map_asset_with_ai", (name _x)]} else {""},
 		1,
 		0.043,
 		"PuristaBold",
@@ -391,7 +375,7 @@ private _draw = (ctrlMapScale _map) < 0.3;
 		_size,
 		_size,
 		call WL2_fnc_getDir,
-		if (_draw) then {if (isPlayer _x) then {name _x} else {format ["%1 [AI]", (name _x)]}} else {""},
+		if (_draw) then {if (isPlayer _x) then {name _x} else {format [localize "STR_A3_WL_map_asset_with_ai", (name _x)]}} else {""},
 		1,
 		0.043,
 		"PuristaBold",
@@ -399,6 +383,28 @@ private _draw = (ctrlMapScale _map) < 0.3;
 	];
 	_drawIconsSelectable pushBack [_x, _aiPos];
 } forEach ((units player) select {(alive _x) && {(isNull objectParent _x) && {_x != player}}});
+
+// Draw player tent
+private _respawnBag = player getVariable ["WL2_respawnBag", objNull];
+if (alive _respawnBag) then {
+	private _bagPos = getPosATL _respawnBag;
+	private _size = call WL2_fnc_iconSize;
+
+	_m drawIcon [
+		/*texture=*/"\A3\ui_f\data\map\markers\military\triangle_CA.paa",
+		/*color=*/[player] call WL2_fnc_iconColor,
+		/*position=*/getPosATL _respawnBag,
+		/*width=*/_size,
+		/*height=*/_size,
+		/*angle=*/0,
+		/*text=*/if (_draw) then { localize "STR_A3_WL_map_asset_name_tent" } else {""},
+		/*shadow=*/1,
+		/*textSize=*/0.043,
+		/*font=*/"PuristaBold",
+		/*align=*/"right"
+	];
+	_drawIconsSelectable pushBack [_respawnBag, _bagPos];
+};
 
 // Draw squad lines
 private _allSquadmates = ["getAllInSquad"] call SQD_fnc_client;
@@ -485,7 +491,7 @@ private _laserIcons = [];
 		/*width=*/_size,
 		/*height=*/_size,
 		/*angle=*/0,
-		/*text=*/_playerName,
+		/*text=*/if (_draw) then { _playerName } else { "" },
 		/*shadow=*/0,
 		/*textSize=*/0.043,
 		/*font=*/"PuristaBold",

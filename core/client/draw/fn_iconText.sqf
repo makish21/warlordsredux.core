@@ -10,7 +10,7 @@ if (_continue) then {
 	private _ammo = _asset getVariable ["WLM_ammoCargo", 0];
 	if (_ammo > 0) then {
 		private _ammoDisplay = (_ammo call BIS_fnc_numberText) regexReplace [" ", ","];
-		_vehicleDisplayName = format ["%1 [%2 kg]", _vehicleDisplayName, _ammoDisplay];
+		_vehicleDisplayName = format [localize "STR_A3_WL_map_asset_cargo_weight", _vehicleDisplayName, _ammoDisplay];
 	};
 
 	if (unitIsUAV _asset) then {
@@ -18,7 +18,7 @@ if (_continue) then {
 			private _op = (UAVControl _asset) select 0;
 			_text = format ["%1: %2", _vehicleDisplayName, (name _op)];
 		} else {
-			_text = format ["[AUTO] %1", _vehicleDisplayName];
+			_text = format [localize "STR_A3_WL_map_asset_uav_auto", _vehicleDisplayName];
 		};
 	} else {
 		private _crewVic = crew _asset;
@@ -28,7 +28,7 @@ if (_continue) then {
 				if (isPlayer _crew) then {
 					_text = (name _crew);
 				} else {
-					_text = format ["%1 [AI]", (name _crew)];
+					_text = format [localize "STR_A3_WL_map_asset_with_ai", (name _crew)];
 				};
 			};
 			_text = format ["%1: %2", _vehicleDisplayName, _text];

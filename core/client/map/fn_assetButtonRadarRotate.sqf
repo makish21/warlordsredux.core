@@ -7,10 +7,10 @@ private _radarColor = if (_radarRotation) then {
     "#ff4b4b"
 };
 private _radarOnText = if (_radarRotation) then {
-    "ROTATING"
+    toUpper localize "STR_A3_WL_map_asset_radar_rotate_on"
 } else {
-    "STOPPED"
+    toUpper localize "STR_A3_WL_map_asset_radar_rotate_off"
 };
 
-private _buttonText = format ["RADAR ROTATE: <t color='%1'>%2</t>", _radarColor, _radarOnText];
+private _buttonText = format [toUpper localize "STR_A3_WL_map_asset_radar_rotate", format ["<t color='%1'>%2</t>", _radarColor, _radarOnText]];
 _buttonText;
