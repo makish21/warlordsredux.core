@@ -210,7 +210,7 @@ private _side = side _owner;
                 };
             };
         };
-        _filmGrain ppEffectCommit 0;
+        _filmGrain ppEffectCommit 0.1;
 
         private _exploitActive = !(ppEffectCommitted _filmGrain);
         if (_exploitActive) then {

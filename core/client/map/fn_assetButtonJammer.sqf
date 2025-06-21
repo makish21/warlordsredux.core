@@ -12,13 +12,13 @@ private _jammerColor = if (_jammerActivated) then {
     };
 };
 private _jammerText = if (_jammerActivated) then {
-    "ON"
+    toUpper localize "STR_A3_WL_map_asset_jammer_on"
 } else {
     if (_jammerActivating) then {
-        "ACTIVATING"
+        toUpper localize "STR_A3_WL_map_asset_jammer_activating"
     } else {
-        "OFF"
+        toUpper localize "STR_A3_WL_map_asset_jammer_off"
     };
 };
-private _buttonText = format ["EW NETWORK: <t color='%1'>%2</t>", _jammerColor, _jammerText];
+private _buttonText = format [toUpper localize "STR_A3_WL_map_asset_jammer", format["<t color='%1'>%2</t>", _jammerColor, _jammerText]];
 _buttonText;

@@ -10,7 +10,12 @@ private _assetLocation = if (count _assetSector > 0) then {
 	mapGridPosition _target;
 };
 
-private _result = ["Delete asset", format ["Are you sure you would like to delete: %1 @ %2", _displayName, _assetLocation], "Yes", "Cancel"] call WL2_fnc_prompt;
+private _result = [
+	localize "STR_A3_WL2_asset_delete_dialog_title", 
+	format [localize "STR_A3_WL2_asset_delete_at_dialog_message", _displayName, _assetLocation], 
+	localize "STR_A3_WL2_asset_delete_dialog_button_positive", 
+	localize "STR_A3_WL2_asset_delete_dialog_button_negative"
+] call WL2_fnc_prompt;
 
 if (_result) then {
 	private _access = [_target, player, "full"] call WL2_fnc_accessControl;

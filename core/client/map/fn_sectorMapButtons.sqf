@@ -29,7 +29,7 @@ private _fastTravelSeizedExecute = {
     ["TaskMapSectorControls"] call WLT_fnc_taskComplete;
 };
 [
-    "FAST TRAVEL",
+    toUpper localize "STR_A3_WL_map_sector_fast_travel_seized",
     _fastTravelSeizedExecute,
     true,
     "fastTravelSeized",
@@ -47,7 +47,7 @@ private _fastTravelStrongholdExecute = {
     [5, ""] spawn WL2_fnc_executeFastTravel;
 };
 [
-    "FAST TRAVEL STRONGHOLD",
+    toUpper localize "STR_A3_WL_map_sector_fast_travel_stronghold",
     _fastTravelStrongholdExecute,
     true,
     "fastTravelStrongholdTarget",
@@ -72,7 +72,7 @@ private _fastTravelConflictExecute = {
     deleteMarkerLocal _markerText;
 };
 [
-    "FAST TRAVEL CONTESTED",
+    toUpper localize "STR_A3_WL_map_sector_fast_travel_contested",
     _fastTravelConflictExecute,
     true,
     "fastTravelConflict",
@@ -97,7 +97,7 @@ private _airAssaultExecute = {
     deleteMarkerLocal _markerText;
 };
 [
-    "AIR ASSAULT",
+    toUpper localize "STR_A3_WL_map_sector_fast_travel_air_assault",
     _airAssaultExecute,
     true,
     "airAssault",
@@ -115,7 +115,7 @@ private _vehicleParadropExecute = {
     [3, ""] call WL2_fnc_executeFastTravel;
 };
 [
-    "VEHICLE PARADROP",
+    toUpper localize "STR_A3_WL_map_sector_fast_travel_vehicle_paradrop",
     _vehicleParadropExecute,
     true,
     "vehicleParadrop",
@@ -133,7 +133,7 @@ private _scanExecute = {
     [player, "scan", [], _sector] remoteExec ["WL2_fnc_handleClientRequest", 2];
 };
 [
-    "SECTOR SCAN",
+    toUpper localize "STR_A3_WL_map_sector_scan",
     _scanExecute,
     true,
     "scan",

@@ -26,14 +26,14 @@ if (_isUnitPlayer && _unit isKindOf "Man") then {
     private _killMessage = if (isPlayer [_responsiblePlayer]) then {
         private _ffText = if (side group _unit == side group _responsiblePlayer) then {
             _responsiblePlayer addPlayerScores [-1, 0, 0, 0, 0];
-            " (Friendly fire)"
+            localize "STR_A3_WL_chat_player_killed_friendly_fire"
         } else {
             _responsiblePlayer addPlayerScores [1, 0, 0, 0, 0];
             ""
         };
-        format["%1 was killed by %2.%3", name _unit, name _responsiblePlayer, _ffText];
+        format[localize "STR_A3_WL_chat_player_killed_by", name _unit, name _responsiblePlayer, _ffText];
     } else {
-        format["%1 was killed.", name _unit];
+        format[localize "STR_A3_WL_chat_player_killed", name _unit];
     };
     [_killMessage] remoteExec ["systemChat", 0];
 };

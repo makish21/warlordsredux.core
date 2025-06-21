@@ -28,27 +28,27 @@ _titleBar ctrlCommit 0;
 
 private _ownsVehicle = (_asset getVariable ["BIS_WL_ownerAsset", "123"]) == getPlayerUID player;
 if (!isPlayer _asset && _ownsVehicle) then {
-    ["DELETE", {
+    [toUpper localize "STR_A3_WL_map_asset_delete", {
         params ["_asset"];
         if ((_asset getVariable ["BIS_WL_ownerAsset", "123"]) == getPlayerUID player) then {
             _asset spawn WL2_fnc_deleteAssetFromMap;
             ["TaskMapAssetControls"] call WLT_fnc_taskComplete;
         } else {
             playSoundUI ["AddItemFailed"];
-            systemChat "You do not own this asset.";
+            systemChat localize "STR_A3_WL_map_asset_delete_unowned";
         };
     }, true] call WL2_fnc_addTargetMapButton;
 };
 
 if (side group player == independent && _asset isKindOf "Man" && !isPlayer _asset) then {
-    ["CONTROL", {
+    [toUpper localize "STR_A3_WL_map_asset_independent_control", {
         params ["_asset"];
 
         private _assetIsNotMine = (_asset getVariable ["BIS_WL_ownerAsset", "123"]) != getPlayerUID player;
         private _noMoreClaims = BIS_WL_matesAvailable <= 0;
         if (!alive _asset || (_assetIsNotMine && _noMoreClaims)) then {
             playSoundUI ["AddItemFailed"];
-            systemChat "No available slots for this unit, or the unit is dead.";
+            systemChat localize "STR_A3_WL_map_asset_independent_control_error";
         } else {
             private _maxSubordinates = missionNamespace getVariable [format ["BIS_WL_maxSubordinates_%1", BIS_WL_playerSide], 1];
             private _refreshTimerVar = format ["WL2_manpowerRefreshTimers_%1", getPlayerUID player];
@@ -101,7 +101,7 @@ private _hasCrew = count ((crew _asset) select {
 }) > 0;
 private _isNotFlying = (getPosATL _asset # 2) < 10;
 if (_hasCrew && _isNotFlying && !(_asset isKindOf "Man") && _ownsVehicle) then {
-    ["KICK", {
+    [toUpper localize "STR_A3_WL_map_asset_kick", {
         params ["_asset"];
         if ((getPosATL _asset # 2) < 10) then {
             private _unwantedPassengers = (crew _asset) select {
@@ -133,7 +133,7 @@ if (_operateAccess && typeof _asset in ["O_T_Truck_03_device_ghex_F", "O_Truck_0
     }, true] call WL2_fnc_addTargetMapButton;
 };
 
-if (_operateAccess && typeof _asset in ["B_Radar_System_01_F", "O_Radar_System_01_F", "I_E_Radar_System_01_F"]) then {
+if (_operateAccess && typeof _asset in ["B_Radar_System_01_F", "O_Radar_System_02_F", "I_E_Radar_System_01_F"]) then {
     private _radarRotateText = [_asset] call WL2_fnc_assetButtonRadarRotate;
 
     [_radarRotateText, {
@@ -163,7 +163,7 @@ if (_operateAccess && _hasRadar) then {
 };
 
 if (typeof _asset == "Land_TentA_F") then {
-    ["FAST TRAVEL TENT", {
+    [toUpper localize "STR_A3_WL_map_asset_fast_travel_tent", {
         [4, ""] spawn WL2_fnc_executeFastTravel;
     }, true] call WL2_fnc_addTargetMapButton;
 };
@@ -172,13 +172,13 @@ private _spawnTruckTypes = WL_SPAWN_TRUCK_TYPES;
 private _spawnPodTypes = WL_SPAWN_POD_TYPES;
 
 if (typeof _asset in _spawnTruckTypes) then {
-    ["FAST TRAVEL TRUCK", {
+    [toUpper localize "STR_A3_WL_map_asset_fast_travel_truck", {
         0 spawn WL2_fnc_orderFTVehicleFT;
     }, true] call WL2_fnc_addTargetMapButton;
 };
 
 if (typeof _asset in _spawnPodTypes) then {
-    ["FAST TRAVEL POD", {
+    [toUpper localize "STR_A3_WL_map_asset_fast_travel_pod", {
         0 spawn WL2_fnc_orderFTPodFT;
     }, true] call WL2_fnc_addTargetMapButton;
 };
@@ -202,7 +202,7 @@ if (typeof _asset in (_spawnTruckTypes + _spawnPodTypes)) then {
             };
         };
         [
-            "DELETE TEAM ASSET",
+            toUpper localize "STR_A3_WL_map_asset_team_delete",
             _deleteTeamAssetExecute,
             true,
             "deleteTeamAsset",
@@ -226,7 +226,7 @@ if (typeof _asset == "RuggedTerminal_01_communications_hub_F") then {
         [6, "WL2_fastTravelFOBMarker"] spawn WL2_fnc_executeFastTravel;
     };
     [
-        "FAST TRAVEL FOB",
+        toUpper localize "STR_A3_WL_map_asset_fast_travel_fob",
         _fastTravelFOBExecute,
         true,
         "fastTravelFOB",
@@ -239,7 +239,7 @@ if (typeof _asset == "RuggedTerminal_01_communications_hub_F") then {
 };
 
 if (_operateAccess && unitIsUAV _asset && getConnectedUAV player != _asset) then {
-    ["CONNECT TO UAV", {
+    [toUpper localize "STR_A3_WL_map_asset_connect_uav", {
         params ["_asset"];
         _access = [_asset, player, "driver"] call WL2_fnc_accessControl;
         if (_access # 0) then {
@@ -256,7 +256,7 @@ private _fastTravelSLExecute = {
     missionNamespace setVariable [_ftNextUseVar, serverTime + WL_FAST_TRAVEL_SQUAD_TIMER];
 };
 [
-    "FAST TRAVEL SL",
+    toUpper localize "STR_A3_WL_map_fast_travel_sl",
     _fastTravelSLExecute,
     true,
     "fastTravelSL",
@@ -274,7 +274,7 @@ private _fastTravelSquadmateExecute = {
     ["ftSquad", [_playerId]] spawn SQD_fnc_client;
 };
 [
-    "FAST TRAVEL SQUAD",
+    toUpper localize "STR_A3_WL_map_fast_travel_squad",
     _fastTravelSquadmateExecute,
     true,
     "fastTravelSquad",
@@ -295,7 +295,7 @@ private _fastTravelStrongholdExecute = {
     [5, ""] spawn WL2_fnc_executeFastTravel;
 };
 [
-    "FAST TRAVEL STRONGHOLD",
+    toUpper localize "STR_A3_WL_map_asset_fast_travel_stronghold",
     _fastTravelStrongholdExecute,
     true,
     "fastTravelStronghold",
@@ -315,8 +315,13 @@ private _removeStrongholdExecute = {
     private _sector = (_findSector # 0);
 
     private _sectorName = _sector getVariable ["BIS_WL_name", ""];
-    private _message = format ["Are you sure you want to pay to remove the Sector Stronghold in %1?", _sectorName];
-    private _result = [_message, "Remove Sector Stronghold", "Remove", "Cancel"] call BIS_fnc_guiMessage;
+    private _message = format [localize "STR_A3_WL_map_asset_stronghold_remove_confirm_message", _sectorName];
+    private _result = [
+        _message, 
+        localize "STR_A3_WL_map_asset_stronghold_remove_confirm_title", 
+        localize "STR_A3_WL_map_asset_stronghold_remove_confirm_yes", 
+        localize "STR_A3_WL_map_asset_stronghold_remove_confirm_no"
+    ] call BIS_fnc_guiMessage;
     if (!_result) exitWith {
         playSoundUI ["AddItemFailed"];
     };
@@ -325,7 +330,7 @@ private _removeStrongholdExecute = {
     [player, "buyStronghold"] remoteExec ["WL2_fnc_handleClientRequest", 2];
 };
 [
-    "REMOVE STRONGHOLD",
+    toUpper localize "STR_A3_WL_map_asset_stronghold_remove",
     _removeStrongholdExecute,
     true,
     "removeStronghold",

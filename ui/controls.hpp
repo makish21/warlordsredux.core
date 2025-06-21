@@ -654,9 +654,9 @@ class MRTM_settingsMenu
 					idc = 8013;
 					action = "profileNamespace setVariable ['MRTM_syncObjects', !(profileNamespace getVariable 'MRTM_syncObjects')]; 0 spawn MRTM_fnc_openMenu;";
 					x = OPTION_CONTROL_X;
-					y = 0.398 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.395 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMViewObjectsText: RscStructuredTextMRTM
 				{
@@ -735,9 +735,9 @@ class MRTM_settingsMenu
 					idc = 8023;
 					action = "profileNamespace setVariable ['MRTM_EnableRWR', !(profileNamespace getVariable ['MRTM_EnableRWR', true])];";
 					x = OPTION_CONTROL_X;
-					y = 0.498 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.495 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMRWRText1: RscStructuredTextMRTM
 				{
@@ -902,7 +902,7 @@ class MRTM_settingsMenu
 				class MRTMOtherText1: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "$STR_A3_WL_settings_general_3rd_person";
+					onLoad = "(_this # 0) ctrlSetText format [localize 'STR_A3_WL_settings_general_3rd_person', [BIS_WL_playerSide] call WL2_fnc_getMoneySign];"
 					x = 0;
 					y = 0.702 * safezoneH + safezoneY;
 					w = OPTION_TEXT_W;
@@ -1056,101 +1056,101 @@ class MRTM_settingsMenu
 				class MRTMOtherButton1: RscCheckboxMRTM
 				{
 					idc = 8024;
-					action = "['MRTM_3rdPersonDisabled', 300] call MRTM_fnc_updateSettings;";
+					action = "['MRTM_3rdPersonDisabled', 60] call MRTM_fnc_updateSettings;";
 					x = OPTION_CONTROL_X;
-					y = 0.701 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.698 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton2: RscCheckboxMRTM
 				{
 					idc = 8025;
 					action = "profileNamespace setVariable ['MRTM_muteVoiceInformer', !(profileNamespace getVariable ['MRTM_muteVoiceInformer', false])];";
 					x = OPTION_CONTROL_X;
-					y = 0.734 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.731 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton3: RscCheckboxMRTM
 				{
 					idc = 8026;
 					action = "profileNamespace setVariable ['MRTM_playKillSound', !(profileNamespace getVariable ['MRTM_playKillSound', true])];";
 					x = OPTION_CONTROL_X;
-					y = 0.769 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.766 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton4: RscCheckboxMRTM
 				{
 					idc = 8027;
 					action = "profileNamespace setVariable ['MRTM_enableAuto', !(profileNamespace getVariable ['MRTM_enableAuto', true])]";
 					x = OPTION_CONTROL_X;
-					y = 0.802 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.799 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton5: RscCheckboxMRTM
 				{
 					idc = 8028;
 					action = "profileNamespace setVariable ['MRTM_smallAnnouncerText', !(profileNamespace getVariable ['MRTM_smallAnnouncerText', false])];";
 					x = OPTION_CONTROL_X;
-					y = 0.837 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.834 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton6: RscCheckboxMRTM
 				{
 					idc = 8029;
 					action = "profileNamespace setVariable ['MRTM_spawnEmpty', !(profileNamespace getVariable ['MRTM_spawnEmpty', false])];";
 					x = OPTION_CONTROL_X;
-					y = 0.872 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.869 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton7: RscCheckboxMRTM
 				{
 					idc = 8030;
 					action = "profileNamespace setVariable ['MRTM_disableMissileCameras', !(profileNamespace getVariable ['MRTM_disableMissileCameras', false])];";
 					x = OPTION_CONTROL_X;
-					y = 0.907 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.904 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton8: RscCheckboxMRTM
 				{
 					idc = 8031;
 					action = "profileNamespace setVariable ['MRTM_showMarkers', !(profileNamespace getVariable ['MRTM_showMarkers', true])];";
 					x = OPTION_CONTROL_X;
-					y = 0.942 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.939 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton9: RscCheckboxMRTM
 				{
 					idc = 8032;
 					action = "profileNamespace setVariable ['MRTM_noVoiceSpeaker', !(profileNamespace getVariable ['MRTM_noVoiceSpeaker', false])];";
 					x = OPTION_CONTROL_X;
-					y = 0.977 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 0.974 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton10: RscCheckboxMRTM
 				{
 					idc = 8033;
 					action = "profileNamespace setVariable ['MRTM_muteTaskNotifications', !(profileNamespace getVariable ['MRTM_muteTaskNotifications', false])];";
 					x = OPTION_CONTROL_X;
-					y = 1.012 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 1.009 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 				class MRTMOtherButton11: RscCheckboxMRTM
 				{
 					idc = 8034;
 					action = "profileNamespace setVariable ['MRTM_parachuteAutoDeploy', !(profileNamespace getVariable ['MRTM_parachuteAutoDeploy', true])];";
 					x = OPTION_CONTROL_X;
-					y = 1.047 * safezoneH + safezoneY;
-					w = 0.0204688 * safezoneW;
-					h = 0.028 * safezoneH;
+					y = 1.044 * safezoneH + safezoneY;
+					w = 0.024 * safezoneH;
+					h = 0.032 * safezoneH;
 				};
 			};
 		};
@@ -1159,13 +1159,13 @@ class MRTM_settingsMenu
 		{
 			idc = 1604;
 			text = "$STR_A3_WL_settings_button_close";
-			style = ST_CENTER + ST_UPPERCASE;
+			style = ST_UPPERCASE;
 			sizeEx = "0.021 / (getResolution select 5)";
 			x = 0.267969 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
-			font = "PuristaMedium";
+			font = "PuristaLight";
 			action =  "(findDisplay 8000) closeDisplay 1;";
 		};
 		// class MRTMGroupsButton: RscButtonMRTM
@@ -1184,27 +1184,27 @@ class MRTM_settingsMenu
 		{
 			idc = 1609;
 			text = "$STR_A3_WL_settings_button_debug";
-			style = ST_CENTER + ST_UPPERCASE;
+			style = ST_UPPERCASE;
 			onLoad = "(_this # 0) ctrlShow (getPlayerUID player in getArray (missionConfigFile >> 'adminIDs'));";
 			sizeEx = "0.021 / (getResolution select 5)";
 			x = 0.6 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
-			font = "PuristaMedium";
+			font = "PuristaLight";
 			action =  "(findDisplay 8000) closeDisplay 1; 0 spawn MRTM_fnc_openDebugMenu;";
 		};
 		class MRTMReportButton: RscButtonMRTM
 		{
 			idc = 1609;
 			text = "$STR_A3_WL_settings_button_report";
-			style = ST_CENTER + ST_UPPERCASE;
+			style = ST_UPPERCASE;
 			sizeEx = "0.021 / (getResolution select 5)";
 			x = 0.664969 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
-			font = "PuristaMedium";
+			font = "PuristaLight";
 			action =  "(findDisplay 8000) closeDisplay 1; 0 spawn FXR_fnc_openReportMenu;";
 		};
 	};
@@ -1413,13 +1413,13 @@ class Fxr_ReportDialog
 		{
 			idc = 73005;
 			text = "$STR_A3_WL_report_menu_button_close";
-			style = ST_CENTER + ST_UPPERCASE;
+			style = ST_UPPERCASE;
 			sizeEx = "0.021 / (getResolution select 5)";
 			x = 0.38836 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
-			font = "PuristaMedium";
+			font = "PuristaLight";
 			action = "0 spawn FXR_fnc_closeReportMenu;0 spawn MRTM_fnc_openMenu;";
 		};
 	};
