@@ -11,17 +11,27 @@ private _side = BIS_WL_playerSide;
 
 private _unitType = typeOf _unit;
 if (_customText != "") then {
-	_displayText = format ["%1", _customText];
+	_displayText = switch (_customText) do {
+		case "Revived Teammate": { localize "STR_A3_WL2_revived_teammate" };
+		case "Sector captured": { localize "STR_A3_sector_captured" };
+		case "Spawn reward": { localize "STR_A3_spawn_reward" };
+		case "Spot assist": { localize "STR_A3_WL2_spot_assist" };
+		case "Enemy player killed": { localize "STR_A3_WL2_enemy_player_killed" };
+		case "Squad assist": { localize "STR_A3_WL2_squad_assist" };
+		case "Active protection system": { localize "STR_A3_WL2_active_protection_system" };
+
+		default { _customText };
+	};
 } else {
 	if (_unitType == "") then {
 		_unitType = _unitTypeName;
 	};
 
 	if (_unitType isKindOf "Man") then {
-		_displayText = "Enemy killed";
+		_displayText = localize "STR_A3_WL2_enemy_killed";
 	} else {
 		_displayName = [_unit, _unitType] call WL2_fnc_getAssetTypeName;
-		_displayText = "%1 destroyed";
+		_displayText = localize "STR_A3_WL2_asset_destroyed";
 	};
 	_displayText = format [_displayText, _displayName];
 };

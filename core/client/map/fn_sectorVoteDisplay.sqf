@@ -25,9 +25,9 @@ private _eta = if (count _mostVoted > 0) then {
     -1;
 };
 private _etaDisplay = if (_eta >= 0) then {
-    format ["<t size='2' align='center'>%1s</t>", _eta];
+    format ["<t size='2' align='center'>%1</t>", format [localize "STR_A3_WL_sector_vote_display_eta_seconds", _eta]];
 } else {
-    "Waiting...";
+    localize "STR_A3_WL_sector_vote_display_waiting";
 };
 
 private _displayText = format ["<t size='1.8' align='center'>%1</t><br/>%2<br/>", localize "STR_WL2_VOTE_IN_PROGRESS", _etaDisplay];
@@ -45,7 +45,12 @@ private _displayText = format ["<t size='1.8' align='center'>%1</t><br/>%2<br/>"
     } else {
         '#ffff00';
     };
-    _displayText = _displayText + format ["<t size='1.2' align='center' color='%1' shadow='2'>%2: %3 pts</t><br/>", _color, _vote getVariable "BIS_WL_name", _voteCount];
+    _displayText = _displayText + format [
+        "<t size='1.2' align='center' color='%1' shadow='2'>%2: %3</t><br/>", 
+        _color, 
+        _vote getVariable "BIS_WL_name", 
+        format [localize "STR_A3_WL_sector_vote_points", _voteCount]
+    ];
 } forEach _sortedVoteList;
 
 _indicator ctrlSetStructuredText (parseText _displayText);

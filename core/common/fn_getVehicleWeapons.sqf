@@ -21,7 +21,7 @@ private _turretPaths = _baseVehicle call BIS_fnc_vehicleCrewTurrets;
     private _turretConfig = [_baseVehicle, _x] call BIS_fnc_turretConfig;
     private _turretName = getText (_turretConfig >> "gunnerName");
     if (_turretName == "") then {
-        _turretName = "Driver";
+        _turretName = localize "STR_A3_WL2_menu_title_driver";
     };
 
     private _turretOverride = _overrideMap getOrDefault [_x, [[], [], [], []]];
@@ -91,12 +91,8 @@ if (count _pylonsInfo != 0) then {
     };
     private _pylonNameDisplay = _pylonNamesFiltered joinString ", ";
     private _scale = 1.05 call WL2_fnc_purchaseMenuGetUIScale;
-    private _pylonDisplay = format ["<t color='#efbf04' shadow='0' size='%1'>Pylon</t><br/><t color='#2255dd' shadow='0'>%2</t>", _scale, _pylonNameDisplay];
+    private _pylonDisplay = format ["<t color='#efbf04' shadow='0' size='%1'>%3</t><br/><t color='#2255dd' shadow='0'>%2</t>", _scale, _pylonNameDisplay, localize "STR_A3_WL2_menu_title_pylon"];
     _allTurretWeapons pushBack _pylonDisplay;
 };
 
-if (count _allTurretWeapons == 0) then {
-    "<t color='#dd5522' shadow='0' size='1.05'>None</t>";
-} else {
-    _allTurretWeapons joinString "<br/>";
-};
+_allTurretWeapons;

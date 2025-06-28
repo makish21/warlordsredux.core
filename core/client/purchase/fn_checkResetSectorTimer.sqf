@@ -11,13 +11,13 @@ private _sectorResetTimeout = getMissionConfigValue ["BIS_WL_sectorResetTimeout"
 private _resetSectorTimerEnd = _sectorSelectedTimestamp + _sectorResetTimeout;
 if (serverTime < _resetSectorTimerEnd) exitWith {
     private _timeLeft = [_resetSectorTimerEnd - serverTime, "MM:SS"] call BIS_fnc_secondsToString;
-    [false, format ["Reset Sector Timer: %1", _timeLeft]];
+    [false, format [localize "STR_A3_WL_asset_availability_reset_sector_cooldown", _timeLeft]];
 };
 
 private _targetResetVotingEnd = _targetResetVoting + WL_TARGET_RESET_VOTING_TIME;
 if (serverTime < _targetResetVotingEnd) exitWith {
     private _timeLeft = [_targetResetVotingEnd - serverTime, "MM:SS"] call BIS_fnc_secondsToString;
-    [false, format ["Target Reset Voting Timer: %1", _timeLeft]];
+    [false, format [localize "STR_A3_WL_asset_availability_reset_target_timeout", _timeLeft]];
 };
 
 [true, ""];

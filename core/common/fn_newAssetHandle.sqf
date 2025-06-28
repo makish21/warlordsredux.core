@@ -282,7 +282,7 @@ if (_asset isKindOf "Man") then {
 				params ["_asset"];
 				[
 					driver _asset,
-					format["<t color='#E5E500' shadow='2'>&#160;%1</t>", "*Arm Drone*"],
+					format["<t color='#E5E500' shadow='2'>&#160;%1</t>", localize "STR_A3_WL2_fpv_arm"],
 					"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\attack_ca.paa",
 					"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\attack_ca.paa",
 					"!(isNull (getConnectedUAVUnit player))",
@@ -298,7 +298,7 @@ if (_asset isKindOf "Man") then {
 						}];
 						[
 							getConnectedUAVUnit player,
-							format["<t color='#f80e1a' shadow='2'>&#160;%1</t>", "*Detonate*"],
+							format["<t color='#f80e1a' shadow='2'>&#160;%1</t>", localize "STR_A3_WL2_fpv_detonate"],
 							"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\destroy_ca.paa",
 							"\a3\ui_f_oldman\data\IGUI\Cfg\holdactions\destroy_ca.paa",
 							"!(isNull (getConnectedUAVUnit player))",

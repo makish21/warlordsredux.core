@@ -200,7 +200,7 @@ switch (_className) do {
 
         {
             if (!(isPlayer _x) && alive _x && _x distance2D player < 50) then {
-                _x moveInGunner _vehicle;
+                _x moveInAny _vehicle;
             };
         } forEach (units group player);
     };
