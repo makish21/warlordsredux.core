@@ -181,8 +181,11 @@ private _savedLoadoutHandled = FALSE;
 
 				if (_category in ["LightVehicles", "HeavyVehicles", "RotaryWing", "FixedWing", "RemoteControl", "AirDefense", "SectorDefense", "Naval"]) then {
 					private _vehicleWeapons = [_className, _actualClassName] call WL2_fnc_getVehicleWeapons;
-					private _scale = 1 call WL2_fnc_purchaseMenuGetUIScale;
-					_text = _text + format ["<br/><t color='#ffffff' shadow='0' size='%1'>Armament</t><br/>%2", _scale, _vehicleWeapons];
+					if (count _vehicleWeapons > 0) then {
+						private _weaponsFormatted = _vehicleWeapons joinString "<br/>";
+						private _scale = 1 call WL2_fnc_purchaseMenuGetUIScale;
+						_text = _text + format ["<br/><t color='#ffffff' shadow='0' size='%1'>%3</t><br/>%2", _scale, _weaponsFormatted, localize "STR_A3_WL2_menu_title_armament"];
+					};
 				};
 
 				if (_text == "") then {_text = " "};
@@ -222,44 +225,44 @@ private _fastTravelArr = [
 		"FTAirAssault",
 		getMissionConfigValue ["WL_airAssaultCost", 100],
 		[],
-		"Fast Travel Air Assault",
+		localize "STR_A3_WL_menu_fast_travel_air_assault",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		"Attack the contested sector by dropping into it with a parachute."
+		localize "STR_A3_WL_menu_fast_travel_air_assault_info"
 	], [
 		"FTParadropVehicle",
 		getMissionConfigValue ["WL_vehicleParadropCost", 1000],
 		[],
-		"Fast Travel Vehicle Paradrop",
-		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		"Move your vehicle to a friendly sector from a helipad/airfield sector by paradropping it.<br/>Requirements:<br/>1. In an owned sector.<br/>2. In a vehicle as the driver.<br/>3. No enemies nearby.<br/>4. Cooldown: 5 minutes."
+		localize "STR_A3_WL_menu_fast_travel_vehicle_paradrop",
+		"\A3\Data_F_Warlords\Data\preview_ft_owned.jpg",
+		localize "STR_A3_WL_menu_fast_travel_vehicle_paradrop_info"
 	], [
 		"RespawnVicFT",
 		0,
 		[],
 		localize "STR_A3_WL_respawn_vicFT_ft",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		""
+		localize "STR_A3_WL_menu_fast_travel_truck_info"
 	], [
 		"RespawnPodFT",
 		0,
 		[],
-		"Fast Travel to Medical Pod (Free)",
+		localize "STR_A3_WL_menu_fast_travel_pod",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		""
+		localize "STR_A3_WL_menu_fast_travel_pod_info"
 	], [
 		"FTSquadLeader",
 		getMissionConfigValue ["BIS_WL_fastTravelCostSquadLeader", 10],
 		[],
 		localize "STR_SQUADS_fastTravelToSquadLeader",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		localize "STR_SQUADS_fastTravelToSquadLeader"
+		localize "STR_SQUADS_fastTravelToSquadLeader_info"
 	], [
 		"RespawnBagFT",
 		0,
 		[],
-		"Fast Travel to Tent (Free)",
+		localize "STR_A3_WL_menu_fast_travel_tent",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		""
+		localize "STR_A3_WL_menu_fast_travel_tent_info"
 	], [
 		"StrongholdFT",
 		0,
@@ -273,21 +276,21 @@ private _fastTravelArr = [
 		[],
 		localize "STR_A3_WL_respawn_vicFT_order",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		""
+		localize "STR_A3_WL_menu_fast_travel_truck_info"
 	], [
 		"RespawnPod",
 		getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 200],
 		[],
-		"Purchase Fast Travel Pod",
+		localize "STR_A3_WL_menu_fast_travel_pod_purchase",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		"Order medical pod"
+		localize "STR_A3_WL_menu_fast_travel_pod_purchase_info"
 	], [
 		"RespawnBag",
 		50,
 		[],
-		"Purchase Fast Travel Tent",
+		localize "STR_A3_WL_menu_fast_travel_tent_purchase",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
-		"Buy a deployable sleeping bag that respawns you at its location."
+		localize "STR_A3_WL_menu_fast_travel_tent_purchase_info"
 	], [
 		"BuyFOB",
 		500,
@@ -353,63 +356,63 @@ private _strategyArr = [
 		[],
 		localize "STR_A3_WL_feature_lock_all",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		""
+		localize "STR_A3_WL_feature_lock_all_info"
 	], [
 		"UnlockVehicles",
 		0,
 		[],
 		localize "STR_A3_WL_feature_unlock_all",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		""
+		localize "STR_A3_WL_feature_unlock_all_info"
 	], [
 		"ClearVehicles",
 		0,
 		[],
-		"Kick players from all vehicles",
+		localize "STR_A3_WL2_feature_kick_allies",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		"This doesn't include you or your AI."
+		localize "STR_A3_WL2_feature_kick_allies_info"
 	], [
 		"ResetVehicle",
 		10,
 		[],
-		"Reset vehicle",
+		localize "STR_A3_WL_feature_reset_asset",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		"Reset vehicle. Must be within 15m and looking at the vehicle."
+		localize "STR_A3_WL_feature_reset_asset_info"
 	], [
 		"PruneAssets",
 		0,
 		[],
-		"List/Prune Assets",
+		localize "STR_A3_WL2_feature_prune_assets",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		"List all your assets in the game and decide whether to take action to delete some of them."
+		localize "STR_A3_WL2_feature_prune_assets_info"
 	], [
 		"WipeMap",
 		0,
 		[],
-		"Wipe Map",
+		localize "STR_A3_WL_feature_wipe_map",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		"Wipes all user-defined markers from your own map locally. This includes your own."
+		localize "STR_A3_WL_feature_wipe_map_info"
 	], [
 		"AIGetIn",
 		50,
 		[],
-		"AI Get In",
+		localize "STR_A3_WL_feature_ai_get_in",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		"Your AI within 50m radius will be forced into the vehicle you are driving."
+		localize "STR_A3_WL_feature_ai_get_in_info"
 	], [
 		"RemoveUnits",
 		0,
 		[],
 		localize "STR_A3_WL_feature_dismiss_selected",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
-		""
+		localize "STR_A3_WL_feature_dismiss_selected_info"
 	], [
 		"WelcomeScreen",
 		0,
 		[],
 		localize "STR_A3_WL_infoScreen",
-		"src\img\wl_logo_ca.paa",
-		""
+		"identity\wd_redux.paa",
+		" "
 	], [
 		"ForfeitVote",
 		0,

@@ -196,7 +196,7 @@ WL_LoadingState = 10;
 };
 
 {
-	_x setMarkerAlphaLocal 0
+	_x setMarkerAlphaLocal WL_CONNECTING_LINE_ALPHA_MIN
 } forEach BIS_WL_sectorLinks;
 
 call WL2_fnc_refreshCurrentTargetData;

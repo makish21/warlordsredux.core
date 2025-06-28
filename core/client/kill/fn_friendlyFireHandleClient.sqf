@@ -16,11 +16,10 @@ if (_lastIncident - _threeIncidentsAgo > 30 * 60) exitWith {};
 private _penaltyEnd = _lastIncident + 30 * 60;
 if (_penaltyEnd < serverTime) exitWith {};
 
-private _message = format ["%1 has been temporarily kicked/blocked from the game for teamkilling.", name player];
 [name player] remoteExec ["WL2_fnc_teamkillerMessage", 0];
 
 private _timeRemaining = [(_penaltyEnd - serverTime) max 0, "MM:SS"] call BIS_fnc_secondsToString;
-private _penaltyText = format ["You are blocked from rejoining the game for %1.", _timeRemaining];
+private _penaltyText = format [localize "STR_A3_WL_chat_teamkiller_penalty_text", _timeRemaining];
 
 "BlockScreen" setDebriefingText ["Punished", _penaltyText, "Friendly fire punished."];
 endMission "BlockScreen";

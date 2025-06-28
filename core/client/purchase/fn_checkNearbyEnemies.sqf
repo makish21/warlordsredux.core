@@ -13,7 +13,7 @@ private _isInHomeBase = player inArea (_homeBase getVariable "objectAreaComplete
 private _nearbyEnemies = count _enemiesNearPlayer > 0 && !_isInHomeBase;
 
 if (_nearbyEnemies) then {
-    [false, "There are enemies nearby."];
+    [false, localize "STR_A3_WL_asset_availability_enemies_nearby"];
 } else {
     [true, ""];
 };

@@ -2,33 +2,33 @@
 
 private _vehicle = cursorObject;
 if (isNull _vehicle) exitWith {
-    [false, "Please point at a valid vehicle."];
+    [false, localize "STR_A3_WL_asset_availability_reset_valid_asset"];
 };
 
 private _outOfRange = player distance2D _vehicle > 15;
 if (_outOfRange) exitWith {
-    [false, "Please point at a vehicle within 15 meters."];
+    [false, localize "STR_A3_WL_asset_availability_reset_asset_near"];
 };
 
 private _accessControl = _vehicle getVariable ["WL2_accessControl", -2];
 private _hasNoLock = _accessControl == -2;
 if (_hasNoLock) exitWith {
-    [false, "Please point at a valid vehicle."];
+    [false, localize "STR_A3_WL_asset_availability_reset_valid_asset"];
 };
 
 private _isTransporting = _vehicle getVariable ["WL2_transporting", false];
 if (_isTransporting) exitWith {
-    [false, "Please point at a valid vehicle."];
+    [false, localize "STR_A3_WL_asset_availability_reset_valid_asset"];
 };
 
 private _isMan = _vehicle isKindOf "Man";
 if (_isMan) exitWith {
-    [false, "Please point at a valid vehicle."];
+    [false, localize "STR_A3_WL_asset_availability_reset_valid_asset"];
 };
 
 private _access = [_vehicle, player, "driver"] call WL2_fnc_accessControl;
 if !(_access # 0) exitWith {
-    [false, format ["You do not have access to this vehicle. %1", _access # 1]];
+    [false, format [localize "STR_A3_WL_asset_availability_reset_asset_access", _access # 1]];
 };
 
 [true, ""];

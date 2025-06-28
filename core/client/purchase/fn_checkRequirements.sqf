@@ -14,7 +14,7 @@ if ("H" in _requirements && !("H" in _servicesInSector)) exitWith {
     if (count _forwardBases > 0) then {
         [true, ""];
     } else {
-        [false, "Must be in a sector with a helipad."];
+        [false, localize "STR_A3_WL_asset_availability_helipad"];
     };
 };
 

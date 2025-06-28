@@ -9,5 +9,5 @@ if (BIS_WL_loadoutApplied) exitWith {
 };
 
 if (BIS_WL_lastLoadout isEqualTo (getUnitLoadout player)) exitWith {
-    [false, "You have the same gear as last time."];
+    [false, localize "STR_A3_WL_asset_availability_same_gear"];
 };

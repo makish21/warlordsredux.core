@@ -23,7 +23,7 @@ _entitiesInRange = _entitiesInRange select {
 };
 
 if (count _entitiesInRange > 0) then {
-    [false, "Cannot deploy heavy air defense in contested airspace."]
+    [false, localize "STR_A3_WL_asset_availability_aa_contested"]
 } else {
     [true, ""]
 };

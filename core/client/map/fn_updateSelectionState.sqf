@@ -79,7 +79,7 @@ if (BIS_WL_selection_showLinks) then {
     } forEach BIS_WL_sectorLinks;
 } else {
     {
-        _x setMarkerAlphaLocal 0;
+        _x setMarkerAlphaLocal WL_CONNECTING_LINE_ALPHA_MIN;
     } forEach BIS_WL_sectorLinks;
 };
 
