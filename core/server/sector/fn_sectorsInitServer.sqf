@@ -1,9 +1,9 @@
 #include "..\..\warlords_constants.inc"
 
 private _baseData =
-#if WL_OVERRIDE_BASES
+#ifdef WL_OVERRIDE_BASES
 	BIS_WL_allSectors select {
-		_x getVariable ["BIS_WL_name", ""] in ["Airbase", "AAC Airfield"];
+		_x getVariable ["BIS_WL_name", ""] in [(WL_OVERRIDE_BASES # 0) # 0, (WL_OVERRIDE_BASES # 1) # 0];
 	};
 #else
 	[] call WL2_fnc_calcHomeBases;
@@ -177,14 +177,14 @@ waitUntil {!isNil "BIS_WL_base1" && {!isNil "BIS_WL_base2"}};
 	_sector setVariable ["BIS_WL_agentGrp", _agentGrp, true];
 } forEach BIS_WL_allSectors;
 
-#if WL_OVERRIDE_BASES
+#ifdef WL_OVERRIDE_BASES
 0 spawn {
 	sleep 5;
 	private _westSectors = BIS_WL_allSectors select {
-		_x getVariable ["BIS_WL_name", ""] in ["Poliakko", "Alikampos", "Lakka", "Lakka Factory"];
+		_x getVariable ["BIS_WL_name", ""] in ((WL_OVERRIDE_BASES # 0) select [1]);
 	};
 	private _eastSectors = BIS_WL_allSectors select {
-		_x getVariable ["BIS_WL_name", ""] in ["Stavros", "Neochori", "Katalaki"];
+		_x getVariable ["BIS_WL_name", ""] in ((WL_OVERRIDE_BASES # 1) select [1]);
 	};
 	{
 		_x setVariable ["BIS_WL_revealedBy", [west], true];
