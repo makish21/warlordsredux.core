@@ -15,7 +15,7 @@ _v addEventHandler ["Gear", {
 _v addEventHandler ["IncomingMissile", {
 	params ["_target", "_ammo", "_vehicle", "_instigator", "_missile"];
 	_inc = _target getVariable "Incomming";
-	_inc deleteAt (_inc find _missile);
+	_inc pushBackUnique _missile;
 	_target setVariable ["Incomming", _inc];
 }];
 
@@ -37,16 +37,15 @@ if (typeOf (vehicle player) == "O_Heli_Attack_02_dynamicLoadout_F") then {
 		if ((profileNamespace getVariable ["MRTM_EnableRWR", true]) && {!(_v getVariable "isBettyBitching")}) then {
 			if (getPosATL player select 2 <= _v getVariable "altCeiling" && {getPosATL player select 2 > 100 && {!(_v getVariable "landingGear")}}) then {
 				if (asin (vectorDir _v select 2) < - (((getPosATL player select 2) * 40) / speed _v)) then {
-					playSoundUI ["pullUpRita", (profileNamespace getVariable ["MRTM_rwr1", 0.3]), 1];
 					_v setVariable ["isBettyBitching", true];
-					private _startTime = serverTime + 2;
-					waitUntil {serverTime > _startTime};
+					private _id = playSoundUI ["pullUpRita", (profileNamespace getVariable ["MRTM_rwr1", 0.3]), 1];
+					(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+					sleep (_length - _time);
 					_v setVariable ["isBettyBitching", false];
 				};
 			};
 		};
-		private _startTime1 = serverTime + 0.2;
-		waitUntil {serverTime > _startTime1};
+		sleep 0.2;
 	};
 };
 
@@ -56,15 +55,14 @@ if (typeOf (vehicle player) == "O_Heli_Attack_02_dynamicLoadout_F") then {
 		_v = objectParent player;
 		if ((profileNamespace getVariable ["MRTM_EnableRWR", true]) && {!(_v getVariable "isBettyBitching")}) then {
 			if ((getPosATL player select 2) < 100 && {!(_v getVariable "landingGear")}) then {
-				playSoundUI ["altRita", (profileNamespace getVariable ["MRTM_rwr2", 0.3]), 1];
 				_v setVariable ["isBettyBitching", true];
-				private _startTime = serverTime + 1.7;
-				waitUntil {serverTime > _startTime};
+				private _id = playSoundUI ["altRita", (profileNamespace getVariable ["MRTM_rwr2", 0.3]), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
 				_v setVariable ["isBettyBitching", false];
 			};
 		};
-		private _startTime1 = serverTime + 1;  
-		waitUntil {serverTime > _startTime1};
+		sleep 1;
 	};
 };
 
@@ -74,25 +72,25 @@ if (typeOf (vehicle player) == "O_Heli_Attack_02_dynamicLoadout_F") then {
 		_v = objectParent player;
 		if (profileNamespace getVariable ["MRTM_EnableRWR", true]) then {
 			if (fuel _v < 0.2) then {
-				playSoundUI ["fuelRita", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1]; 
 				_v setVariable ["isBettyBitching", true];
-				private _startTime = serverTime + 1.9;  
-				waitUntil {serverTime > _startTime}; 
-				_v setVariable ["isBettyBitching", false];				
+				private _id = playSoundUI ["fuelRita", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
+				_v setVariable ["isBettyBitching", false];
 			};
 		};
-		private _startTime1 = serverTime + 2;  
-		waitUntil {serverTime > _startTime1};
+		sleep 2;
 	};
 };
 
 0 spawn {
 	while {((typeOf (objectParent player) ==  "O_Plane_Fighter_02_F" || {typeOf (objectParent player) ==  "O_Plane_CAS_02_dynamicLoadout_F" || {typeOf (objectParent player) ==  "O_Heli_Attack_02_dynamicLoadout_F" || {typeOf (objectParent player) ==  "O_T_VTOL_02_vehicle_dynamicLoadout_F"}}}) && {alive player})} do {
-		_v = objectParent player;
+		private _v = objectParent player;
+		private _inc = _v getVariable ["Incomming", []];
 		if ((profileNamespace getVariable ["MRTM_EnableRWR", true]) && {!(_v getVariable "isBettyBitching")}) then {
-			if (count (_v getVariable ["Incomming", []]) > 0) then {
+			if (count _inc > 0) then {
 				_v setVariable ["isBettyBitching", true];
-				_incomming = ((_v getVariable "Incomming") # 0);
+				_incomming = (_inc # 0);
 				_mDir = (_v getRelDir _incomming);
 				_3Dir = abs (90 - _mDir);
 				_6Dir = abs (180 - _mDir);
@@ -112,18 +110,18 @@ if (typeOf (vehicle player) == "O_Heli_Attack_02_dynamicLoadout_F") then {
 						_fDir = 270;
 					};
 				};
-				_sound = format ["incMissileRuss_%1", _fDir];
-				playSoundUI [_sound, ((profileNamespace getVariable ["MRTM_rwr4", 0.3]) + 0.2), 1];
-				sleep 2.3;
+				private _sound = format ["incMissileRuss_%1", _fDir];
+				private _id = playSoundUI [_sound, ((profileNamespace getVariable ["MRTM_rwr4", 0.3]) + 0.2), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
 				_v setVariable ["isBettyBitching", false];
 			};
 		};
 
-		{
-			_inc = _v getVariable "Incomming";
-			_inc deleteAt (_inc find _x);
-			_v setVariable ["Incomming", _inc];
-		} forEach ((_v getVariable "Incomming") select {!alive _x});
+		// cleanup array
+		private _incAlive = _inc select { alive _x };
+		_v setVariable ["Incomming", _incAlive];
+
 		sleep 1;
 	};
 };
