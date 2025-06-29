@@ -27,7 +27,7 @@ MAZ_fnc_initializeUI = {
                 0.027 * safeZoneH
             ];
             _repackButton ctrlSetEventHandler ["ButtonClick", "0 spawn MAZ_fnc_repackMagazines"];
-            _repackButton ctrlSetStructuredText parseText "<t size='0.05'>&#160;</t><br/><t align='center' size='1.01'>Repack Magazines</t>";
+            _repackButton ctrlSetStructuredText parseText format ["<t size='0.05'>&#160;</t><br/><t align='center' size='1.01'>%1</t>", localize "STR_A3_WL2_repack_magazines"];
             _repackButton ctrlSetFont "PuristaSemiBold";
             _repackButton ctrlCommit 0;
         };

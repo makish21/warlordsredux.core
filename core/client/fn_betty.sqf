@@ -16,7 +16,7 @@ _v addEventHandler ["Gear", {
 _v addEventHandler ["IncomingMissile", {
 	params ["_target", "_ammo", "_vehicle", "_instigator", "_missile"];
 	_inc = _target getVariable "Incomming";
-	_inc deleteAt (_inc find _missile);
+	_inc pushBackUnique _missile;
 	_target setVariable ["Incomming", _inc];
 }];
 
@@ -34,16 +34,15 @@ _v addEventHandler ["Killed", {
 		if ((profileNamespace getVariable ["MRTM_EnableRWR", true]) && {!(_v getVariable "isBettyBitching")}) then {
 			if (getPosATL player select 2 <= _v getVariable "altCeiling" && {getPosATL player select 2 > 100 && {!(_v getVariable "landingGear")}}) then {
 				if (asin (vectorDir _v select 2) < - (((getPosATL player select 2) * 40) / speed _v)) then {
-					playSoundUI ["pullUp", (profileNamespace getVariable ["MRTM_rwr1", 0.3]), 1];
 					_v setVariable ["isBettyBitching", true];
-					private _startTime = serverTime + 1.33;
-					waitUntil {serverTime > _startTime};
+					private _id = playSoundUI ["pullUp", (profileNamespace getVariable ["MRTM_rwr1", 0.3]), 1];
+					(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+					sleep (_length - _time);
 					_v setVariable ["isBettyBitching", false];
 				};
 			};
 		};
-		private _startTime1 = serverTime + 0.2;  
-		waitUntil {serverTime > _startTime1};
+		sleep 0.2;
 	};
 };
 
@@ -53,15 +52,14 @@ _v addEventHandler ["Killed", {
 		_v = (objectParent player);
 		if ((profileNamespace getVariable ["MRTM_EnableRWR", true]) && {!(_v getVariable "isBettyBitching")}) then {
 			if ((getPosATL player select 2) < 100 && {!(_v getVariable "landingGear")}) then {
-				playSoundUI ["altWarning", (profileNamespace getVariable ["MRTM_rwr2", 0.3]), 1];
 				_v setVariable ["isBettyBitching", true];
-				private _startTime = serverTime + 3; 
-				waitUntil {serverTime > _startTime};
+				private _id = playSoundUI ["altWarning", (profileNamespace getVariable ["MRTM_rwr2", 0.3]), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
 				_v setVariable ["isBettyBitching", false];
 			};
 		};
-		private _startTime1 = serverTime + 1;  
-		waitUntil {serverTime > _startTime1};
+		sleep 1;
 	};
 };
 
@@ -71,15 +69,14 @@ _v addEventHandler ["Killed", {
 		_v = (objectParent player);
 		if ((profileNamespace getVariable ["MRTM_EnableRWR", true])) then {
 			if (fuel _v < 0.2) then {
-				playSoundUI ["bingoFuel", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1];
 				_v setVariable ["isBettyBitching", true];
-				private _startTime1 = serverTime + 1.6;  
-				waitUntil {serverTime > _startTime1};
+				private _id = playSoundUI ["bingoFuel", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
 				_v setVariable ["isBettyBitching", false];				
 			};
 		};
-		private _startTime1 = serverTime + 2;  
-		waitUntil {serverTime > _startTime1};
+		sleep 2;
 	};
 };
 
@@ -90,13 +87,15 @@ _v addEventHandler ["Killed", {
 		_v setVariable ["newTargets", getSensorTargets _v];
 		if (profileNamespace getVariable ["MRTM_EnableRWR", true]) then {
 			if (count (_v getVariable "newTargets") > count (_v getVariable "currentTargets")) then {
-				playSoundUI ["radarTargetNew", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1];
-				sleep 0.1;
+				private _id = playSoundUI ["radarTargetNew", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
 			};
 
 			if (count (_v getVariable "newTargets") < count (_v getVariable "currentTargets")) then {
-				playSoundUI ["radarTargetLost", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1];
-				sleep 0.1;
+				private _id = playSoundUI ["radarTargetLost", (profileNamespace getVariable ["MRTM_rwr4", 0.3]), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
 			};
 		};
 		_v setVariable ["currentTargets", _v getVariable "newTargets"];
@@ -106,7 +105,8 @@ _v addEventHandler ["Killed", {
 
 0 spawn {
 	while {((typeOf (objectParent player) == "B_Plane_Fighter_01_F" || {typeOf (objectParent player) == "B_Plane_CAS_01_dynamicLoadout_F" || {typeOf (objectParent player) == "B_Heli_Attack_01_dynamicLoadout_F" || {typeOf (objectParent player) == "B_T_VTOL_01_armed_F" || {typeOf (objectParent player) == "B_T_VTOL_01_vehicle_F" || {typeOf (objectParent player) == "B_T_VTOL_01_infantry_F"}}}}}) && {alive player})} do {
-		_v = (objectParent player);
+		private _v = (objectParent player);
+		private _inc = _v getVariable ["Incomming", []];
 		if ((profileNamespace getVariable ["MRTM_EnableRWR", true]) && {!(_v getVariable "isBettyBitching")}) then {
 			if (count (_v getVariable ["Incomming", []]) > 0) then {
 				_v setVariable ["isBettyBitching", true];
@@ -130,18 +130,18 @@ _v addEventHandler ["Killed", {
 						_fDir = 270;
 					};
 				};
-				_sound = format ["incMissile_%1", _fDir];
-				playSoundUI [_sound, ((profileNamespace getVariable ["MRTM_rwr4", 0.3]) + 0.3), 1];
-				sleep 2.3;
+				private _sound = format ["incMissile_%1", _fDir];
+				private _id = playSoundUI [_sound, ((profileNamespace getVariable ["MRTM_rwr4", 0.3]) + 0.3), 1];
+				(soundParams _id) params ["_path", "_curPos", "_length", "_time", "_volume"];
+				sleep (_length - _time);
 				_v setVariable ["isBettyBitching", false];
 			};
 		};
 
-		{
-			_inc = _v getVariable "Incomming";
-			_inc deleteAt (_inc find _x);
-			_v setVariable ["Incomming", _inc];
-		} forEach ((_v getVariable "Incomming") select {!alive _x});
+		// cleanup array
+		private _incAlive = _inc select { alive _x };
+		_v setVariable ["Incomming", _incAlive];
+
 		sleep 1;
 	};
 };
