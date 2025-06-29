@@ -86,7 +86,7 @@ skipTime (random 24);
 };
 
 0 spawn WL2_fnc_cleanupCarrier;
-0 spawn WL2_fnc_laserTracker;
+0 call WL2_fnc_laserTracker;
 
 #if WL_STATIC_WEATHER
 0 spawn {

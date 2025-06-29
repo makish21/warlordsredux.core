@@ -15,7 +15,7 @@ private _forfeitVoting = missionNamespace getVariable [_forfeitVotingVar, 0];
 private _forfeitVotingTimer = _forfeitVoting + 1200;
 if (serverTime < _forfeitVotingTimer) exitWith {
 	private _timeLeft = [_forfeitVotingTimer - serverTime, "MM:SS"] call BIS_fnc_secondsToString;
-	[false, format [localzie "STR_A3_WL2_asset_availability_forfeit_timer", _timeLeft]];
+	[false, format [localize "STR_A3_WL2_asset_availability_forfeit_timer", _timeLeft]];
 };
 
 [true, ""];

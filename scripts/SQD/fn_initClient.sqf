@@ -12,6 +12,7 @@ if (side group player == independent) exitWith {};
         _voiceChannels # 1
     };
     _sideCustomChannel radioChannelAdd [player];
+    _sideCustomChannel radioChannelSetLabel localize "STR_A3_WL2_squads_channel";
 
     0 spawn SQD_fnc_voice;
 
