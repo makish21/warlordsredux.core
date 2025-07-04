@@ -390,6 +390,8 @@ removeGoggles player;
 call WL2_fnc_setupForwardBaseAction;
 #endif
 
+0 call WL2_fnc_rita;
+
 call WL2_fnc_demolishAction;
 call WL2_fnc_disarmAction;
 call WL2_fnc_rappelAction;
