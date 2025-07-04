@@ -112,4 +112,112 @@ class CfgSounds {
         sound[] = {"src\sounds\hitmarker.ogg", 1, 1};
         titles[] = {};
     };
+
+    class rita_0 {
+        name="Rita 12";
+        sound[]={"src\sounds\rita\12.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class rita_90 {
+        name="Rita 3";
+        sound[]={"src\sounds\rita\3.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class rita_180 {
+        name="Rita 6";
+        sound[]={"src\sounds\rita\6.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class rita_270 {
+        name="Rita 9";
+        sound[]={"src\sounds\rita\9.ogg", 1, 1};
+        titles[] = {};
+    };
+    
+    class ritaAltitude {
+        name="Rita altitude";
+        sound[]={"src\sounds\rita\altitude.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaBingoFuel {
+        name="Rita bingo fuel";
+        sound[]={"src\sounds\rita\bingoFuel.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaCriticalFuel {
+        name="Rita critical fuel";
+        sound[]={"src\sounds\rita\criticalFuel.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaCas {
+        name="Rita CAS";
+        sound[]={"src\sounds\rita\cas.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaCriticalSpeed {
+        name="Rita critical speed";
+        sound[]={"src\sounds\rita\criticalSpeed.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaEject {
+        name="Rita eject";
+        sound[]={"src\sounds\rita\eject.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaEngine {
+        name="Rita engine warning";
+        sound[]={"src\sounds\rita\engine.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaGear {
+        name="Rita check gear";
+        sound[]={"src\sounds\rita\gear.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaLock {
+        name="Rita target lock";
+        sound[]={"src\sounds\rita\lock.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaMissile {
+        name="Rita missile";
+        sound[]={"src\sounds\rita\missile.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaOverG {
+        name="Rita over G";
+        sound[]={"src\sounds\rita\overG.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaPullUp {
+        name="Rita pull up";
+        sound[]={"src\sounds\rita\pullUp.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaRollLeft {
+        name="Rita roll left";
+        sound[]={"src\sounds\rita\rollLeft.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaRollRight {
+        name="Rita roll right";
+        sound[]={"src\sounds\rita\rollRight.ogg", 1, 1};
+        titles[] = {};
+    };
 };
