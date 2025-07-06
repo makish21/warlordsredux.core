@@ -29,9 +29,9 @@ RITA_altitudeTracker = {
 			private _pitchBank = _aircraft call BIS_fnc_getPitchBank;
 			_pitchBank params ["_pitch", "_bank"];
 
-			if (_aircraft getVariable "isBettyBitching") then { sleep 0.2; continue }; // rita saying something
+			if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
 			
-			_aircraft setVariable ["isBettyBitching", true];
+			_aircraft setVariable ["isRitaBusy", true];
 			if (_altitude < 300) then {
 				switch true do {
 					case (_bank < -75): { ["ritaRollRight", "MRTM_rwr1"] call RITA_sayWait };
@@ -40,16 +40,17 @@ RITA_altitudeTracker = {
 				};
 			};
 			["ritaPullUp", "MRTM_rwr1"] call RITA_sayWait;
-			_aircraft setVariable ["isBettyBitching", false];
+			_aircraft setVariable ["isRitaBusy", false];
 
 			sleep 0.5;
 		} else {
 			// altitude warning branch
 
-			if (_aircraft getVariable "isBettyBitching") then { sleep 0.2; continue }; // rita saying something
-			_aircraft setVariable ["isBettyBitching", true];
-			["ritaAltitude", "MRTM_rwr2"] call RITA_sayWait;
-			_aircraft setVariable ["isBettyBitching", false];
+			if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
+			_aircraft setVariable ["isRitaBusy", true];
+			private _sound = selectRandom ["ritaAltitude0", "ritaAltitude1"];
+			[_sound, "MRTM_rwr2"] call RITA_sayWait;
+			_aircraft setVariable ["isRitaBusy", false];
 
 			sleep 1;
 		};
@@ -66,20 +67,20 @@ RITA_fuelTracker = {
 
 	// low fuel
 	waitUntil { sleep 5; fuel _aircraft < 0.2 };
-	waitUntil { sleep 0.2; !(_aircraft getVariable "isBettyBitching") };
+	waitUntil { sleep 0.2; !(_aircraft getVariable ["isRitaBusy", true]) };
 	if (profileNamespace getVariable ["MRTM_EnableRWR", true]) then {
-		_aircraft setVariable ["isBettyBitching", true];
+		_aircraft setVariable ["isRitaBusy", true];
 		["ritaBingoFuel", "MRTM_rwr4"] call RITA_sayWait;
-		_aircraft setVariable ["isBettyBitching", false];
+		_aircraft setVariable ["isRitaBusy", false];
 	};
 
 	// critical fuel
 	waitUntil { sleep 5; fuel _aircraft < 0.1 }; 
-	waitUntil { sleep 0.2; !(_aircraft getVariable "isBettyBitching") };
+	waitUntil { sleep 0.2; !(_aircraft getVariable ["isRitaBusy", true]) };
 	if (profileNamespace getVariable ["MRTM_EnableRWR", true]) then {
-		_aircraft setVariable ["isBettyBitching", true];
+		_aircraft setVariable ["isRitaBusy", true];
 		["ritaCriticalFuel", "MRTM_rwr4"] call RITA_sayWait;
-		_aircraft setVariable ["isBettyBitching", false];
+		_aircraft setVariable ["isRitaBusy", false];
 	};
 };
 
@@ -96,36 +97,43 @@ RITA_missileTracker = {
 
 		if (count _aliveIncoming == 0) then { sleep 1; continue };
 
-		_missile = _aliveIncoming # 0;
-		_mDir = _aircraft getRelDir _missile;
-		_3Dir = abs (90 - _mDir);
-		_6Dir = abs (180 - _mDir);
-		_9Dir = abs (270 - _mDir);
-		_12Dir = abs (360 - _mDir);
-		_0Dir = abs (0 - _mDir);
+		private _sortedMissiles = [_aliveIncoming, [], { _aircraft distance _x }, "ASCEND"] call BIS_fnc_sortBy;
 
-		_fDir = 0;
-		switch (true) do {
-			case ((_6Dir < _9Dir) && {(_6Dir < _3Dir) && {(_6Dir < _0Dir) && {(_6Dir < _12Dir)}}}): {
-				_fDir = 180;
+		private _nearestMissile = _sortedMissiles # 0;
+
+		private _relativePos = _aircraft worldToModel (position _nearestMissile);
+		_relativePos params ["_relX", "_relY", "_relZ"];
+
+		private _dirName = if ((abs _relX) > (abs _relY)) then { // left or right
+			if (_relX > 0) then { // right
+				90
+			} else { // left
+				270
 			};
-			case (((_3Dir < _6Dir)) && {(_3Dir < _0Dir) && {(_3Dir < _12Dir) && {(_3Dir < _9Dir)}}}): {
-				_fDir = 90;
-			};
-			case ((_9Dir < _6Dir) && {(_9Dir < _0Dir) && {(_9Dir < _12Dir) && {(_9Dir < _3Dir)}}}): {
-				_fDir = 270;
+		} else { // forward or backward
+			if (_relY > 0) then { // forward
+				0
+			} else { // backward
+				180
 			};
 		};
+		
+		private _dirSound = format ["rita_%1", _dirName];
 
-		private _dirSound = format ["rita_%1", _fDir];
+		private _relHeightSound = if (_relZ > 0) then {
+			"ritaHigher"
+		} else {
+			"ritaLower"
+		};
 
-		if (_aircraft getVariable "isBettyBitching") then { sleep 0.2; continue }; // rita saying something
-		_aircraft setVariable ["isBettyBitching", true];
+		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
+		_aircraft setVariable ["isRitaBusy", true];
 		["ritaMissile", "MRTM_rwr4"] call RITA_sayWait;
 		[_dirSound, "MRTM_rwr4"] call RITA_sayWait;
-		_aircraft setVariable ["isBettyBitching", false];
+		[_relHeightSound, "MRTM_rwr4"] call RITA_sayWait;
+		_aircraft setVariable ["isRitaBusy", false];
 
-		sleep 1;
+		sleep 1.5;
 	};
 };
 
@@ -165,10 +173,10 @@ RITA_gForceTracker = {
 
 		if (_gForce <= 10) then { continue };
 
-		if (_aircraft getVariable "isBettyBitching") then { sleep 0.2; continue }; // rita saying something
-		_aircraft setVariable ["isBettyBitching", true];
+		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
+		_aircraft setVariable ["isRitaBusy", true];
 		["ritaOverG", "MRTM_rwr4"] call RITA_sayWait;
-		_aircraft setVariable ["isBettyBitching", false];
+		_aircraft setVariable ["isRitaBusy", false];
 
 		sleep 1;
 	};
@@ -188,11 +196,11 @@ RITA_targetLockTracker = {
 		private _parents = [_cfg, true] call BIS_fnc_returnParents;
 		if !("LauncherCore" in _parents) then { sleep 0.5; continue }; // not a missile launcher
 
-		if (_aircraft getVariable "isBettyBitching") then { sleep 0.2; continue }; // rita saying something
+		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
 
-		_aircraft setVariable ["isBettyBitching", true];
+		_aircraft setVariable ["isRitaBusy", true];
 		["ritaLock", "MRTM_rwr4"] call RITA_sayWait;
-		_aircraft setVariable ["isBettyBitching", false];
+		_aircraft setVariable ["isRitaBusy", false];
 
 		waitUntil { 
 			sleep 0.5;
@@ -211,79 +219,34 @@ RITA_speedTracker = {
 	scriptName format ["Rita_speed_tracker_%1", typeOf _aircraft];
 
 	while { profileNamespace getVariable ["MRTM_EnableRWR", true] } do {
-		if (_aircraft getVariable "landingGear") then { sleep 5; continue }; // probably landing
-		if (speed _aircraft > 200) then { sleep 5; continue };
+		if (_aircraft getVariable ["landingGear", true]) then { sleep 5; continue }; // probably landing
+		if (speed _aircraft > 150) then { sleep 5; continue };
 
-		if (_aircraft getVariable "isBettyBitching") then { sleep 0.2; continue }; // rita saying something
+		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
 
-		_aircraft setVariable ["isBettyBitching", true];
+		_aircraft setVariable ["isRitaBusy", true];
 		["ritaCriticalSpeed", "MRTM_rwr4"] call RITA_sayWait;
-		_aircraft setVariable ["isBettyBitching", false];
+		_aircraft setVariable ["isRitaBusy", false];
 
 		sleep 1;
 	};
 };
 
 
-RITA_clearTrackers = {
+RITA_activeScripts = [];
+RITA_eventHandlers = createHashMap;
+
+RITA_cleanup = {
 	params ["_aircraft"];
 
-	private _altitudeTrackerHandle = _aircraft getVariable "altitudeTracker";
-	if !(isNil "_altitudeTrackerHandle") then {
-		terminate _altitudeTrackerHandle;
-		_aircraft setVariable ["altitudeTracker", nil];
-	};
-	private _fuelTrackerHandle = _aircraft getVariable "fuelTracker";
-	if !(isNil "_fuelTrackerHandle") then {
-		terminate _fuelTrackerHandle;
-		_aircraft setVariable ["fuelTracker", nil];
-	};
-	private _missileTrackerHandle = _aircraft getVariable "missileTracker";
-	if !(isNil "_missileTrackerHandle") then {
-		terminate _missileTrackerHandle;
-		_aircraft setVariable ["missileTracker", nil];
-	};
-	private _gForceTrackerHandle = _aircraft getVariable "gForceTracker";
-	if !(isNil "_gForceTrackerHandle") then {
-		terminate _gForceTrackerHandle;
-		_aircraft setVariable ["gForceTracker", nil];
-	};
-	private _targetLockTrackerHandle = _aircraft getVariable "targetTracker";
-	if !(isNil "_targetLockTrackerHandle") then {
-		terminate _targetLockTrackerHandle;
-		_aircraft setVariable ["targetTracker", nil];
-	};
-	private _speedTrackerHandle = _aircraft getVariable "speedTracker";
-	if !(isNil "_speedTrackerHandle") then {
-		terminate _speedTrackerHandle;
-		_aircraft setVariable ["speedTracker", nil];
-	};
+	{
+		terminate _x;
+	} forEach RITA_activeScripts;
+	RITA_activeScripts resize 0;
 
-	private _gearEhIdx = _aircraft getVariable "gearEhIdx";
-	if !(isNil "_gearEhIdx") then {
-		_aircraft removeEventHandler ["Gear", _gearEhIdx];
-		_aircraft setVariable ["gearEhIdx", nil];
-	};
-	private _incMissileEhIdx = _aircraft getVariable "missileEhIdx";
-	if !(isNil "_incMissileEhIdx") then {
-		_aircraft removeEventHandler ["Gear", _incMissileEhIdx];
-		_aircraft setVariable ["missileEhIdx", nil];
-	};
-	private _firedEhIdx = _aircraft getVariable "firedEhIdx";
-	if !(isNil "_firedEhIdx") then {
-		_aircraft removeEventHandler ["Fired", _firedEhIdx];
-		_aircraft setVariable ["firedEhIdx", nil];
-	};
-	private _dammagedEhIdx = _aircraft getVariable "dammagedEhIdx";
-	if !(isNil "_dammagedEhIdx") then {
-		_aircraft removeEventHandler ["Dammaged", _dammagedEhIdx];
-		_aircraft setVariable ["dammagedEhIdx", nil];
-	};
-	private _killedEhIdx = _aircraft getVariable "killedEhIdx";
-	if !(isNil "_killedEhIdx") then {
-		_aircraft removeEventHandler ["Killed", _killedEhIdx];
-		_aircraft setVariable ["killedEhIdx", nil];
-	};
+	{
+		_aircraft removeEventHandler [_x, _y];
+	} forEach RITA_eventHandlers;
 };
 
 
@@ -292,7 +255,7 @@ player addEventHandler ["GetInMan", {
 
 	if !((typeOf _vehicle) in RITA_vics) exitWith {};
 
-	_vehicle setVariable ["isBettyBitching", false];
+	_vehicle setVariable ["isRitaBusy", false];
 	_vehicle setVariable ["landingGear", !(_vehicle isKindOf "Helicopter")];
 	_vehicle setVariable ["Incomming", []];
 
@@ -306,16 +269,16 @@ player addEventHandler ["GetInMan", {
 
 		if !((profileNamespace getVariable ["MRTM_EnableRWR", true])) exitWith {};
 
-		[_vehicle] spawn {
+		RITA_activeScripts pushBack ([_vehicle] spawn {
 			params ["_v"];
 			
-			waitUntil { sleep 0.2; !(_v getVariable "isBettyBitching") };
-			_v setVariable ["isBettyBitching", true];
+			waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true]) };
+			_v setVariable ["isRitaBusy", true];
 			["ritaGear", "MRTM_rwr4"] call RITA_sayWait;
-			_v setVariable ["isBettyBitching", false];
-		};
+			_v setVariable ["isRitaBusy", false];
+		});
 	}];
-	_vehicle setVariable ["gearEhIdx", _gearEhIdx];
+	RITA_eventHandlers set ["Gear", _gearEhIdx];
 
 	private _incMissileEhIdx = _vehicle addEventHandler ["IncomingMissile", {
 		params ["_target", "_ammo", "_vehicle", "_instigator", "_missile"];
@@ -323,7 +286,7 @@ player addEventHandler ["GetInMan", {
 		_inc pushBackUnique _missile;
 		_target setVariable ["Incomming", _inc];
 	}];
-	_vehicle setVariable ["missileEhIdx", _incMissileEhIdx];
+	RITA_eventHandlers set ["IncomingMissile", _incMissileEhIdx];
 
 	private _firedEhIdx = _vehicle addEventHandler ["Fired", {
 		params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
@@ -332,69 +295,121 @@ player addEventHandler ["GetInMan", {
 		private _isFlareLauncher = ["CMFlareLauncher", _weapon, false] call BIS_fnc_inString;
 		if !(_isFlareLauncher) exitWith {};
 
-		[_unit] spawn {
+		RITA_activeScripts pushBack ([_unit] spawn {
 			params ["_v"];
-			if (_v getVariable "isBettyBitching") exitWith {};
+			if (_v getVariable ["isRitaBusy", true]) exitWith {};
 
-			_v setVariable ["isBettyBitching", true];
+			_v setVariable ["isRitaBusy", true];
 			["ritaCas", "MRTM_rwr4"] call RITA_sayWait;
-			_v setVariable ["isBettyBitching", false];
-		};
+			_v setVariable ["isRitaBusy", false];
+			
+			private _idx = RITA_activeScripts find _thisScript;
+			if (_idx >= 0) then {
+				RITA_activeScripts deleteAt _idx;
+			};
+		});
 	}];
-	_vehicle setVariable ["firedEhIdx", _firedEhIdx];
+	RITA_eventHandlers set ["Fired", _firedEhIdx];
 
 	private _dammagedEhIdx = _vehicle addEventHandler ["Dammaged", {
 		params ["_unit", "_hitSelection", "_damage", "_hitPartIndex", "_hitPoint", "_shooter", "_projectile"];
 
-		if (["hithull", "_hitPoint", false] call BIS_fnc_inString) then {
-			if (_damage < 0.9) exitWith {};
+		if (["hithull", _hitPoint, false] call BIS_fnc_inString) then {
+			if (_damage < 0.9) exitWith { 
+				_unit setVariable ["ejectNotified", false]; // in case if aircraft was reparied
+			}; 
 
-			[_unit] spawn {
+			if (_unit getVariable ["ejectNotified", false]) exitWith {}; // already notified
+			_unit setVariable ["ejectNotified", true];
+
+			RITA_activeScripts pushBack ([_unit] spawn {
 				params ["_v"];
-				if (_v getVariable "isBettyBitching") exitWith {};
+				
+				waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true])};
 
-				_v setVariable ["isBettyBitching", true];
+				_v setVariable ["isRitaBusy", true];
 				["ritaEject", "MRTM_rwr4"] call RITA_sayWait;
-				_v setVariable ["isBettyBitching", false];
-			};
+				_v setVariable ["isRitaBusy", false];
+				
+				private _idx = RITA_activeScripts find _thisScript;
+				if (_idx >= 0) then {
+					RITA_activeScripts deleteAt _idx;
+				};
+			});
 		};
 
-		if (["hitengine", "_hitPoint", false] call BIS_fnc_inString) then {
-			if (_damage < 0.5) exitWith {};
-
-			[_unit] spawn {
-				params ["_v"];
-				if (_v getVariable "isBettyBitching") exitWith {};
-
-				_v setVariable ["isBettyBitching", true];
-				["ritaEngine", "MRTM_rwr4"] call RITA_sayWait;
-				_v setVariable ["isBettyBitching", false];
+		if (_hitPoint == "hitengine") then {
+			if (_damage < 0.2) exitWith {
+				_unit setVariable ["engineNotified", false]; // in case if aircraft was reparied
 			};
+			
+			if (_unit getVariable ["engineNotified", false]) exitWith {}; // already notified
+			_v setVariable ["engineNotified", true];
+
+			RITA_activeScripts pushBack ([_unit] spawn {
+				params ["_v"];
+
+				private _hitPoints = (getAllHitPointsDamage _v) # 0;
+				private _hasTwoEngines = "hitengine2" in _hitPoints;
+				private _soundName = if (_hasTwoEngines) then {
+					"ritaLeftEngine"
+				} else {
+					"ritaEngine"
+				};
+
+				waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true])};
+
+				_v setVariable ["isRitaBusy", true];
+				[_soundName, "MRTM_rwr4"] call RITA_sayWait;
+				_v setVariable ["isRitaBusy", false];
+				
+				private _idx = RITA_activeScripts find _thisScript;
+				if (_idx >= 0) then {
+					RITA_activeScripts deleteAt _idx;
+				};
+			});
+		};
+
+		if (_hitPoint == "hitengine2") then {
+			if (_damage < 0.2) exitWith {
+				_unit setVariable ["engine2Notified", false]; // in case if aircraft was reparied
+			};
+			
+			if (_unit getVariable ["engine2Notified", false]) exitWith {}; // already notified
+			_unit setVariable ["engine2Notified", true];
+
+			RITA_activeScripts pushBack ([_unit] spawn {
+				params ["_v"];
+
+				waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true])};
+
+				_v setVariable ["isRitaBusy", true];
+				["ritaRightEngine", "MRTM_rwr4"] call RITA_sayWait;
+				_v setVariable ["isRitaBusy", false];
+
+				private _idx = RITA_activeScripts find _thisScript;
+				if (_idx >= 0) then {
+					RITA_activeScripts deleteAt _idx;
+				};
+			});
 		};
 	}];
-	_vehicle setVariable ["dammagedEhIdx", _dammagedEhIdx];
+	RITA_eventHandlers set ["Dammaged", _dammagedEhIdx];
 	
 	private _killedEhIdx = _vehicle addEventHandler ["Killed", {
 		params ["_unit", "_killer", "_instigator", "_useEffects"];
 
-		[_unit] call RITA_clearTrackers;
+		[_unit] call RITA_cleanup;
 	}];
-	_vehicle setVariable ["killedEhIdx", _killedEhIdx];
+	RITA_eventHandlers set ["Killed", _killedEhIdx];
 
-	private _altitudeTrackerHandle = [_vehicle] spawn RITA_altitudeTracker;
-	_vehicle setVariable ["altitudeTracker", _altitudeTrackerHandle];
-	private _fuelTrackerHandle = [_vehicle] spawn RITA_fuelTracker;
-	_vehicle setVariable ["fuelTracker", _fuelTrackerHandle];
-	private _missileTrackerHandle = [_vehicle] spawn RITA_missileTracker;
-	_vehicle setVariable ["missileTracker", _missileTrackerHandle];
-	private _gForceTrackerHandle = [_vehicle] spawn RITA_gForceTracker;
-	_vehicle setVariable ["gForceTracker", _gForceTrackerHandle];
-	private _targetLockTrackerHandle = [_vehicle] spawn RITA_targetLockTracker;
-	_vehicle setVariable ["targetTracker", _targetLockTrackerHandle];
-
+	RITA_activeScripts pushBack ([_vehicle] spawn RITA_altitudeTracker);
+	RITA_activeScripts pushBack ([_vehicle] spawn RITA_fuelTracker);
+	RITA_activeScripts pushBack ([_vehicle] spawn RITA_missileTracker);
+	RITA_activeScripts pushBack ([_vehicle] spawn RITA_gForceTracker);
+	RITA_activeScripts pushBack ([_vehicle] spawn RITA_targetLockTracker);
 	if !(_vehicle isKindOf "Helicopter") then {
-		private _speedTrackerHandle = [_vehicle] spawn RITA_speedTracker;
-		_vehicle setVariable ["speedTracker", _speedTrackerHandle];
+		RITA_activeScripts pushBack ([_vehicle] spawn RITA_speedTracker);
 	};
 }];
 
@@ -403,6 +418,6 @@ player addEventHandler ["GetOutMan", {
 
 	if !(typeOf _vehicle in RITA_vics) exitWith {};
 
-	[_vehicle] call RITA_clearTrackers;
+	[_vehicle] call RITA_cleanup;
 }];
 
