@@ -137,9 +137,15 @@ class CfgSounds {
         titles[] = {};
     };
     
-    class ritaAltitude {
-        name="Rita altitude";
+    class ritaAltitude0 {
+        name="Rita altitude variant 0";
         sound[]={"src\sounds\rita\altitude.ogg", 1, 1};
+        titles[] = {};
+    };
+    
+    class ritaAltitude1 {
+        name="Rita altitude variant 1";
+        sound[]={"src\sounds\rita\altitude1.ogg", 1, 1};
         titles[] = {};
     };
 
@@ -176,6 +182,18 @@ class CfgSounds {
     class ritaEngine {
         name="Rita engine warning";
         sound[]={"src\sounds\rita\engine.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaLeftEngine {
+        name="Rita left engine warning";
+        sound[]={"src\sounds\rita\leftEngine.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaRightEngine {
+        name="Rita right engine warning";
+        sound[]={"src\sounds\rita\rightEngine.ogg", 1, 1};
         titles[] = {};
     };
 
@@ -218,6 +236,18 @@ class CfgSounds {
     class ritaRollRight {
         name="Rita roll right";
         sound[]={"src\sounds\rita\rollRight.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaHigher {
+        name="Rita higher";
+        sound[]={"src\sounds\rita\higher.ogg", 1, 1};
+        titles[] = {};
+    };
+
+    class ritaLower {
+        name="Rita lower";
+        sound[]={"src\sounds\rita\lower.ogg", 1, 1};
         titles[] = {};
     };
 };
