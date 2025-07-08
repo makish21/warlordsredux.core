@@ -110,10 +110,10 @@ RITA_missileTracker = {
 			} else { // left
 				270
 			};
-		} else { // forward or backward
-			if (_relY > 0) then { // forward
+		} else { // front or rear
+			if (_relY > 0) then { // front
 				0
-			} else { // backward
+			} else { // rear
 				180
 			};
 		};
@@ -249,6 +249,14 @@ RITA_cleanup = {
 	} forEach RITA_eventHandlers;
 };
 
+RITA_deleteScript = {
+	params ["_script"];
+
+	private _idx = RITA_activeScripts find _thisScript;
+	if (_idx == -1) exitWith {};
+	
+	RITA_activeScripts deleteAt _idx;
+};
 
 player addEventHandler ["GetInMan", {
 	params ["_unit", "_role", "_vehicle", "_turret"];
@@ -276,6 +284,8 @@ player addEventHandler ["GetInMan", {
 			_v setVariable ["isRitaBusy", true];
 			["ritaGear", "MRTM_rwr4"] call RITA_sayWait;
 			_v setVariable ["isRitaBusy", false];
+
+			[_thisScript] call RITA_deleteScript;
 		});
 	}];
 	RITA_eventHandlers set ["Gear", _gearEhIdx];
@@ -297,16 +307,15 @@ player addEventHandler ["GetInMan", {
 
 		RITA_activeScripts pushBack ([_unit] spawn {
 			params ["_v"];
-			if (_v getVariable ["isRitaBusy", true]) exitWith {};
+			if (_v getVariable ["isRitaBusy", true]) exitWith {	
+				[_thisScript] call RITA_deleteScript;
+			};
 
 			_v setVariable ["isRitaBusy", true];
 			["ritaCas", "MRTM_rwr4"] call RITA_sayWait;
 			_v setVariable ["isRitaBusy", false];
 			
-			private _idx = RITA_activeScripts find _thisScript;
-			if (_idx >= 0) then {
-				RITA_activeScripts deleteAt _idx;
-			};
+			[_thisScript] call RITA_deleteScript;
 		});
 	}];
 	RITA_eventHandlers set ["Fired", _firedEhIdx];
@@ -331,10 +340,7 @@ player addEventHandler ["GetInMan", {
 				["ritaEject", "MRTM_rwr4"] call RITA_sayWait;
 				_v setVariable ["isRitaBusy", false];
 				
-				private _idx = RITA_activeScripts find _thisScript;
-				if (_idx >= 0) then {
-					RITA_activeScripts deleteAt _idx;
-				};
+				[_thisScript] call RITA_deleteScript;
 			});
 		};
 
@@ -363,10 +369,7 @@ player addEventHandler ["GetInMan", {
 				[_soundName, "MRTM_rwr4"] call RITA_sayWait;
 				_v setVariable ["isRitaBusy", false];
 				
-				private _idx = RITA_activeScripts find _thisScript;
-				if (_idx >= 0) then {
-					RITA_activeScripts deleteAt _idx;
-				};
+				[_thisScript] call RITA_deleteScript;
 			});
 		};
 

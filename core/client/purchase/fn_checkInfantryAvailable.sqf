@@ -10,4 +10,8 @@ if (_class == "BuildABear" && BIS_WL_matesAvailable <= 0) exitWith {
     [false, localize "STR_A3_WL_airdrop_restr2"]
 };
 
+if (_class == "BuildABear" && count BIS_WL_savedLoadout == 0) exitWith {
+    [false, localize "STR_A3_WL2_CustomizedUnit_no_saved_gear"]
+};
+
 [true, ""];
