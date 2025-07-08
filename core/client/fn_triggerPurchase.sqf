@@ -28,7 +28,11 @@ switch (_className) do {
         player setVariable ["BIS_WL_isOrdering", false, [2, clientOwner]];
 
         [_asset] call WL2_fnc_factionBasedClientInit;
+#if WLC_ENABLED
         [_asset, [], true] spawn WLC_fnc_onRespawn;
+#else  // WLC_ENABLED
+	    _asset setUnitLoadout BIS_WL_savedLoadout;
+#endif  // WLC_ENABLED
 
         [_asset] spawn {
             params ["_asset"];
@@ -154,7 +158,7 @@ switch (_className) do {
             private _ownedVehicleVariable = format ["BIS_WL_ownedVehicles_%1", getPlayerUID player];
             private _allAssets = (missionNamespace getVariable [_ownedVehicleVariable, []]) select { alive _x };
 
-            private _listText = "Your assets<br/>";
+            private _listText = "<br/>";
             {
                 private _asset = _x;
 
@@ -165,11 +169,17 @@ switch (_className) do {
                 } else {
                     mapGridPosition _asset;
                 };
-                _listText = _listText + format ["%1 @ %2<br/>", _displayName, _assetLocation];
+                _listText = _listText + format [localize "STR_A3_WL2_prune_assets_dialog_message_list_entry", _displayName, _assetLocation] + "<br/>";
             } forEach _allAssets;
-            _listText = _listText + "Would you like to go through and delete some of them?";
 
-            private _result = [_listText, "Asset List", "Yes", "Cancel"] call BIS_fnc_guiMessage;
+            private _text = format [localize "STR_A3_WL2_prune_assets_dialog_message", _listText];
+
+            private _result = [
+                _text, 
+                localize "STR_A3_WL2_prune_assets_dialog_title", 
+                localize "STR_A3_WL2_prune_assets_dialog_button_positive", 
+                localize "STR_A3_WL2_prune_assets_dialog_button_negative"
+            ] call BIS_fnc_guiMessage;
 
             if (_result) then {
                 {

@@ -114,7 +114,7 @@ if (_action == "lastLoadout") exitWith {
 };
 
 if (_action == "savedLoadout") exitWith {
-	_cost = (getMissionConfigValue ["BIS_WL_savedLoadoutCost", 500]);
+	_cost = (getMissionConfigValue ["BIS_WL_savedLoadoutCost", 350]);
 	_hasFunds = (playerFunds >= _cost);
 	if (_hasFunds) then {
 		(-_cost) call WL2_fnc_fundsDatabaseWrite;
@@ -279,7 +279,7 @@ if (_action == "orderAI") exitWith {
 };
 
 if (_action == "buildABear") exitWith {
-	_cost = 300;
+	_cost = 350;
 	(-_cost) call WL2_fnc_fundsDatabaseWrite;
 };
 

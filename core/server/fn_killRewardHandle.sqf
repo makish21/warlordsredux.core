@@ -47,6 +47,7 @@ if ((_targets findIf {_unit inArea (_x getVariable "objectAreaComplete")}) != -1
 	_killReward = _killReward * 1.2;
 };
 
+#if WL_SQUAD_ASSISTS_ENABLED
 private _playerId = getPlayerID _responsibleLeader;
 private _squadmatesIDs = ["getSquadmates", [_playerId]] call SQD_fnc_server;
 private _squadReward = round (_killReward * 0.5 / (sqrt (count _squadmatesIDs) max 1));
@@ -59,6 +60,7 @@ private _squadReward = round (_killReward * 0.5 / (sqrt (count _squadmatesIDs) m
 	_squadReward call WL2_fnc_fundsDatabaseWrite;
 	[_unit, _squadReward, "Squad assist", "#228b22"] remoteExec ["WL2_fnc_killRewardClient", (getUserInfo _x) # 1];
 } forEach _squadmatesIDs;
+#endif  // WL_SQUAD_ASSISTS_ENABLED
 
 _uid = getPlayerUID _responsibleLeader;
 _killReward = round _killReward;

@@ -42,10 +42,12 @@ private _savedLoadoutHandled = FALSE;
 
 			if (_category == "Gear") then {
 				_data pushBack ["Arsenal", (getMissionConfigValue ["BIS_WL_arsenalCost", 1000]), [], (localize "STR_A3_Arsenal"), "\A3\Data_F_Warlords\Data\preview_arsenal.jpg", localize "STR_A3_WL_arsenal_open"];
+#if WLC_ENABLED
 				_data pushBack ["Customization", 0, [], "Customization", "\A3\Data_F_Warlords\Data\preview_arsenal.jpg", "Customization menu for respawn loadout."];
-				#if WL_HMD_ENABLED
+#endif  // WLC_ENABLED
+#if WL_HMD_ENABLED
 				_data pushBack ["BuyGlasses", 1000, [], "Buy AR Glasses", "\A3\Data_F_Warlords\Data\preview_arsenal.jpg", "Buy AR glasses."];
-				#endif WL_HMD_ENABLED
+#endif  // WL_HMD_ENABLED
 			};
 
 			if (_category == "Gear" && !_lastLoadoutHandled) then {
@@ -55,7 +57,7 @@ private _savedLoadoutHandled = FALSE;
 
 			if (_category == "Gear" && !_savedLoadoutHandled) then {
 				_savedLoadoutHandled = TRUE;
-				_data pushBack ["SavedLoadout", (getMissionConfigValue ["BIS_WL_savedLoadoutCost", 500]), [], (localize "STR_A3_WL_saved_loadout"), "\A3\Data_F_Warlords\Data\preview_loadout.jpg", format [localize "STR_A3_WL_saved_loadout_info", "<br/>"]];
+				_data pushBack ["SavedLoadout", (getMissionConfigValue ["BIS_WL_savedLoadoutCost", 350]), [], (localize "STR_A3_WL_saved_loadout"), "\A3\Data_F_Warlords\Data\preview_loadout.jpg", format [localize "STR_A3_WL_saved_loadout_info", "<br/>"]];
 			};
 
 			private _descriptionMap = missionNamespace getVariable ["WL2_descriptions", createHashMap];
