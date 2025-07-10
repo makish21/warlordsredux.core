@@ -67,8 +67,12 @@ addMissionEventHandler ["Draw3D", {
 			};
 		};
 		private _size = if (_isInMySquad) then { WL_SQUAD_UNIT_TEXT_SIZE } else { WL_TARGET_UNIT_TEXT_SIZE };
+#if WLC_ENABLED
 		private _levelDisplay = _x getVariable ["WL_playerLevel", "Recruit"];
 		private _displayName = format ["%1 [%2]", name _x, _levelDisplay];
+#else  // WLC_ENABLED
+		private _displayName = name _x;
+#endif  // WLC_ENABLED
 
 		drawIcon3D [
 			"A3\ui_f\data\igui\cfg\islandmap\iconplayer_ca.paa",

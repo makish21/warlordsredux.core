@@ -75,6 +75,7 @@ addMissionEventHandler ["HandleChatMessage", {
 	if (_block) then {
 		true;
 	} else {
+#if WLC_ENABLED
 		if (_channel == 1) then {
 			private _playerLevel = _person getVariable ["WL_playerLevel", ""];
 			private _newFrom = format ["[%1] %2", _playerLevel, _name];
@@ -82,6 +83,9 @@ addMissionEventHandler ["HandleChatMessage", {
 		} else {
 			false;
 		};
+#else  // WLC_ENABLED
+		false;
+#endif  // WLC_ENABLED
 	};
 }];
 

@@ -25,6 +25,7 @@
 #define WL_FOB_SQUAD_REQUIREMENT 1
 #define WL_FT_POD_ENABLED 1
 #define WL_SQUAD_ASSISTS_ENABLED 1
+#define WLT_ENABLED 1
 
 // Live: do not change
 #define WL_RESPAWN_MARKERS_CNT 20
@@ -98,5 +99,7 @@
 #define WL_SQUAD_UNIT_TEXT_SIZE 0.04
 
 #define WL_MAX_SUBORDINATES_THRESHOLDS [8, 15, 20, 30, 40]
+
+#define WL_SIDE_CAPTURE_MODIFIER_LIMIT 3
 
 #include "..\..\mission_constants.ext"

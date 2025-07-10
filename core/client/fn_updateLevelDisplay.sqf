@@ -16,12 +16,16 @@ private _isDev = _isAdmin || _isPollster;
 private _levelDisplay = if (_isDev) then {
 	"Developer"
 } else {
+#if WLC_ENABLED 
 	private _playerLevel = ["getLevel"] call WLC_fnc_getLevelInfo;
 	if (!_allDone && _playerLevel < 10) then {
 		"Recruit"
 	} else {
 		format ["Level %1", _playerLevel];
 	};
+#else  // WLC_ENABLED
+	""
+#endif  // WLC_ENABLED
 };
 
 if (player getVariable ["WL_playerLevel", "Recruit"] == _levelDisplay) exitWith {};
