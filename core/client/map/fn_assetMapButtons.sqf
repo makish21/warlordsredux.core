@@ -1,4 +1,4 @@
-#include "..\..\warlords_constants.inc"
+#include "..\..\server_macros.inc"
 
 private _dialog = (findDisplay 12) createDisplay "WL_MapButtonDisplay";
 

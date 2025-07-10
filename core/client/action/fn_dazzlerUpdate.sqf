@@ -7,9 +7,9 @@ private _actionColor = if ([_asset] call APS_fnc_active) then {
 };
 
 private _actionText = if ([_asset] call APS_fnc_active) then {
-    "DAZZLER: ON";
+    format [localize "STR_A3_WL_map_asset_dazzler", localize "STR_A3_WL_map_asset_dazzler_on"];
 } else {
-    "DAZZLER: OFF";
+    format [localize "STR_A3_WL_map_asset_dazzler", localize "STR_A3_WL_map_asset_dazzler_off"];
 };
 
 _asset setUserActionText [_actionID, format ["<t color = '%1'>%2</t>", _actionColor, _actionText]];

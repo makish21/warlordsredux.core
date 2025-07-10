@@ -376,7 +376,9 @@ if (!isServer) then {
 #if WL_HMD_ENABLED
 0 spawn WL2_fnc_helmetInterface;
 #endif
+#if WLT_ENABLED
 0 spawn WLT_fnc_init;
+#endif  // WLT_ENABLED
 
 0 spawn WL2_fnc_updateLevelDisplay;
 

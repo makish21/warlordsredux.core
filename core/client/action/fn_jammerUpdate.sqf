@@ -9,12 +9,12 @@ private _actionColor = if (_isActive) then {
 };
 
 private _actionText = if (_isActive) then {
-    "EW NETWORK: ON";
+    format [localize "STR_A3_WL_map_asset_jammer", localize "STR_A3_WL_map_asset_jammer_on"];
 } else {
     if (_isActivating) then {
-        "EW NETWORK: ACTIVATING...";
+        format [localize "STR_A3_WL_map_asset_jammer", localize "STR_A3_WL_map_asset_jammer_activating"];
     } else {
-        "EW NETWORK: OFF";
+        format [localize "STR_A3_WL_map_asset_jammer", localize "STR_A3_WL_map_asset_jammer_off"];
     };
 };
 

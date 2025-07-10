@@ -1,3 +1,5 @@
+#include "..\..\warlords_constants.inc"
+
 params ["_sector"];
 
 private _sideArr = [west, east, independent];
@@ -15,7 +17,7 @@ private _sideCaptureModifier = createHashMap;
 	private _connectedNeighboringSectors = _neighboringSectors select {
 		typeof _x == "Logic" && _side == _x getVariable "BIS_WL_owner" && _x in _sideLinkedSectors;
 	};
-	private _hasConnection = count _connectedNeighboringSectors > 0;
+	private _hasConnection = count _connectedNeighboringSectors > 0 || _sector in WL_BASES; // bases are connections origin
 	if (!_hasConnection) then {
 		_sideCaptureModifier set [_side, 0];
 		continue;
@@ -31,7 +33,7 @@ private _sideCaptureModifier = createHashMap;
 		continue;
 	};
 
-	_sideCaptureModifier set [_side, (count _connectedNeighboringSectors) min 3];
+	_sideCaptureModifier set [_side, (count _connectedNeighboringSectors) min WL_SIDE_CAPTURE_MODIFIER_LIMIT];
 } forEach _sideArr;
 
 private _relevantEntities = entities [["LandVehicle", "Man"], ["Logic"], true, true];
