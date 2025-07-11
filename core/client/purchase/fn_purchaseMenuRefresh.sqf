@@ -1,15 +1,37 @@
 #include "..\..\warlords_constants.inc"
 
-_display = uiNamespace getVariable ["BIS_WL_purchaseMenuDisplay", displayNull];
+private _display = uiNamespace getVariable ["BIS_WL_purchaseMenuDisplay", displayNull];
 
 if (isNull _display) exitWith {};
 
-_purchase_category = _display displayCtrl 100;
-_purchase_items = _display displayCtrl 101;
-_purchase_pic = _display displayCtrl 102;
-_purchase_info = _display displayCtrl 103;
-_purchase_info_asset = _display displayCtrl 105;
-_purchase_request = _display displayCtrl 107;
+private _purchase_category = _display displayCtrl 100;
+private _purchase_items = _display displayCtrl 101;
+private _purchase_pic = _display displayCtrl 102;
+private _purchase_info = _display displayCtrl 103;
+private _purchase_income = _display displayCtrl 104;
+private _purchase_info_asset = _display displayCtrl 105;
+private _purchase_request = _display displayCtrl 107;
+
+private _side = side player;
+private _moneySign = [_side] call WL2_fnc_getMoneySign;
+private _funds = ((missionNamespace getVariable "fundsDatabaseClients") get (getPlayerUID player));
+private _servicesAvailable = BIS_WL_sectorsArray # 5;
+
+private _incomeList = [format ["%1 %2", _funds, _moneySign]];
+if ("A" in _servicesAvailable) then {
+	_incomeList pushBack (localize "STR_A3_WL_param32_title"); // airfield
+};
+if ("H" in _servicesAvailable) then {
+	_incomelist pushBack (localize "STR_A3_WL_module_service_helipad"); // helipad
+};
+if ("W" in _servicesAvailable) then {
+	_incomeList pushBack (localize "STR_A3_WL_param30_title"); // harbor
+};
+_incomeList pushBack (format [localize "STR_A3_WL_max_group_size", BIS_WL_matesAvailable]);
+
+private _incomeText = _incomeList joinString ", ";
+
+_purchase_income ctrlSetStructuredText parseText format ["<t size = '%2' align = 'center' shadow = '2'>%1</t>", _incomeText, 1.5 call WL2_fnc_purchaseMenuGetUIScale];
 
 _i = 0;
 for "_i" from 0 to ((lbSize _purchase_items) - 1) do {
