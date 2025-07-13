@@ -76,8 +76,11 @@ class CfgFunctions {
 			class setReturnValue {};
 			class settingsInit {};
 			class settingsMenu {};
-			class updateSettings {};
 			class updateViewDistance {};
+			class onLoad {};
+			class onUnload {};
+			class onCheckedChanged {};
+			class disableTemporarily {};
 		};
 	};
 	class POLL {
@@ -107,7 +110,6 @@ class CfgFunctions {
 			class airburst {};
 			class announcer {};
 			class avTerminal {};
-			class betty {};
 			class clientEH {};
 			class cpBalance {};
 			class factionBasedClientInit {};
@@ -130,7 +132,6 @@ class CfgFunctions {
 			class repackMagazines {};
 			class restrictedArea {};
 			class revive {};
-			class rita {};
 			class spawnDebugMarkers {};
 			class spectator {};
 			class sideToFaction {};
@@ -477,6 +478,16 @@ class CfgFunctions {
 			class taskComplete {};
 			class taskEligible {};
 			class taskStart {};
+		};
+	};
+
+	class RWR {
+		class Default {
+			file = "src\scripts\RWR";
+			class init {};
+			class betty {};
+			class rita {};
+			class xiao906 {};
 		};
 	};
 };
