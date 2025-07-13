@@ -14,12 +14,13 @@ RITA_altitudeTracker = {
 	scriptName format ["Rita_altitude_tracker_%1", typeOf _aircraft];
 
 	private _altitudeCeil = 2000;
-	private _altitudeFloor = 100;
 
 	while { profileNamespace getVariable ["MRTM_EnableRWR", true] } do {
 		if (_aircraft getVariable "landingGear") then { sleep 1; continue }; // probably landing
 		private _altitude = getPosATL _aircraft select 2;
 		if (_altitude > _altitudeCeil) then { sleep 1; continue }; // aircraft too high
+
+		private _altitudeFloor = (speed _aircraft * 0.2) min 100; // 50m feels safe on 250 km/h
 
 		if (_altitude > _altitudeFloor) then {
 			// pull up warning branch
@@ -32,12 +33,10 @@ RITA_altitudeTracker = {
 			if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
 			
 			_aircraft setVariable ["isRitaBusy", true];
-			if (_altitude < 300) then {
-				switch true do {
-					case (_bank < -75): { ["ritaRollRight", "MRTM_rwr1"] call RITA_sayWait };
-					case (_bank > 75): { ["ritaRollLeft", "MRTM_rwr1"] call RITA_sayWait };
-					default {};
-				};
+			switch true do {
+				case (_bank < -75): { ["ritaRollRight", "MRTM_rwr1"] call RITA_sayWait };
+				case (_bank > 75): { ["ritaRollLeft", "MRTM_rwr1"] call RITA_sayWait };
+				default {};
 			};
 			["ritaPullUp", "MRTM_rwr1"] call RITA_sayWait;
 			_aircraft setVariable ["isRitaBusy", false];
@@ -70,7 +69,7 @@ RITA_fuelTracker = {
 	waitUntil { sleep 0.2; !(_aircraft getVariable ["isRitaBusy", true]) };
 	if (profileNamespace getVariable ["MRTM_EnableRWR", true]) then {
 		_aircraft setVariable ["isRitaBusy", true];
-		["ritaBingoFuel", "MRTM_rwr4"] call RITA_sayWait;
+		["ritaBingoFuel", "MRTM_rwr3"] call RITA_sayWait;
 		_aircraft setVariable ["isRitaBusy", false];
 	};
 
@@ -79,7 +78,7 @@ RITA_fuelTracker = {
 	waitUntil { sleep 0.2; !(_aircraft getVariable ["isRitaBusy", true]) };
 	if (profileNamespace getVariable ["MRTM_EnableRWR", true]) then {
 		_aircraft setVariable ["isRitaBusy", true];
-		["ritaCriticalFuel", "MRTM_rwr4"] call RITA_sayWait;
+		["ritaCriticalFuel", "MRTM_rwr3"] call RITA_sayWait;
 		_aircraft setVariable ["isRitaBusy", false];
 	};
 };
@@ -91,14 +90,17 @@ RITA_missileTracker = {
 	scriptName format ["Rita_missile_tracker_%1", typeOf _aircraft];
 
 	while { profileNamespace getVariable ["MRTM_EnableRWR", true] } do {
-		private _incoming = _aircraft getVariable ["Incomming", []];
+		private _incoming = _aircraft getVariable ["incoming", []];
 		private _aliveIncoming = _incoming select { alive _x };
-		_aircraft setVariable ["Incomming", _aliveIncoming];
+		_aircraft setVariable ["incoming", _aliveIncoming];
 
 		if (count _aliveIncoming == 0) then { sleep 1; continue };
+		
+		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
+		_aircraft setVariable ["isRitaBusy", true];
+		["ritaMissile", "MRTM_rwr3"] call RITA_sayWait;
 
 		private _sortedMissiles = [_aliveIncoming, [], { _aircraft distance _x }, "ASCEND"] call BIS_fnc_sortBy;
-
 		private _nearestMissile = _sortedMissiles # 0;
 
 		private _relativePos = _aircraft worldToModel (position _nearestMissile);
@@ -119,6 +121,10 @@ RITA_missileTracker = {
 		};
 		
 		private _dirSound = format ["rita_%1", _dirName];
+		[_dirSound, "MRTM_rwr3"] call RITA_sayWait;
+
+		_relativePos = _aircraft worldToModel (position _nearestMissile);
+		_relativePos params ["_relX", "_relY", "_relZ"];
 
 		private _relHeightSound = if (_relZ > 0) then {
 			"ritaHigher"
@@ -126,11 +132,7 @@ RITA_missileTracker = {
 			"ritaLower"
 		};
 
-		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
-		_aircraft setVariable ["isRitaBusy", true];
-		["ritaMissile", "MRTM_rwr4"] call RITA_sayWait;
-		[_dirSound, "MRTM_rwr4"] call RITA_sayWait;
-		[_relHeightSound, "MRTM_rwr4"] call RITA_sayWait;
+		[_relHeightSound, "MRTM_rwr3"] call RITA_sayWait;
 		_aircraft setVariable ["isRitaBusy", false];
 
 		sleep 1.5;
@@ -225,7 +227,7 @@ RITA_speedTracker = {
 		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
 
 		_aircraft setVariable ["isRitaBusy", true];
-		["ritaCriticalSpeed", "MRTM_rwr4"] call RITA_sayWait;
+		["ritaCriticalSpeed", "MRTM_rwr3"] call RITA_sayWait;
 		_aircraft setVariable ["isRitaBusy", false];
 
 		sleep 1;
@@ -265,7 +267,7 @@ player addEventHandler ["GetInMan", {
 
 	_vehicle setVariable ["isRitaBusy", false];
 	_vehicle setVariable ["landingGear", !(_vehicle isKindOf "Helicopter")];
-	_vehicle setVariable ["Incomming", []];
+	_vehicle setVariable ["incoming", []];
 
 	private _gearEhIdx = _vehicle addEventHandler ["Gear", {
 		params ["_vehicle", "_gearState"];
@@ -282,7 +284,7 @@ player addEventHandler ["GetInMan", {
 			
 			waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true]) };
 			_v setVariable ["isRitaBusy", true];
-			["ritaGear", "MRTM_rwr4"] call RITA_sayWait;
+			["ritaGear", "MRTM_rwr3"] call RITA_sayWait;
 			_v setVariable ["isRitaBusy", false];
 
 			[_thisScript] call RITA_deleteScript;
@@ -292,9 +294,9 @@ player addEventHandler ["GetInMan", {
 
 	private _incMissileEhIdx = _vehicle addEventHandler ["IncomingMissile", {
 		params ["_target", "_ammo", "_vehicle", "_instigator", "_missile"];
-		_inc = _target getVariable "Incomming";
+		_inc = _target getVariable "incoming";
 		_inc pushBackUnique _missile;
-		_target setVariable ["Incomming", _inc];
+		_target setVariable ["incoming", _inc];
 	}];
 	RITA_eventHandlers set ["IncomingMissile", _incMissileEhIdx];
 
@@ -337,7 +339,7 @@ player addEventHandler ["GetInMan", {
 				waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true])};
 
 				_v setVariable ["isRitaBusy", true];
-				["ritaEject", "MRTM_rwr4"] call RITA_sayWait;
+				["ritaEject", "MRTM_rwr3"] call RITA_sayWait;
 				_v setVariable ["isRitaBusy", false];
 				
 				[_thisScript] call RITA_deleteScript;
@@ -366,7 +368,7 @@ player addEventHandler ["GetInMan", {
 				waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true])};
 
 				_v setVariable ["isRitaBusy", true];
-				[_soundName, "MRTM_rwr4"] call RITA_sayWait;
+				[_soundName, "MRTM_rwr3"] call RITA_sayWait;
 				_v setVariable ["isRitaBusy", false];
 				
 				[_thisScript] call RITA_deleteScript;
@@ -387,7 +389,7 @@ player addEventHandler ["GetInMan", {
 				waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true])};
 
 				_v setVariable ["isRitaBusy", true];
-				["ritaRightEngine", "MRTM_rwr4"] call RITA_sayWait;
+				["ritaRightEngine", "MRTM_rwr3"] call RITA_sayWait;
 				_v setVariable ["isRitaBusy", false];
 
 				private _idx = RITA_activeScripts find _thisScript;

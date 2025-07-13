@@ -824,8 +824,7 @@ class MRTM_settingsMenu
 					idc = 8019;
 					text = "";
 					onSliderPosChanged = "[7, _this select 1] call MRTM_fnc_onSliderChanged;";
-					toolTip = "$STR_A3_WL_settings_RWR_warning_volume_disabled_tooltip";
-					onLoad =  "(_this # 0) ctrlEnable false;";
+					toolTip = "$STR_A3_WL_settings_RWR_warning_volume_tooltip";
 					x = OPTION_CONTROL_X;
 					y = 0.603 * safezoneH + safezoneY;
 					w = SLIDER_W;
@@ -835,7 +834,6 @@ class MRTM_settingsMenu
 				{
 					idc = 8020;
 					onEditChanged = "[_this select 0, 'RWR3', 1] call MRTM_fnc_onChar;";
-					onLoad =  "(_this # 0) ctrlEnable false;";
 					x = SLIDER_EDIT_X;
 					y = 0.603 * safezoneH + safezoneY;
 					w = SLIDER_EDIT_W;
@@ -1070,7 +1068,9 @@ class MRTM_settingsMenu
 				class MRTMOtherButton1: RscCheckboxMRTM
 				{
 					idc = 8024;
-					action = "['MRTM_3rdPersonDisabled', 60] call MRTM_fnc_updateSettings;";
+					onLoad = "[(_this # 0), 'MRTM_3rdPersonDisabled'] call MRTM_fnc_onLoad;"
+					onCheckedChanged = "[(_this # 0), 'MRTM_3rdPersonDisabled', 60] call MRTM_fnc_onCheckedChanged;";
+					onUnload = "[(_this # 0)] call MRTM_fnc_onUnload;"
 					x = OPTION_CONTROL_X;
 					y = 0.698 * safezoneH + safezoneY;
 					w = 0.024 * safezoneH;

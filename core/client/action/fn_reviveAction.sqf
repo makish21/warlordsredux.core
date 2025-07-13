@@ -1,6 +1,8 @@
+#include "..\..\warlords_constants.inc"
+
 [
     player,
-    "<t color='#00ff00'>Revive<t>",
+    format ["<t color='#00ff00'>%1<t>", localize "STR_A3_WL2_action_revive"],
     "\a3\ui_f\data\igui\cfg\revive\overlayIcons\u100_ca.paa",
     "\a3\ui_f\data\igui\cfg\revive\overlayIcons\u100_ca.paa",
     "isPlayer cursorTarget && lifeState cursorTarget == 'INCAPACITATED' && side group cursorTarget == side group player && cursorTarget distance2D player < 3",
@@ -43,7 +45,7 @@
 
 [
     player,
-    "<t color='#ff0000'>Respawn</t>",
+    format ["<t color='#ff0000'>%1</t>", localize "STR_A3_WL2_action_respawn"],
     "\a3\ui_f\data\igui\cfg\revive\overlayIcons\d100_ca.paa",
     "\a3\ui_f\data\igui\cfg\revive\overlayIcons\d100_ca.paa",
     "lifeState player == 'INCAPACITATED'",
@@ -65,8 +67,9 @@
     true
 ] call BIS_fnc_holdActionAdd;
 
+#if WLC_ENABLED
 player addAction [
-	"Customization",
+	localize "STR_A3_WL2_action_customization",
 	{
         0 spawn WLC_fnc_buildMenu;
 	},
@@ -81,6 +84,7 @@ player addAction [
 	"",
 	""
 ];
+#endif  // WLC_ENABLED
 
 player setCaptive false;
 player setVariable ["WL2_alreadyHandled", false, 2];
