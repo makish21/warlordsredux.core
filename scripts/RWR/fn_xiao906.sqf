@@ -188,6 +188,35 @@ XIAO_speedTracker = {
 };
 
 
+XIAO_targetLockTracker = {
+	params ["_aircraft"];
+
+	scriptName format ["XIAO_target_tracker_%1", typeOf _aircraft];
+
+	while { profileNamespace getVariable ["MRTM_EnableRWR", true] } do {
+		playerTargetLock params ["_target", "_lock", "_cfg"];
+
+		if (_lock < 1) then { sleep 0.5; continue };
+
+		private _parents = [_cfg, true] call BIS_fnc_returnParents;
+		if !("LauncherCore" in _parents) then { sleep 0.5; continue }; // not a missile launcher
+
+		if (_aircraft getVariable ["isXiaoBusy", true]) then { sleep 0.2; continue }; // xiao saying something
+
+		_aircraft setVariable ["isXiaoBusy", true];
+		["xiaoLock", "MRTM_rwr4"] call RITA_sayWait;
+		_aircraft setVariable ["isXiaoBusy", false];
+
+		waitUntil { 
+			sleep 0.5;
+
+			playerTargetLock params ["_target", "_lock", "_cfg"];
+
+			_lock < 1
+		};
+	};
+};
+
 XIAO_activeScripts = [];
 XIAO_eventHandlers = createHashMap;
 
@@ -335,6 +364,7 @@ player addEventHandler ["GetInMan", {
 	XIAO_activeScripts pushBack ([_vehicle] spawn XIAO_fuelTracker);
 	XIAO_activeScripts pushBack ([_vehicle] spawn XIAO_missileTracker);
 	XIAO_activeScripts pushBack ([_vehicle] spawn XIAO_gForceTracker);
+	XIAO_activeScripts pushBack ([_vehicle] spawn XIAO_targetLockTracker);
 	if !(_vehicle isKindOf "Helicopter") then {
 		XIAO_activeScripts pushBack ([_vehicle] spawn XIAO_speedTracker);
 	};

@@ -304,3 +304,9 @@ class xiaoLow {
     sound[]={"src\scripts\RWR\sounds\xiao906\low.ogg", 1, 1};
     titles[] = {};
 };
+
+class xiaoLock {
+    name="Xial906 lock";
+    sound[]={"src\scripts\RWR\sounds\xiao906\lock.ogg", 1, 1};
+    titles[] = {};
+};
