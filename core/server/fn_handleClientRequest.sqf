@@ -194,7 +194,7 @@ if (_action == "fastTravelSeized") exitWith {
 			} forEach _vehicleFreePositions;
 		};
 
-#define DEBUG_MARKERS
+// #define DEBUG_MARKERS
 #ifdef DEBUG_MARKERS
 		{
 			if (["safe", _x, /*caseSensitive=*/true] call BIS_fnc_inString ||
