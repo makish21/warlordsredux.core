@@ -276,6 +276,7 @@ class CfgFunctions {
 		class ClientOrder {
 			file = "src\core\client\order";
 			class cancelVehicleOrder {};
+			class completeFastTravel {};
 			class deployment {};
 			class executeFastTravel {};
 			class fastTravelConflictMarker {};

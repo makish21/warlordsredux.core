@@ -1,3 +1,5 @@
+#include "..\..\warlords_constants.inc"
+
 params ["_fastTravelMode", "_marker"];
 
 // Fast Travel Modes
@@ -25,11 +27,24 @@ private _sectorPos = if (isNil "BIS_WL_targetSector") then {
 	(BIS_WL_targetSector getVariable "objectAreaComplete") # 0;
 };
 
+private _tagAlong = (units player) select {
+	(_x distance2D player <= 100) &&
+	(isNull objectParent _x) &&
+	(alive _x) &&
+	(_x != player) &&
+	_x getVariable ["BIS_WL_ownerAsset", "123"] == getPlayerUID player
+};
+
+#define SERVER_ID 2
+
+if (_fastTravelMode == WL_FAST_TRAVEL_MODE_SEIZED) exitWith {
+	// asynchronous server-side fast travel
+	[player, "fastTravelSeized", BIS_WL_targetSector, _tagAlong] remoteExec ["WL2_fnc_handleClientRequest", SERVER_ID];
+};
+
+// synchronous client-side fast travel modes
 switch (_fastTravelMode) do {
-	case 0: {
-		_destination = selectRandom ([BIS_WL_targetSector, 0, true] call WL2_fnc_findSpawnPositions);
-	};
-	case 1: {
+	case WL_FAST_TRAVEL_MODE_CONTESTED: {
 		private _spawnPositions = [_marker, 0, true] call WL2_fnc_findSpawnPositions;
 		_destination = if (count _spawnPositions > 0) then {
 			selectRandom _spawnPositions;
@@ -39,7 +54,7 @@ switch (_fastTravelMode) do {
 
 		[player, "fastTravelContested", getMissionConfigValue ["BIS_WL_fastTravelCostContested", 200]] remoteExec ["WL2_fnc_handleClientRequest", 2];
 	};
-	case 2: {
+	case WL_FAST_TRAVEL_MODE_AIR_ASSAULT: {
 		private _randomPos = _marker call BIS_fnc_randomPosTrigger;
 		private _distance = _randomPos distance2D BIS_WL_targetSector;
 		private _height = _sectorPos # 2;
@@ -48,7 +63,7 @@ switch (_fastTravelMode) do {
 
 		[player, "fastTravelContested", getMissionConfigValue ["WL_airAssaultCost", 100]] remoteExec ["WL2_fnc_handleClientRequest", 2];
 	};
-	case 3: {
+	case WL_FAST_TRAVEL_MODE_VEHICLE_PARADROP: {
 		private _safeSpot = selectRandom ([BIS_WL_targetSector, 0, true] call WL2_fnc_findSpawnPositions);
 		_destination = [_safeSpot # 0, _safeSpot # 1, 50];
 
@@ -57,13 +72,13 @@ switch (_fastTravelMode) do {
 
 		[player, "fastTravelContested", getMissionConfigValue ["WL_vehicleParadropCost", 1000]] remoteExec ["WL2_fnc_handleClientRequest", 2];
 	};
-	case 4: {
+	case WL_FAST_TRAVEL_MODE_TENT: {
 		private _respawnBag = player getVariable ["WL2_respawnBag", objNull];
         if (!isNull _respawnBag) then {
             _destination = getPosATL _respawnBag;
         };
 	};
-	case 5: {
+	case WL_FAST_TRAVEL_MODE_STRONGHOLD: {
 		private _stronghold = BIS_WL_targetSector getVariable ["WL_stronghold", objNull];
 		private _posArr = _stronghold buildingPos -1;
 		_destination = if (count _posArr > 0) then {
@@ -72,8 +87,8 @@ switch (_fastTravelMode) do {
 			getPosATL _stronghold;
 		};
 	};
-	case 6;
-	case 7: {
+	case WL_FAST_TRAVEL_MODE_FOB;
+	case WL_FAST_TRAVEL_MODE_VEHICLE_PARADROP_FOB: {
 		private _spawnPositions = [_marker, 0, true] call WL2_fnc_findSpawnPositions;
 		_destination = if (count _spawnPositions > 0) then {
 			selectRandom _spawnPositions;
@@ -82,26 +97,13 @@ switch (_fastTravelMode) do {
 		};
 		_destination = [_destination # 0, _destination # 1, 50];
 		deleteMarker _marker;
-
-		private _paradropNextUseVar = format ["WL_paradropNextUse_%1", getPlayerUID player];
-        missionNamespace setVariable [_paradropNextUseVar, serverTime + 600];
-		[player, "fastTravelContested", getMissionConfigValue ["WL_vehicleParadropCost", 1000]] remoteExec ["WL2_fnc_handleClientRequest", 2];
 	};
-};
-
-private _tagAlong = (units player) select {
-	(_x distance2D player <= 100) &&
-	(isNull objectParent _x) &&
-	(alive _x) &&
-	(_x != player) &&
-	_x getVariable ["BIS_WL_ownerAsset", "123"] == getPlayerUID player
 };
 
 private _directionToSector = _destination getDir _sectorPos;
 
 switch (_fastTravelMode) do {
-	case 0;
-	case 1: {
+	case WL_FAST_TRAVEL_MODE_CONTESTED: {
 		{
 			_x setVehiclePosition [_destination, [], 3, "NONE"];
 		} forEach _tagAlong;
@@ -109,7 +111,7 @@ switch (_fastTravelMode) do {
 
 		player setDir _directionToSector;
 	};
-	case 2: {
+	case WL_FAST_TRAVEL_MODE_AIR_ASSAULT: {
 		{
 			_x setPosASL _destination;
 			_x setDir _directionToSector;
@@ -122,8 +124,8 @@ switch (_fastTravelMode) do {
 		player setVelocityModelSpace [0, 30, 0];
 		[player] spawn WL2_fnc_parachuteSetup;
 	};
-	case 3;
-	case 7: {
+	case WL_FAST_TRAVEL_MODE_VEHICLE_PARADROP;
+	case WL_FAST_TRAVEL_MODE_VEHICLE_PARADROP_FOB: {
 		private _vehicle = vehicle player;
 
 		private _parachuteClass = switch (BIS_WL_playerSide) do {
@@ -153,7 +155,7 @@ switch (_fastTravelMode) do {
 			deleteVehicle _parachute;
 		};
 	};
-	case 4: {
+	case WL_FAST_TRAVEL_MODE_TENT: {
         if (count _destination > 0) then {
             private _oldPlayerPos = getPosASL player;
             player setVehiclePosition [_destination, [], 0, "NONE"];
@@ -175,8 +177,8 @@ switch (_fastTravelMode) do {
             player setVariable ["WL2_respawnBag", objNull, [2, clientOwner]];
         };
 	};
-	case 5;
-	case 6: {
+	case WL_FAST_TRAVEL_MODE_STRONGHOLD;
+	case WL_FAST_TRAVEL_MODE_FOB: {
 		{
 			_x setVehiclePosition [_destination, [], 3, "NONE"];
 		} forEach _tagAlong;
@@ -187,22 +189,4 @@ switch (_fastTravelMode) do {
 
 sleep 1;
 
-titleCut ["", "BLACK IN", 1];
-
-switch (_fastTravelMode) do {
-	case 0: {
-		["TaskFastTravelSeized"] call WLT_fnc_taskComplete;
-	};
-	case 1: {
-		["TaskFastTravelConflict"] call WLT_fnc_taskComplete;
-	};
-	case 2: {
-		["TaskAirAssault"] call WLT_fnc_taskComplete;
-	};
-	case 3: {
-		["TaskVehicleParadrop"] call WLT_fnc_taskComplete;
-	};
-	case 4: {
-		["TaskFastTravelTent"] call WLT_fnc_taskComplete;
-	};
-};
+[_fastTravelMode] call WL2_fnc_completeFastTravel;

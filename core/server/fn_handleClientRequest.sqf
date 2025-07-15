@@ -133,6 +133,130 @@ if (_action == "orderArsenal") exitWith {
 	};
 };
 
+if (_action == "fastTravelSeized") exitWith {
+	private _startTime = diag_tickTime;
+
+	private _sector = _param1;
+	private _tagAlong = _param2;
+
+	private _cost = (getMissionConfigValue ["BIS_WL_fastTravelCostSeized", 0]);
+	private _hasFunds = _cost == 0 || playerFunds >= _cost;
+	if (_hasFunds) then {
+		private _sectorArea = _sector getVariable "objectAreaComplete";
+		_sectorArea params ["_position", "_a", "_b", "_angle", "_isRectangle"];
+
+		private _infantrySpawnPositions = _sector getVariable ["BIS_WL_infantrySpawnPositions", []];
+
+		private _vehicleFreePositions = _infantrySpawnPositions select {
+			private _nearVics = _x nearObjects ["AllVehicles", 6];
+			count _nearVics == 0;
+		};
+
+		private _enemiesInSector = (allPlayers inAreaArray [
+			_position,
+			_a + WL_ENEMY_VULNERABILITY_DISTANCE,
+			_b + WL_ENEMY_VULNERABILITY_DISTANCE,
+			_angle,
+			_isRectangle
+		]) select {
+			side group _sender != side group _x &&
+    		alive _x &&
+    		lifeState _x != "INCAPACITATED"
+		};
+		
+		private _safePositions = [];
+		private _dangerPositions = [/*[distanceToNearestEnemy, spawnPosition], ...*/];
+
+		if (count _enemiesInSector == 0) then {
+			_safePositions = _vehicleFreePositions;
+		} else {
+			{
+				private _position = _x;
+
+				private _nearEnemies = _enemiesInSector select {
+					_position distance _x <= WL_ENEMY_VULNERABILITY_DISTANCE
+				};
+
+				if (count _nearEnemies == 0) then {
+					_safePositions pushBack _position;
+				} else {
+					private _nearestEnemyDistance = worldSize; // max possible distance on map
+
+					{
+						private _distance = _x distance _position;
+						if (_distance < _nearestEnemyDistance) then { 
+							_nearestEnemyDistance = _distance; 
+						};
+					} forEach _nearEnemies;
+
+					_dangerPositions pushBack [_nearestEnemyDistance, _position];
+				};
+			} forEach _vehicleFreePositions;
+		};
+
+// #define DEBUG_MARKERS
+#ifdef DEBUG_MARKERS
+		{
+			if (["safe", _x, /*caseSensitive=*/true] call BIS_fnc_inString ||
+				["danger", _x, /*caseSensitive=*/true] call BIS_fnc_inString) then {
+				deleteMarker _x;
+			};
+		} forEach allMapMarkers;
+
+		{
+			private _marker = createMarker [format ["safe%1", _forEachIndex], _x];
+    		_marker setMarkerType "mil_dot_noShadow";
+			_marker setMarkerColor "ColorWhite";
+		} forEach _safePositions;
+
+		{
+			_x params ["_distance", "_position"];
+
+			private _marker = createMarker [format ["danger%1", _forEachIndex], _position];
+    		_marker setMarkerType "mil_dot_noShadow";
+			_marker setMarkerColor "ColorYellow";
+			_marker setMarkerAlpha (_distance / WL_ENEMY_VULNERABILITY_DISTANCE);
+		} forEach _dangerPositions;
+#endif
+
+		private _destination = if (count _safePositions > 0) then {
+			selectRandom _safePositions;
+		} else {
+			_dangerPositions sort /*ascending=*/false;
+			(_dangerPositions # 0) # 1; // most distant position from enemy
+		};
+
+		{
+			_x setVehiclePosition [_destination, [], 3, "NONE"];
+		} forEach _tagAlong;
+		_sender setVehiclePosition [_destination, [], 0, "NONE"];
+
+		(-_cost) call WL2_fnc_fundsDatabaseWrite;
+
+		diag_log format [
+			"fastTravelSeized %1 for %2. %3 enemies in sector, %4 safe and %5 danger positions", 
+			/*1=*/_sector getVariable "BIS_WL_name",
+			/*2=*/name _sender,
+			/*3=*/count _enemiesInSector,
+			/*4=*/count _safePositions,
+			/*5=*/count _dangerPositions
+		];
+	};
+
+	private _endTime = diag_tickTime;
+	private _elapsed = _endTime - _startTime;
+	diag_log format [
+		"fastTravelSeized %1 for %2 took %3 seconds", 
+		/*1=*/_sector getVariable "BIS_WL_name",
+		/*2=*/name _sender, 
+		/*3=*/_elapsed
+	];
+
+	sleep (1 - _elapsed); // sleep AT LEAST 1 sec
+	
+	[WL_FAST_TRAVEL_MODE_SEIZED] remoteExec ["WL2_fnc_completeFastTravel", _sender];
+};
+
 if (_action == "fastTravelContested") exitWith {
 	_cost = _param1;
 	_hasFunds = (playerFunds >= _cost);
