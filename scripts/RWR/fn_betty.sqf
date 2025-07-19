@@ -188,10 +188,12 @@ player addEventHandler ["GetInMan", {
 	}];
 	BETTY_eventHandlers set ["Killed", _killedEhIdx];
 
-	BETTY_activeScripts pushBack ([_vehicle] spawn BETTY_altitudeTracker);
 	BETTY_activeScripts pushBack ([_vehicle] spawn BETTY_fuelTracker);
 	BETTY_activeScripts pushBack ([_vehicle] spawn BETTY_missileTracker);
 	BETTY_activeScripts pushBack ([_vehicle] spawn BETTY_sensorTracker);
+	if !(_vehicle isKindOf "Helicopter") then {
+		BETTY_activeScripts pushBack ([_vehicle] spawn BETTY_altitudeTracker);
+	};
 }];
 
 player addEventHandler ["GetOutMan", {

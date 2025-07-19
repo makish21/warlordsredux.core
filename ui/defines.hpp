@@ -1399,7 +1399,9 @@ class RscTextCheckBoxMRTM
 		"CHECKED"
 	};
 };
-class RscButtonMenuMRTM
+
+import RscShortcutButton;
+class RscButtonMenuMRTM: RscShortcutButton
 {
 	idc = -1;
 	type = 16;

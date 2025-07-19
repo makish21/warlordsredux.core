@@ -408,12 +408,12 @@ player addEventHandler ["GetInMan", {
 	}];
 	RITA_eventHandlers set ["Killed", _killedEhIdx];
 
-	RITA_activeScripts pushBack ([_vehicle] spawn RITA_altitudeTracker);
 	RITA_activeScripts pushBack ([_vehicle] spawn RITA_fuelTracker);
 	RITA_activeScripts pushBack ([_vehicle] spawn RITA_missileTracker);
 	RITA_activeScripts pushBack ([_vehicle] spawn RITA_gForceTracker);
 	RITA_activeScripts pushBack ([_vehicle] spawn RITA_targetLockTracker);
 	if !(_vehicle isKindOf "Helicopter") then {
+		RITA_activeScripts pushBack ([_vehicle] spawn RITA_altitudeTracker);
 		RITA_activeScripts pushBack ([_vehicle] spawn RITA_speedTracker);
 	};
 }];

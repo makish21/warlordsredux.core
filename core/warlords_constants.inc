@@ -4,7 +4,7 @@
 #define WLC_DEBUG 0
 #define WLT_DEBUG_MODE 0
 #define WL_AIRPORT_BASES 0
-// #define WL_OVERRIDE_BASES [["Airbase", "Poliakko", "Alikampos", "Lakka", "Lakka Factory"], ["AAC Airfield", "Stavros", "Neochori", "Katalaki"]]
+// #define WL_OVERRIDE_BASES [["Central airfield", "Poliakko", "Alikampos", "Lakka town", "Lakka hill"], ["AAC airfield", "Stavros", "Neochori", "Katalaki"]]
 #define WL_BASE_SELECTION_DEBUG 0
 #define WL_STRONGHOLD_DEBUG 0
 #define WL_NO_GROUND_AVOID 0

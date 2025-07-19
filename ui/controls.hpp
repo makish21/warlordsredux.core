@@ -36,7 +36,7 @@ class welcomeScreen
 		{
 			idc = -1;
 			type = CT_STATIC;
-			text = "a3\map_tanoabuka\data\picturemap_ca.paa";
+			text = "a3\map_altis\data\picturemap_ca.paa";
 			style = ST_TILE_PICTURE;
 			x = 0.257656 * safezoneW + safezoneX;
 			y = 0.181 * safezoneH + safezoneY;
@@ -900,7 +900,7 @@ class MRTM_settingsMenu
 				class MRTMOtherText1: RscStructuredTextMRTM
 				{
 					idc = -1;
-					onLoad = "(_this # 0) ctrlSetText format [localize 'STR_A3_WL_settings_general_3rd_person', [BIS_WL_playerSide] call WL2_fnc_getMoneySign];"
+					onLoad = "(_this # 0) ctrlSetText format [localize 'STR_A3_WL_settings_general_3rd_person', [BIS_WL_playerSide] call WL2_fnc_getMoneySign];";
 					x = 0;
 					y = 0.702 * safezoneH + safezoneY;
 					w = OPTION_TEXT_W;
@@ -1068,9 +1068,9 @@ class MRTM_settingsMenu
 				class MRTMOtherButton1: RscCheckboxMRTM
 				{
 					idc = 8024;
-					onLoad = "[(_this # 0), 'MRTM_3rdPersonDisabled'] call MRTM_fnc_onLoad;"
+					onLoad = "[(_this # 0), 'MRTM_3rdPersonDisabled'] call MRTM_fnc_onLoad;";
 					onCheckedChanged = "[(_this # 0), 'MRTM_3rdPersonDisabled', 60] call MRTM_fnc_onCheckedChanged;";
-					onUnload = "[(_this # 0)] call MRTM_fnc_onUnload;"
+					onUnload = "[(_this # 0)] call MRTM_fnc_onUnload;";
 					x = OPTION_CONTROL_X;
 					y = 0.698 * safezoneH + safezoneY;
 					w = 0.024 * safezoneH;
@@ -1188,7 +1188,7 @@ class MRTM_settingsMenu
 			};
 		};
 
-		class MRTMCloseButton: RscButtonMRTM
+		class MRTMCloseButton: RscButtonMenuMRTM
 		{
 			idc = 1604;
 			text = "$STR_A3_WL_settings_button_close";
@@ -1213,7 +1213,7 @@ class MRTM_settingsMenu
 		// 	font = "PuristaMedium";
 		// 	action =  "(findDisplay 8000) closeDisplay 1; [true] call SQD_fnc_menu;";
 		// };
-		class MRTMDebugButton: RscButtonMRTM
+		class MRTMDebugButton: RscButtonMenuMRTM
 		{
 			idc = 1609;
 			text = "$STR_A3_WL_settings_button_debug";
@@ -1227,7 +1227,7 @@ class MRTM_settingsMenu
 			font = "PuristaLight";
 			action =  "(findDisplay 8000) closeDisplay 1; 0 spawn MRTM_fnc_openDebugMenu;";
 		};
-		class MRTMReportButton: RscButtonMRTM
+		class MRTMReportButton: RscButtonMenuMRTM
 		{
 			idc = 1609;
 			text = "$STR_A3_WL_settings_button_report";
@@ -1281,7 +1281,7 @@ class MRTM_debugMenu
 				font = "PuristaMedium";
 			};
 		};
-		class MRTMCloseButton: RscButtonMRTM
+		class MRTMCloseButton: RscButtonMenuMRTM
 		{
 			idc = 2001;
 			text = "CLOSE";
@@ -1349,7 +1349,7 @@ class MRTM_debugMenu
 			w = 0.274687 * safezoneW;
 			h = 0.05 * safezoneH;
 		};
-		class MRTMServerExec: RscButtonMRTM
+		class MRTMServerExec: RscButtonMenuMRTM
 		{
 			idc = -1;
 			text = "Server Exec";
@@ -1362,7 +1362,7 @@ class MRTM_debugMenu
 			font = "PuristaMedium";
 			action = "[player, (ctrlText 2002)] remoteExec ['MRTM_fnc_execCode', 2];";
 		};
-		class MRTMLocalExec: RscButtonMRTM
+		class MRTMLocalExec: RscButtonMenuMRTM
 		{
 			idc = -1;
 			text = "Local Exec";
@@ -1442,7 +1442,7 @@ class Fxr_ReportDialog
 			};
 			style = LB_TEXTURES;
 		};
-		class MRTMReportCloseButton: RscButtonMRTM
+		class MRTMReportCloseButton: RscButtonMenuMRTM
 		{
 			idc = 73005;
 			text = "$STR_A3_WL_report_menu_button_close";

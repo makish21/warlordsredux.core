@@ -411,6 +411,7 @@ if (alive _respawnBag) then {
 };
 
 // Draw squad lines
+#if WL_MAP_DRAW_SQUAD_LINES
 private _allSquadmates = ["getAllInSquad"] call SQD_fnc_client;
 _allSquadmates = _allSquadmates apply {
 	vehicle _x;
@@ -433,6 +434,7 @@ if (WL_AssetActionTarget in _allSquadmates) then {
 		} forEach _allSquadmates;
 	};
 };
+#endif  // WL_MAP_DRAW_SQUAD_LINES
 
 // Draw vehicles
 private _teamVariable = switch (_side) do {
