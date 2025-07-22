@@ -38,6 +38,10 @@ private _sideCaptureModifier = createHashMap;
 
 private _relevantEntities = entities [["LandVehicle", "Man"], ["Logic"], true, true];
 private _sectorAO = _sector getVariable "objectAreaComplete";
+if (isNil "_sectorAO") then {
+	diag_log format ["Nil complete area of sector %1", _sector getVariable "BIS_WL_Name"];
+};
+
 private _allInArea = (_relevantEntities inAreaArray _sectorAO) select {
 	lifeState _x != "INCAPACITATED";
 };

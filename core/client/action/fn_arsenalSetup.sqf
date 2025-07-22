@@ -8,3 +8,10 @@ BIS_fnc_arsenal_data set [6, (getArray (missionConfigFile >> "arsenalConfig" >> 
 BIS_fnc_arsenal_data set [8, ((BIS_fnc_arsenal_data select 8) + ["Integrated_NVG_TI_0_F"])];
 BIS_fnc_arsenal_data set [11, (getArray (missionConfigFile >> "arsenalConfig" >> _playerSide >> "Terminals"))];
 BIS_fnc_arsenal_data set [23, []];
+
+private _restrictedItems = getArray (missionConfigFile >> "arsenalRestrictedItems");
+{
+	private _itemsArray = _x;
+	private _newArray = _itemsArray - _restrictedItems;
+	BIS_fnc_arsenal_data set [_forEachIndex, _newArray];
+} forEach BIS_fnc_arsenal_data

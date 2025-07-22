@@ -63,7 +63,11 @@ private _info = _sector getVariable ["WL_captureDetails", []];
 private _myTeamInfo = _info select {
 	_x # 0 == BIS_WL_playerSide && _x # 1 > 0
 };
+private _scoreTextRequired = false;
+
+#if WL_SHOW_SECTOR_CAPTURE_SCORE
 if (count _myTeamInfo > 0) then {
+	_scoreTextRequired = true;
 	private _teamInfo = _myTeamInfo # 0;
 
 	if (_teamInfo # 1 > 0) then {
@@ -82,6 +86,7 @@ if (count _myTeamInfo > 0) then {
 		_captureScoreText = format ["(%1)", _captureScoreText];
 	};
 };
+#endif  // WL_SHOW_SECTOR_CAPTURE_SCORE
 
 private _capturingTeam = _sector getVariable ["BIS_WL_capturingTeam", independent];
 private _color = [_capturingTeam] call _getTeamColor;
@@ -158,7 +163,7 @@ private _sectorInfoText = [
 		""
 	},
 
-	if (_percentage > 0 || count _myTeamInfo > 0) then {
+	if (_percentage > 0 || _scoreTextRequired) then {
 		format ["<t color='%1'>%2%3</t> %4<br/>", _color, floor (_percentage * 100), "%", _captureScoreText]
 	} else {
 		""
