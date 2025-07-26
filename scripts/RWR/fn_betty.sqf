@@ -1,4 +1,4 @@
-BETTY_vics = ["B_Plane_Fighter_01_F", "B_Plane_CAS_01_dynamicLoadout_F", "B_Heli_Attack_01_dynamicLoadout_F", "B_T_VTOL_01_armed_F", "B_T_VTOL_01_vehicle_F", "B_T_VTOL_01_infantry_F"];
+BETTY_vics = ["B_Plane_Fighter_01_F", "B_Plane_Fighter_01_Stealth_F", "B_Plane_CAS_01_dynamicLoadout_F", "B_Heli_Attack_01_dynamicLoadout_F", "B_Heli_Attack_01_pylons_dynamicLoadout_F", "B_T_VTOL_01_armed_F", "B_T_VTOL_01_vehicle_F", "B_T_VTOL_01_infantry_F"];
 
 BETTY_sayWait = {
 	params ["_soundName", "_volumeParam"];
@@ -172,6 +172,13 @@ player addEventHandler ["GetInMan", {
 	_vehicle setVariable ["isBettyBitching", false];
 	_vehicle setVariable ["landingGear", !(_vehicle isKindOf "Helicopter")];
 	_vehicle setVariable ["incoming", []];
+
+	private _gearEhIdx = _vehicle addEventHandler ["Gear", {
+		params ["_vehicle", "_gearState"];
+		
+		_vehicle setVariable ["landingGear", _gearState];
+	}];
+	BETTY_eventHandlers set ["Gear", _gearEhIdx];
 
 	private _incMissileEhIdx = _vehicle addEventHandler ["IncomingMissile", {
 		params ["_target", "_ammo", "_vehicle", "_instigator", "_missile"];
