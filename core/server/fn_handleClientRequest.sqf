@@ -137,10 +137,11 @@ if (_action == "fastTravelSeized") exitWith {
 	private _startTime = diag_tickTime;
 
 	private _sector = _param1;
-	private _tagAlong = _param2;
 
 	private _cost = (getMissionConfigValue ["BIS_WL_fastTravelCostSeized", 0]);
 	private _hasFunds = _cost == 0 || playerFunds >= _cost;
+	private _destination = position _sender;
+
 	if (_hasFunds) then {
 		private _sectorArea = _sector getVariable "objectAreaComplete";
 		_sectorArea params ["_position", "_a", "_b", "_angle", "_isRectangle"];
@@ -219,17 +220,12 @@ if (_action == "fastTravelSeized") exitWith {
 		} forEach _dangerPositions;
 #endif
 
-		private _destination = if (count _safePositions > 0) then {
+		_destination = if (count _safePositions > 0) then {
 			selectRandom _safePositions;
 		} else {
 			_dangerPositions sort /*ascending=*/false;
 			(_dangerPositions # 0) # 1; // most distant position from enemy
 		};
-
-		{
-			_x setVehiclePosition [_destination, [], 3, "NONE"];
-		} forEach _tagAlong;
-		_sender setVehiclePosition [_destination, [], 0, "NONE"];
 
 		(-_cost) call WL2_fnc_fundsDatabaseWrite;
 
@@ -252,9 +248,7 @@ if (_action == "fastTravelSeized") exitWith {
 		/*3=*/_elapsed
 	];
 
-	sleep (1 - _elapsed); // sleep AT LEAST 1 sec
-	
-	[WL_FAST_TRAVEL_MODE_SEIZED] remoteExec ["WL2_fnc_completeFastTravel", _sender];
+	[WL_FAST_TRAVEL_MODE_SEIZED, _destination] remoteExec ["WL2_fnc_completeFastTravel", _sender];
 };
 
 if (_action == "fastTravelContested") exitWith {
