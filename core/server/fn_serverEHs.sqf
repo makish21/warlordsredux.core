@@ -42,7 +42,7 @@ addMissionEventHandler ["EntityDeleted", {
 
 addMissionEventHandler ["EntityKilled", {
 	params ["_unit", "_killer", "_instigator"];
-	[_unit, _killer, _instigator] call WL2_fnc_handleEntityRemoval;
+	[_unit, _killer, _instigator, /*killedByGame=*/true] call WL2_fnc_handleEntityRemoval;
 }];
 
 addMissionEventHandler ["MarkerCreated", {

@@ -8,9 +8,6 @@ player addEventHandler ["HandleRating", {
 player addEventHandler ["GetInMan", {
 	params ["_unit", "_role", "_vehicle", "_turret"];
 	VIC_ENTERED = true;
-	if ((typeOf _vehicle == "B_Plane_Fighter_01_F") || {(typeOf _vehicle == "B_Plane_CAS_01_dynamicLoadout_F") || {(typeOf _vehicle == "B_Heli_Attack_01_dynamicLoadout_F") || {(typeOf _vehicle == "B_T_VTOL_01_armed_F") || {(typeOf _vehicle == "B_T_VTOL_01_vehicle_F") || {(typeOf _vehicle == "B_T_VTOL_01_infantry_F")}}}}}) then  {
-		0 spawn WL2_fnc_betty;
-	};
 	if ((_vehicle getVariable "BIS_WL_ownerAsset") == (getPlayerUID player)) then {
 		_vehicle setVariable ["BIS_WL_lastActive", 0];
 	};
@@ -113,7 +110,7 @@ player addEventHandler ["HandleDamage", {
 						_unit setPosASL (getPosASL _unit);
 						switchCamera player;
 
-						hintSilent format ["Downed for %1", round _downTime];
+						hintSilent format [localize "STR_A3_WL2_downed_for", round _downTime];
 						_unit setVariable ["WL_unconsciousTime", _downTime];
 						sleep 1;
 					};

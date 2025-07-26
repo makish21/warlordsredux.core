@@ -1,6 +1,6 @@
 #include "..\warlords_constants.inc"
 
-params ["_unit", "_killer", "_instigator"];
+params ["_unit", "_killer", "_instigator", ["_killedByGame", false]];
 
 private _isSpawnedAsset = _unit getVariable ["WL_spawnedAsset", false];
 private _isUnitPlayer = isPlayer [_unit];
@@ -23,7 +23,7 @@ if (isNull _responsiblePlayer || { _responsiblePlayer == _unit }) then {
 
 if (isNull _responsiblePlayer) exitWith {};
 
-if (_isUnitPlayer && _unit isKindOf "Man") then {
+if (_isUnitPlayer && _unit isKindOf "Man" && !_killedByGame) then {
     _unit addPlayerScores [0, 0, 0, 0, 1];
     private _killMessage = if (isPlayer [_responsiblePlayer]) then {
         private _ffText = if (side group _unit == side group _responsiblePlayer) then {
