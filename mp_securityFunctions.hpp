@@ -69,6 +69,7 @@ class CfgRemoteExec {
 		class WLM_fnc_changeHorn {allowedTargets = 0;};
 		class WLM_fnc_moveSmokes {allowedTargets = 0;};
 		class WLM_fnc_rearmVehicle {allowedTargets = 0;};
+		class KS_fnc_unflipVehicle {allowedTargets = 2;};
 
 		//Don't touch
 		class BIS_fnc_effectKilled {allowedTargets = 0; jip = 0;};
