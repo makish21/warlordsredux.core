@@ -1,3 +1,4 @@
+if (isServer && isDedicated) exitWith {};
 
 call RWR_fnc_betty;
 call RWR_fnc_rita;

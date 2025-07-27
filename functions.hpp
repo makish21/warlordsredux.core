@@ -498,4 +498,14 @@ class CfgFunctions {
 			class xiao906 {};
 		};
 	};
+
+	class KS
+	{
+		class Default {
+			file = "src\scripts\VUnflip\functions";
+			class unflipVehicle {};
+			class unflipVehicleAddAction {};
+			class isFlipped {};
+		};
+	};
 };

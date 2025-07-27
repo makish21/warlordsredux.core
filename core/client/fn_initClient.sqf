@@ -393,6 +393,7 @@ call WL2_fnc_setupForwardBaseAction;
 #endif
 
 call RWR_fnc_init;
+call KS_fnc_unflipVehicleAddAction;
 
 call WL2_fnc_demolishAction;
 call WL2_fnc_disarmAction;
