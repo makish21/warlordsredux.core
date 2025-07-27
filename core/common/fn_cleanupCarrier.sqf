@@ -13,18 +13,18 @@ private _changeAttackStatus = {
         _x hideObject !_isUnderAttack;
     } forEach _carrierProps;
 
-    private _carrierData = _sector getVariable ["WL_aircraftCarrier", []];
-    private _markers = _carrierData # 3;
+    // private _carrierData = _sector getVariable ["WL_aircraftCarrier", []];
+    // private _markers = _carrierData # 3;
 
-    if (_isUnderAttack) then {
-        {
-            (_x # 0) setMarkerAlphaLocal 1;
-        } forEach _markers;
-    } else {
-        {
-            (_x # 0) setMarkerAlphaLocal 0;
-        } forEach _markers;
-    };
+    // if (_isUnderAttack) then {
+    //     {
+    //         (_x # 0) setMarkerAlphaLocal 1;
+    //     } forEach _markers;
+    // } else {
+    //     {
+    //         (_x # 0) setMarkerAlphaLocal 0;
+    //     } forEach _markers;
+    // };
 };
 
 {
