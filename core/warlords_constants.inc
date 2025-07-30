@@ -28,6 +28,7 @@
 #define WL_FT_POD_ENABLED 1
 #define WL_SQUAD_ASSISTS_ENABLED 1
 #define WLT_ENABLED 1
+#define WL_DRAGGABLE_PROMPT 1
 
 // Live: do not change
 #define WL_RESPAWN_MARKERS_CNT 20

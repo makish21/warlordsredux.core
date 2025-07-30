@@ -1,5 +1,6 @@
 params ["_modalTitle", "_modalText", "_confirmText", "_cancelText", ["_confirmTooltip", ""], ["_cancelTooltip", ""]];
 
+#if WL_DRAGGABLE_PROMPT
 private _confirmDialog = createDialog ["WL_Prompt_Dialog", true];
 
 private _titleControl = _confirmDialog displayCtrl 5702;
@@ -38,3 +39,6 @@ waitUntil {
 private _returnValue = uiNamespace getVariable ["WL_DialogResult", false];
 uiNamespace setVariable ["WL_DialogResult", false];
 _returnValue;
+#else  // WL_DRAGGABLE_PROMPT
+[_modalText, _modalTitle, _confirmText, _cancelText] call BIS_fnc_guiMessage;
+#endif  // WL_DRAGGABLE_PROMPT
