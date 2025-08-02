@@ -61,6 +61,7 @@ if (isNull (findDisplay 73000)) then {
 								_editCtrl ctrlSetBackgroundColor [1, 1, 1, 0.8];
 								_editCtrl ctrlSetTextColor		 [.9, 0, 0.0353, 1];
 								_editCtrl ctrlCommit 0;
+								copyToClipboard _lsText;
 								_lsText;
 							}else{
 								_text;

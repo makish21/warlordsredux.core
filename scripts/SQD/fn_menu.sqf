@@ -170,6 +170,7 @@ disableSerialization;
 
         ctrlShow [PROMOTE_BUTTON, false];
         ctrlShow [KICK_BUTTON, false];
+        ctrlShow [INVITE_BUTTON, false];
     };
 
     private _updatePictures = {

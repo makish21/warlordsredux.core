@@ -9,8 +9,9 @@ private _mySquad = _squadList select {(_x select 2) find (getPlayerID player) > 
 playSoundUI ["a3\ui_f\data\sound\rsclistbox\soundselect.wss", 0.5];
 
 if (isNil "_mySquad") exitWith {
-    ctrlEnable [PROMOTE_BUTTON, false];
-    ctrlEnable [KICK_BUTTON, false];
+    ctrlShow [PROMOTE_BUTTON, false];
+    ctrlShow [KICK_BUTTON, false];
+    ctrlShow [INVITE_BUTTON, false];
 };
 
 private _isSquadLeader = (getPlayerID player) == (_mySquad select 1);
@@ -18,10 +19,9 @@ private _isSquadLeader = (getPlayerID player) == (_mySquad select 1);
 private _selectedPlayer = _control tvData _selectionPath;
 private _isSelectedPlayerInSquad = (_mySquad select 2) find _selectedPlayer > -1;
 
-if (_isSquadLeader && _isSelectedPlayerInSquad && _selectedPlayer != (getPlayerID player)) then {
-    ctrlShow [PROMOTE_BUTTON, true];
-    ctrlShow [KICK_BUTTON, true];
-} else {
-    ctrlShow [PROMOTE_BUTTON, false];
-    ctrlShow [KICK_BUTTON, false];
-};
+ctrlShow [INVITE_BUTTON, false];
+
+private _canControl = _isSquadLeader && _isSelectedPlayerInSquad && _selectedPlayer != (getPlayerID player);
+
+ctrlShow [PROMOTE_BUTTON, _canControl];
+ctrlShow [KICK_BUTTON, _canControl];

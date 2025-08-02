@@ -378,16 +378,6 @@ class MRTM_settingsMenu
 
 	class controls
 	{
-		class MRTMBackground: IGUIBackMRTM
-		{
-			idc = -1;
-			colorBackground[] = {0,0,0,0.8};
-
-			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
-			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_CENTER_H;
-			w = 40 * GUI_GRID_CENTER_W;
-			h = 22.8 * GUI_GRID_CENTER_H;
-		};
 		class MRTMHeaderBackground: IGUIBackMRTM
 		{
 			idc = -1;
@@ -439,6 +429,16 @@ class MRTM_settingsMenu
 				align = "right";
 				shadow = 1;
 			};
+		};
+		class MRTMBackground: IGUIBackMRTM
+		{
+			idc = -1;
+			colorBackground[] = {0,0,0,0.8};
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_CENTER_H;
+			w = 40 * GUI_GRID_CENTER_W;
+			h = 22.8 * GUI_GRID_CENTER_H;
 		};
 		// class MRTMdiscordImg: RscPictureMRTM
 		// {

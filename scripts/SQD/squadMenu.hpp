@@ -4,33 +4,29 @@ class SquadsMenu
 
 	class controls
 	{
-		class SquadsBackground: IGUIBackMRTM
-		{
-			idc = 5001;
-			colorBackground[] = {0, 0, 0, 0.9};
-			x = 0.26836 * safezoneW + safezoneX;
-			y = 0.2646 * safezoneH + safezoneY;
-			w = 0.45375 * safezoneW;
-			h = 0.517 * safezoneH;
-		};
 		class SquadsHeaderBackground: IGUIBackMRTM
 		{
 			idc = 5002;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
-			x = 0.267969 * safezoneW + safezoneX;
-			y = 0.235 * safezoneH + safezoneY;
-			w = 0.45375 * safezoneW;
-			h = 0.025 * safezoneH;
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_CENTER_H;
+			w = 40 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
 		};
 		class SquadsHeaderTextLeft: RscStructuredTextMRTM
 		{
 			idc = 5003;
 			text = $STR_SQUADS_squadMenuText;
 			colorBackground[] = {0,0,0,0};
-			x = 0.267969 * safezoneW + safezoneX;
-			y = 0.236 * safezoneH + safezoneY;
-			w = 0.154687 * safezoneW;
-			h = 0.022 * safezoneH;
+			
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_CENTER_H;
+			w = 20 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+
+			size = 0.9 * GUI_GRID_CENTER_H;
+			
 			class Attributes
 			{
 				font = "PuristaMedium";
@@ -39,39 +35,84 @@ class SquadsMenu
 				align = "left";
 				shadow = 1;
 			};
+		};
+
+		class SquadsRefreshButton: RscCheckboxMRTM
+		{
+			idc = 5008;
+			// text = $STR_SQUADS_refreshSquads;
+			action = "SQD_MENU_REFRESH = true;";
+			colorBackgroundHover[] = {1, 1, 1, 0.3};
+			tooltip = $STR_SQUADS_refreshSquads;
+
+			x = GUI_GRID_CENTER_X + 39 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_CENTER_H;
+			w = 1 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
+
+			textureUnChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			textureChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			textureFocusedChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			textureFocusedUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			textureHoverChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			textureHoverUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			texturePressedChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			texturePressedUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			textureDisabledChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+			textureDisabledUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
+		};
+
+		class SquadsBackground: IGUIBackMRTM
+		{
+			idc = 5001;
+			colorBackground[] = {0, 0, 0, 0.8};
+			
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_CENTER_H;
+			w = 40 * GUI_GRID_CENTER_W;
+			h = 22.8 * GUI_GRID_CENTER_H;
 		};
 		class SquadsInfoText: RscStructuredTextMRTM
 		{
 			idc = 5004;
-			text = $STR_SQUADS_welcomeText;
+			text = $STR_SQUADS_squads_title;
 			style = ST_MULTI;
 			colorBackground[] = {0, 0, 0, 0};
-			x = 0.267969 * safezoneW + safezoneX;
-			y = 0.2706 * safezoneH + safezoneY;
-			w = 0.214687 * safezoneW;
-			h = 0.099 * safezoneH;
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 1.225 * GUI_GRID_CENTER_H;
+			w = 20 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+
+			size = 0.9 * GUI_GRID_CENTER_H;
+
 			class Attributes
 			{
-				font = "PuristaMedium";
 				color = "#ffffff";
 				colorLink = "#D09B43";
 				align = "left";
 				shadow = 1;
-				size = 0.88;
 			};
 		};
+
         class SquadsSquadList: RscTreeWL
 		{
 			idc = 5005;
 			deletable = 0;
 			canDrag = 0;
 			color[] = {1, 0, 0, 1};
-			colorBackground[] = {0, 0, 0, 0.9};
+			colorBackground[] = {0, 0, 0, 0.5};
 			type = CT_TREE;
-			x = 0.275 * safezoneW + safezoneX;
-			y = 0.36 * safezoneH + safezoneY;
-			w = 0.209187 * safezoneW;
-			h = 0.407 * safezoneH;
+			rowHeight = 1 * GUI_GRID_CENTER_H;
+
+			x = GUI_GRID_CENTER_X + 0.25 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 2.225 * GUI_GRID_CENTER_H;
+			w = 19.625 * GUI_GRID_CENTER_W;
+			h = 21.425 * GUI_GRID_CENTER_H;
+			
 			autoScrollSpeed = -1;
 			autoScrollDelay = 5;
 			autoScrollRewind = 0;
@@ -82,22 +123,49 @@ class SquadsMenu
 				arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
 				border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
 			};
-			style = LB_TEXTURES;
+
+			style = ST_KEEP_ASPECT_RATIO;
 		};
+
+		class SquadsPlayersText: RscStructuredTextMRTM
+		{
+			idc = 5007;
+			text = $STR_SQUADS_players_title;
+			colorBackground[] = {0, 0, 0, 0};
+
+			x = GUI_GRID_CENTER_X + 20 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 1.225 * GUI_GRID_CENTER_H;
+			w = 20 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+
+			size = 0.9 * GUI_GRID_CENTER_H;
+			
+			class Attributes
+			{
+				color = "#ffffff";
+				colorLink = "#D09B43";
+				align = "left";
+				shadow = 1;
+			};
+		};
+
 		class SquadsPlayersList: RscListboxMRTM
 		{
 			idc = 5006;
 			deletable = 0;
 			canDrag = 0;
 			color[] = {0, 1, 0, 1};
-			colorBackground[] = {0, 0, 0, 0.9};
+			colorBackground[] = {0, 0, 0, 0.5};
 			colorSelect[] = {1, 1, 1, 0.3};
 			colorSelectBackground[] = {0, 0, 0, 0};
 			type = CT_LISTBOX;
-			x = 0.487969 * safezoneW + safezoneX;
-			y = 0.310 * safezoneH + safezoneY;
-			w = 0.223981 * safezoneW;
-			h = 0.457 * safezoneH;
+			rowHeight = 0.5 * GUI_GRID_CENTER_H;
+
+			x = GUI_GRID_CENTER_X + 20.125 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 2.225 * GUI_GRID_CENTER_H;
+			w = 19.625 * GUI_GRID_CENTER_W;
+			h = 21.425 * GUI_GRID_CENTER_H;
+			
 			autoScrollSpeed = -1;
 			autoScrollDelay = 5;
 			autoScrollRewind = 0;
@@ -110,150 +178,169 @@ class SquadsMenu
 			};
 			style = LB_TEXTURES;
 		};
-		class SquadsPlayersText: RscStructuredTextMRTM
-		{
-			idc = 5007;
-			text = $STR_SQUADS_squadInviteMenuText;
-			colorBackground[] = {0, 0, 0, 0};
-			x = 0.487969 * safezoneW + safezoneX;
-			y = 0.2706 * safezoneH + safezoneY;
-			w = 0.223981 * safezoneW;
-			h = 0.033 * safezoneH;
-			class Attributes
-			{
-				font = "PuristaMedium";
-				color = "#ffffff";
-				colorLink = "#D09B43";
-				align = "left";
-				shadow = 1;
-				size = 0.88;
-			};
-		};
-		class SquadsRefreshButton: RscCheckboxMRTM
-		{
-			idc = 5008;
-			action = "SQD_MENU_REFRESH = true;";
-			colorBackgroundHover[] = {1, 1, 1, 0.3};
-			x = 0.69 * safezoneW + safezoneX;
-			y = 0.237 * safezoneH + safezoneY;
-			w = 0.0154688 * safezoneW;
-			h = 0.022 * safezoneH;
-			textureUnChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			textureChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			textureFocusedChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			textureFocusedUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			textureHoverChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			textureHoverUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			texturePressedChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			texturePressedUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			textureDisabledChecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			textureDisabledUnchecked = "a3\missions_f_exp\data\img\lobby\ui_campaign_lobby_icon_player_connecting_ca.paa";
-			tooltip = $STR_SQUADS_refreshSquads;
-		};
-		class SquadsCloseButton: RscCheckboxMRTM
+
+		class SquadsCloseButton: RscButtonMenuMRTM
 		{
 			idc = 5009;
-			sizeEx = "0.021 / (getResolution select 5)";
-			x = 0.708 * safezoneW + safezoneX;
-			y = 0.237 * safezoneH + safezoneY;
-			w = 0.013 * safezoneW;
-			h = 0.022 * safezoneH;
-			colorBackgroundHover[] = {1, 1, 1, 0.3};
-			font = "PuristaMedium";
+			text = "$STR_A3_WL_settings_button_close";
+			style = ST_UPPERCASE;
+			
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 7 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
+
 			action = "(findDisplay 5000) closeDisplay 1;";
-			textureUnChecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			textureChecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			textureFocusedChecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			textureFocusedUnchecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			textureHoverChecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			textureHoverUnchecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			texturePressedChecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			texturePressedUnchecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			textureDisabledChecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
-			textureDisabledUnchecked = "\A3\ui_f\data\map\groupicons\waypoint.paa";
 		};
-		class SquadsLeaveButton: RscButtonMRTM
-		{
-			idc = 5012;
-			text = $STR_SQUADS_buttonsLeave;
-			sizeEx = "0.021 / (getResolution select 5)";
-			colorBackground[] = {0, 0, 0, 0.9};
-			action = "['leave'] spawn SQD_fnc_client;";
-			x = 0.360781 * safezoneW + safezoneX;
-			y = 0.786 * safezoneH + safezoneY;
-			w = 0.0825 * safezoneW;
-			h = 0.03 * safezoneH;
-			font = "PuristaMedium";
-		};
-		class SquadsPromoteButton: RscButtonMRTM
-		{
-			idc = 5013;
-			text = $STR_SQUADS_buttonsPromote;
-			sizeEx = "0.021 / (getResolution select 5)";
-			colorBackground[] = {0, 0, 0, 0.9};
-			onLoad = "(_this # 0) ctrlShow false;";
-			action = "['promote'] spawn SQD_fnc_client;";
-			x = 0.453594 * safezoneW + safezoneX;
-			y = 0.786 * safezoneH + safezoneY;
-			w = 0.0825 * safezoneW;
-			h = 0.03 * safezoneH;
-			font = "PuristaMedium";
-		};
-		class SquadsKickButton: RscButtonMRTM
-		{
-			idc = 5015;
-			text = $STR_SQUADS_buttonsKick;
-			sizeEx = "0.021 / (getResolution select 5)";
-			colorBackground[] = {0, 0, 0, 0.9};
-			onLoad = "(_this # 0) ctrlShow false;";
-			action = "['kick'] spawn SQD_fnc_client;";
-			x = 0.546406 * safezoneW + safezoneX;
-			y = 0.786 * safezoneH + safezoneY;
-			w = 0.0825 * safezoneW;
-			h = 0.03 * safezoneH;
-			font = "PuristaMedium";
-		};
-		class SquadsRenameButton: RscButtonMRTM
+		class SquadsRenameButton: RscButtonMenuMRTM
 		{
 			idc = 5011;
 			text = $STR_SQUADS_buttonsRename;
-			sizeEx = "0.021 / (getResolution select 5)";
-			colorBackground[] = {0, 0, 0, 0.9};
 			onLoad = "";
 			action = "['rename'] spawn SQD_fnc_client;";
-			x = 0.639219 * safezoneW + safezoneX;
-			y = 0.786 * safezoneH + safezoneY;
-			w = 0.0825 * safezoneW;
-			h = 0.03 * safezoneH;
-			font = "PuristaMedium";
+
+			x = GUI_GRID_CENTER_X + 7.1 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 7 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
 		};
-		class SquadsCreateButton: RscButtonMRTM
+
+		class SquadsPromoteButton: RscButtonMenuMRTM
 		{
-			idc = 5014;
-			text = $STR_SQUADS_buttonsCreate;
-			sizeEx = "0.021 / (getResolution select 5)";
-			colorBackground[] = {0, 0, 0, 0.9};
-			action = "['create'] spawn SQD_fnc_client;";
-			x = 0.269206 * safezoneW + safezoneX;
-			y = 0.786 * safezoneH + safezoneY;
-			w = 0.0825 * safezoneW;
-			h = 0.03 * safezoneH;
-			font = "PuristaMedium";
+			idc = 5013;
+			text = $STR_SQUADS_buttonsPromote;
+			onLoad = "(_this # 0) ctrlShow false;";
+			action = "['promote'] spawn SQD_fnc_client;";
+
+			x = GUI_GRID_CENTER_X + 19.8 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 7 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
 		};
-		class SquadsInviteButton: RscButtonMRTM
+		class SquadsKickButton: RscButtonMenuMRTM
+		{
+			idc = 5015;
+			text = $STR_SQUADS_buttonsKick;
+			onLoad = "(_this # 0) ctrlShow false;";
+			action = "['kick'] spawn SQD_fnc_client;";
+
+			x = GUI_GRID_CENTER_X + 25.9 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 7 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
+		};
+		class SquadsInviteButton: RscButtonMenuMRTM
 		{
 			idc = 5010;
 			text = $STR_SQUADS_buttonsInvite;
-			sizeEx = "0.021 / (getResolution select 5)";
-			colorBackground[] = {0, 0, 0, 0.9};
 			onLoad = "(_this # 0) ctrlEnable false;";
-			tooltip = "Select a player to invite.";
+			tooltip = $STR_SQUADS_noPlayerSelection;
 			action = "['invite'] spawn SQD_fnc_client;";
-			x = 0.662 * safezoneW + safezoneX;
-			y = 0.272 * safezoneH + safezoneY;
-			w = 0.05 * safezoneW;
-			h = 0.03 * safezoneH;
-			font = "PuristaMedium";
+
+			x = GUI_GRID_CENTER_X + 25.9 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 7 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
+		};
+
+		class SquadsLeaveButton: RscButtonMenuMRTM
+		{
+			idc = 5012;
+			text = $STR_SQUADS_buttonsLeave;
+			action = "['leave'] spawn SQD_fnc_client;";
+
+			x = GUI_GRID_CENTER_X + 33 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 7 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
+		};
+		class SquadsCreateButton: RscButtonMenuMRTM
+		{
+			idc = 5014;
+			text = $STR_SQUADS_buttonsCreate;
+			action = "['create'] spawn SQD_fnc_client;";
+
+			x = GUI_GRID_CENTER_X + 33 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 7 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
 		};
 	};
 };
@@ -269,10 +356,12 @@ class SquadsMenu_Rename
 		{
 			idc = 5101;
 			colorBackground[] = {0.1, 0.1, 0.1, 0.9};
-			x = 0.41 * safezoneW + safezoneX;
-			y = 0.45 * safezoneH + safezoneY;
-			w = 0.18 * safezoneW;
-			h = 0.12 * safezoneH;
+
+			x = GUI_GRID_CENTER_X + 12 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 10 * GUI_GRID_CENTER_H;
+			w = 16 * GUI_GRID_CENTER_W;
+			h = 5 * GUI_GRID_CENTER_H;
+			
 			class Attributes
 			{
 				font = "PuristaMedium";
@@ -283,32 +372,36 @@ class SquadsMenu_Rename
 				size = 0.88;
 			};
 		};
-		class SquadsHeaderTextLeft: RscStructuredTextMRTM
+		class SquadsRenameHeaderText: RscStructuredTextMRTM
 		{
 			idc = 5102;
 			text = $STR_SQUADS_newSquadName;
 			colorBackground[] = {0.2, 0.2, 0.2, 0.9};
 			colorText[] = {1, 1, 1, 1};
-			x = 0.41 * safezoneW + safezoneX;
-			y = 0.45 * safezoneH + safezoneY;
-			w = 0.18 * safezoneW;
-			h = 0.03 * safezoneH;
+
+			x = GUI_GRID_CENTER_X + 12 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 10 * GUI_GRID_CENTER_H;
+			w = 16 * GUI_GRID_CENTER_W;
+			h = 1.25 * GUI_GRID_CENTER_H;
+			
 			class Attributes
 			{
 				align = "center";
 				shadow = 1;
-				size = 1.2;
+				size = 1.25 * GUI_GRID_CENTER_H;
 			};
 		};
 		class SquadsRenameEditBox: RscEditMRTM
 		{
 			idc = 5103;
-			x = 0.42 * safezoneW + safezoneX;
-			y = 0.495 * safezoneH + safezoneY;
-			w = 0.16 * safezoneW;
-			h = 0.025 * safezoneH;
+
+			x = GUI_GRID_CENTER_X + 12.4 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 11.65 * GUI_GRID_CENTER_H;
+			w = 15.2 * GUI_GRID_CENTER_W;
+			h = 1.275 * GUI_GRID_CENTER_H;
+
 			font = "PuristaMedium";
-			sizeEx = 0.04;
+			sizeEx = 1.275 * GUI_GRID_CENTER_H;
 			tooltip = $STR_SQUADS_enterNewSquadName;
 			maxChars = 25;
 		};
@@ -318,12 +411,15 @@ class SquadsMenu_Rename
 			text = $STR_SQUADS_buttonsSave;
 			sizeEx = 0.04;
 			action = "['renamed'] spawn SQD_fnc_client;";
-			x = 0.42 * safezoneW + safezoneX;
-			y = 0.53 * safezoneH + safezoneY;
-			w = 0.16 * safezoneW;
-			h = 0.03 * safezoneH;
+
+			x = GUI_GRID_CENTER_X + 12.4 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 13.325 * GUI_GRID_CENTER_H;
+			w = 15.2 * GUI_GRID_CENTER_W;
+			h = 1.275 * GUI_GRID_CENTER_H;
+
 			font = "PuristaMedium";
 			tooltip = $STR_SQUADS_saveNewSquadName;
 		};
 	};
 };
+

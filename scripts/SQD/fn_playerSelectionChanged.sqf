@@ -11,15 +11,17 @@ private _mySquad = _squadList select {(_x select 2) find (getPlayerID player) > 
 playSoundUI ["a3\ui_f\data\sound\rsclistbox\soundselect.wss", 0.5];
 
 private _inviteButtonControl = displayCtrl INVITE_BUTTON;
-
-if (isNil "_playerId" || _playerId == "") exitWith {
-    ctrlEnable [INVITE_BUTTON, false];
-    _inviteButtonControl ctrlSetTooltip (localize "STR_SQUADS_noPlayerSelection");
-};
 if (isNil "_mySquad") exitWith {
-    ctrlEnable [INVITE_BUTTON, false];
+    ctrlShow [INVITE_BUTTON, false];
     _inviteButtonControl ctrlSetTooltip (localize "STR_SQUADS_fastTravelSquadInvalidNoSquad");
 };
+
+if (isNil "_playerId" || _playerId == "") exitWith {
+    ctrlShow [INVITE_BUTTON, false];
+    _inviteButtonControl ctrlSetTooltip (localize "STR_SQUADS_noPlayerSelection");
+};
+
+ctrlShow [INVITE_BUTTON, true];
 
 private _playersInSquad = _mySquad select 2;
 private _squadSize = count _playersInSquad;

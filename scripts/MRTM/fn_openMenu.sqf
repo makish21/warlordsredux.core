@@ -45,9 +45,9 @@ ctrlEnable [8012, !(profileNamespace getVariable ["MRTM_syncObjects", true])];
 ctrlEnable [8014, !(profileNamespace getVariable ["MRTM_syncObjects", true])];
 
 {
-	sliderSetRange [(_x select 0), 0.05, 0.4];
+	sliderSetRange [(_x select 0), 0, 0.4];
 	sliderSetPosition [(_x select 0), (_x select 1)];
-	(_display displayCtrl (_x select 0)) sliderSetSpeed [0.05, 0.4, 0.01];
+	(_display displayCtrl (_x select 0)) sliderSetSpeed [0, 0.4, 0.01];
 } forEach [[8015, (profileNamespace getVariable ["MRTM_rwr1", 0.3])], [8017, (profileNamespace getVariable ["MRTM_rwr2", 0.3])], [8019, (profileNamespace getVariable ["MRTM_rwr3", 0.2])], [8021, (profileNamespace getVariable ["MRTM_rwr4", 0.3])]];
 
 private _mapRefreshCtrl = _display displayCtrl 8035;

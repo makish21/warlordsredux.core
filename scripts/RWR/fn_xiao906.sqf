@@ -156,7 +156,7 @@ XIAO_gForceTracker = {
 		// Calculate G-force
 		private _gForce = _acceleration / _g;
 
-		if (_gForce <= 10) then { continue };
+		if (_gForce <= 8) then { continue };
 
 		if (_aircraft getVariable ["isXiaoBusy", true]) then { sleep 0.2; continue }; // xiao saying something
 		_aircraft setVariable ["isXiaoBusy", true];
