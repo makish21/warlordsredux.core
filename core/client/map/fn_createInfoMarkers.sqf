@@ -6,7 +6,7 @@ private _revealKey = actionKeysNames ["revealTarget", 1, "Combo"];
 private _infoMarkers = [
 	[localize "WL2_InfoText_1", "mil_box_noShadow", "ColorRed"],
 	[localize "WL2_InfoText_2", "mil_box_noShadow", "ColorRed"],
-	["https://discord.gg/grmzsZE4ua", "mil_box_noShadow", "ColorRed"],
+	["https://discord.gg/FaK3RTMSph", "mil_box_noShadow", "ColorRed"],
 	[],
 	["   " + localize "WL2_InfoText_3", "loc_talk", "ColorGreen"],
 	[format [localize "WL2_InfoText_4", _menuKey], "mil_box_noShadow", "ColorYellow"],

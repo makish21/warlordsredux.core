@@ -1,3 +1,5 @@
+#include "\a3\ui_f\hpp\definecommongrids.inc"
+
 comment "Magazine Repack";
 // Event Listener to Detect Inventory UI Open
 // This script has been taken and modified from MAZ_Enhacement_Pack_Core to fit in to the usecase of WL Redux thus none of the original names have been onCommandModeChanged
@@ -6,7 +8,8 @@ comment "Magazine Repack";
 uiNamespace setVariable ["WL2_canRepack", true];
 
 ["MAZ_inventoryUIOpened", "onEachFrame", {
-    if (!isNull (findDisplay 602)) then {
+	private _display = findDisplay 602;
+    if (!isNull _display && isNull (_display displayCtrl 1600)) exitWith {
         ["inventoryOpened"] call MAZ_fnc_initializeUI;
     };
 }] call BIS_fnc_addStackedEventHandler;
@@ -18,13 +21,17 @@ MAZ_fnc_initializeUI = {
     if (_context == "inventoryOpened") then {
         // Create Repack Button
         with uiNamespace do {
-            private _repackButton = (findDisplay 602) ctrlCreate ["RscButtonMenu", 1600];
+			private _inventoryDialog = findDisplay 602;
+			private _inventoryCtrl = _inventoryDialog displayCtrl 1002;
+
+			(ctrlPosition _inventoryCtrl) params ["_a", "_b", "_w", "_h"];
+            private _repackButton = _inventoryDialog ctrlCreate ["RscButtonMenu", 1600];
             _repackButton ctrlSetBackgroundColor [0, 0, 0, 0.6];
             _repackButton ctrlSetPosition [
-                0.433069 * safeZoneW + safeZoneX,
-                0.7545 * safeZoneH + safeZoneY,
-                0.3025 * safeZoneW,
-                0.027 * safeZoneH
+				_a,
+				_b + _h + 0.1 * GUI_GRID_CENTER_H, // below inventory ctrl
+				_w,
+				1.2 * GUI_GRID_CENTER_H
             ];
             _repackButton ctrlSetEventHandler ["ButtonClick", "0 spawn MAZ_fnc_repackMagazines"];
             _repackButton ctrlSetStructuredText parseText format ["<t size='0.05'>&#160;</t><br/><t align='center' size='1.01'>%1</t>", localize "STR_A3_WL2_repack_magazines"];

@@ -234,7 +234,7 @@ class SquadsMenu
 			onLoad = "(_this # 0) ctrlShow false;";
 			action = "['promote'] spawn SQD_fnc_client;";
 
-			x = GUI_GRID_CENTER_X + 19.8 * GUI_GRID_CENTER_W;
+			x = GUI_GRID_CENTER_X + 18.8 * GUI_GRID_CENTER_W;
 			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
 			w = 7 * GUI_GRID_CENTER_W;
 			h = 1 * GUI_GRID_CENTER_H;

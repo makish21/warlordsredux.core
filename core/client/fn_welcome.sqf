@@ -136,7 +136,7 @@ while {dialog} do {
 			localize "STR_MRTM_welcomeInteract_19", lineBreak,
 			localize "STR_MRTM_welcomeInteract_20", lineBreak,
 			"", lineBreak,
-			parseText "<a href='https://discord.gg/grmzsZE4ua'>Discord.</a>"
+			parseText "<a href='https://discord.gg/FaK3RTMSph'>Discord.</a>"
 			];
 		};
 		case "changelog": {

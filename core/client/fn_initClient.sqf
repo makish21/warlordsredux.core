@@ -406,3 +406,6 @@ call WL2_fnc_createInfoMarkers;
 #if WL_SPAWN_DEBUG
 call WL2_fnc_spawnDebugMarkers;
 #endif
+
+player createDiaryRecord ["Diary", [localize "STR_A3_WL2_diary_hotkeys_title", format [localize "STR_A3_WL2_diary_hotkeys_text", "", ";<br/><br/>", ".", actionKeysNames "gear", keyName 0xD2, actionKeysNames "cycleThrownItems", actionKeysNames "prevChannel", actionKeysNames "nextChannel", actionKeysNames "chat", actionKeysNames "pushToTalk", actionKeysNames "TacticalPing"]], taskNull, "NONE", true];
+player createDiaryRecord ["Diary", [localize "STR_A3_WL_rules_title", format [localize "STR_A3_WL_rules_text", "", "<br/><br/>"]], taskNull, "NONE", true];
