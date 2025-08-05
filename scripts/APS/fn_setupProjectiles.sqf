@@ -61,7 +61,9 @@ _this addEventHandler ["Fired", {
 	private _projectileSam = _projectileConfig getOrDefault ["sam", false];
 	if (_projectileSam) then {
 		[_projectile, _unit] spawn DIS_fnc_frag;
+#if WL_CUSTOM_SAM_LOGIC
 		[_projectile, _unit] spawn DIS_fnc_maneuver;
+#endif  // WL_CUSTOM_SAM_LOGIC
 	};
 
 	private _projectileSead = _projectileConfig getOrDefault ["sead", false];

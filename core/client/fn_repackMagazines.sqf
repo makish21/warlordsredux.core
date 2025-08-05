@@ -140,7 +140,12 @@ MAZ_fnc_repackLoadingBar = {
 
 		progressBarBackground = display ctrlCreate ['RscStructuredText', -1];
 		progressBarBackground ctrlSetBackgroundColor [0, 0, 0, 0.5];
-		progressBarBackground ctrlSetPosition [0.29375 * safeZoneW + safeZoneX, 0.753 * safeZoneH + safeZoneY, 0.4125 * safeZoneW, 0.022 * safeZoneH];
+		progressBarBackground ctrlSetPosition [
+			GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W,
+			GUI_GRID_CENTER_Y + 20 * GUI_GRID_CENTER_H,
+			20 * GUI_GRID_CENTER_W,
+			1 * GUI_GRID_CENTER_H
+		];
 		progressBarBackground ctrlSetFade 1;
 		progressBarBackground ctrlCommit 0;
 		progressBarBackground ctrlSetFade 0;
@@ -148,17 +153,32 @@ MAZ_fnc_repackLoadingBar = {
 
 		progressBarForeground = display ctrlCreate ['RscText', -1];
 		progressBarForeground ctrlSetBackgroundColor [0.3, 1, 0.2, 0.7];
-		progressBarForeground ctrlSetPosition [0.29375 * safeZoneW + safeZoneX, 0.753 * safeZoneH + safeZoneY, 0 * safeZoneW, 0.022 * safeZoneH];
+		progressBarForeground ctrlSetPosition [
+			GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W,
+			GUI_GRID_CENTER_Y + 20 * GUI_GRID_CENTER_H,
+			0 * GUI_GRID_CENTER_W,
+			1 * GUI_GRID_CENTER_H
+		];
 		progressBarForeground ctrlSetFade 1;
 		progressBarForeground ctrlCommit 0;
 		progressBarForeground ctrlSetFade 0;
-		progressBarForeground ctrlSetPosition [0.29375 * safeZoneW + safeZoneX, 0.753 * safeZoneH + safeZoneY, 0.020625 * safeZoneW, 0.022 * safeZoneH];
+		progressBarForeground ctrlSetPosition [
+			GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W,
+			GUI_GRID_CENTER_Y + 20 * GUI_GRID_CENTER_H,
+			1 * GUI_GRID_CENTER_W,
+			1 * GUI_GRID_CENTER_H
+		];
 		progressBarForeground ctrlCommit 1;
 
 		progressBarText = display ctrlCreate ['RscStructuredText', -1];
 		progressBarText ctrlSetBackgroundColor [0, 0, 0, 0.5];
-		progressBarText ctrlSetPosition [0.29375 * safeZoneW + safeZoneX, 0.753 * safeZoneH + safeZoneY, 0.4125 * safeZoneW, 0.022 * safeZoneH];
-		progressBarText ctrlSetStructuredText parseText "<t align='center'>Repacking Mags...</t>";
+		progressBarText ctrlSetPosition [
+			GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W,
+			GUI_GRID_CENTER_Y + 20 * GUI_GRID_CENTER_H,
+			20 * GUI_GRID_CENTER_W,
+			1 * GUI_GRID_CENTER_H
+		];
+		progressBarText ctrlSetStructuredText parseText format ["<t align='center'>%1</t>", localize "STR_A3_WL2_repack_magazines_progress"];
 		progressBarText ctrlSetFade 1;
 		progressBarText ctrlCommit 0;
 		progressBarText ctrlSetFade 0;
@@ -170,7 +190,12 @@ MAZ_fnc_repackLoadingBar = {
 	0 spawn MAZ_fnc_repackAnimation;
 
 	with uiNamespace do {
-		progressBarForeground ctrlSetPosition [0.29375 * safeZoneW + safeZoneX, 0.753 * safeZoneH + safeZoneY, 0.4125 * safeZoneW, 0.022 * safeZoneH];
+		progressBarForeground ctrlSetPosition [
+			GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W,
+			GUI_GRID_CENTER_Y + 20 * GUI_GRID_CENTER_H,
+			20 * GUI_GRID_CENTER_W,
+			1 * GUI_GRID_CENTER_H
+		];
 		progressBarForeground ctrlCommit _amountOfMags;
 
 		uiSleep _amountOfMags;
@@ -178,7 +203,7 @@ MAZ_fnc_repackLoadingBar = {
 		missionNamespace setVariable ["MAZ_magRepackDone", true];
 		player playActionNow "stop";
 
-		progressBarText ctrlSetStructuredText parseText "<t align='center'>Magazines Repacked.</t>";
+		progressBarText ctrlSetStructuredText parseText format ["<t align='center'>%1</t>", localize "STR_A3_WL2_magazines_repacked"];
 		progressBarText ctrlCommit 0;
 
 		uiSleep 5;
