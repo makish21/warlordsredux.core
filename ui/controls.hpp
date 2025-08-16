@@ -1,3 +1,5 @@
+#include "\a3\ui_f\hpp\definecommongrids.inc"
+
 import RscStructuredText;
 
 #define ST_CENTER	 0x02
@@ -9,28 +11,62 @@ class welcomeScreen
 
 	class controls
 	{
-		class welcomeFrame: IGUIBackMRTM
-		{
-			idc = 9001;
-			deletable = 0;
-			x = 0.250656 * safezoneW + safezoneX;
-			y = 0.171 * safezoneH + safezoneY;
-			w = 0.499688 * safezoneW;
-			h = 0.671 * safezoneH;
-			colorText[] = {1,1,1,1};
-		};
-
-		class welcomeMain: IGUIBackMRTM
+		class MRTMHeaderBackground: IGUIBackMRTM
 		{
 			idc = -1;
-			deletable = 0;
-			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.181 * safezoneH + safezoneY;
-			w = 0.484688 * safezoneW;
-			h = 0.649 * safezoneH;
-			colorText[] = {1,1,1,1};
-			colorActive[] = {1,1,1,1};
+			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
+
+			x = GUI_GRID_CENTER_X + 5 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_CENTER_H;
+			w = 30 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
 		};
+		class MRTMHeaderTextLeft: RscStructuredTextMRTM
+		{
+			idc = -1;
+			text = "Warlords Reloaded";
+			colorBackground[] = {0,0,0,0};
+
+			x = GUI_GRID_CENTER_X + 5 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_CENTER_H;
+			w = 15 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+
+			size = 0.9 * GUI_GRID_CENTER_H;
+			
+			class Attributes
+			{
+				font = "PuristaMedium";
+				color = "#ffffff";
+				colorLink = "#D09B43";
+				align = "left";
+				shadow = 1;
+			};
+		};
+		// class welcomeFrame: IGUIBackMRTM
+		// {
+		// 	idc = 9001;
+		// 	deletable = 0;
+
+		// 	x = 0.250656 * safezoneW + safezoneX;
+		// 	y = 0.171 * safezoneH + safezoneY;
+		// 	w = 0.499688 * safezoneW;
+		// 	h = 0.671 * safezoneH;
+
+		// 	colorText[] = {1,1,1,1};
+		// };
+
+		// class welcomeMain: IGUIBackMRTM
+		// {
+		// 	idc = -1;
+		// 	deletable = 0;
+		// 	x = 0.257656 * safezoneW + safezoneX;
+		// 	y = 0.181 * safezoneH + safezoneY;
+		// 	w = 0.484688 * safezoneW;
+		// 	h = 0.649 * safezoneH;
+		// 	colorText[] = {1,1,1,1};
+		// 	colorActive[] = {1,1,1,1};
+		// };
 
 		class welcomeMainImg: RscPictureMRTM
 		{
@@ -38,34 +74,71 @@ class welcomeScreen
 			type = CT_STATIC;
 			text = "a3\map_altis\data\picturemap_ca.paa";
 			style = ST_TILE_PICTURE;
-			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.181 * safezoneH + safezoneY;
-			w = 0.484688 * safezoneW;
-			h = 0.649 * safezoneH;
+
+			x = GUI_GRID_CENTER_X + 5 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_CENTER_H;
+			w = 30 * GUI_GRID_CENTER_W;
+			h = 22.8 * GUI_GRID_CENTER_H;
+
+			// x = 0.257656 * safezoneW + safezoneX;
+			// y = 0.181 * safezoneH + safezoneY;
+			// w = 0.484688 * safezoneW;
+			// h = 0.649 * safezoneH;
+
 			tileW = 1;
-			tileH = (safezoneH min safeZoneW) / (safezoneH max safezoneW);
+			tileH = 0.76;
+
+			colorBackground[] = {0,0,0,0.6};
 		};
 		
 		class welcomeMainImgDim: IGUIBackMRTM
 		{
-			idc = -1;
-			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.181 * safezoneH + safezoneY;
-			w = 0.484688 * safezoneW;
-			h = 0.649 * safezoneH;
+			x = GUI_GRID_CENTER_X + 5 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_CENTER_H;
+			w = 30 * GUI_GRID_CENTER_W;
+			h = 22.8 * GUI_GRID_CENTER_H;
+
 			colorBackground[] = {0,0,0,0.3};
 		};
 		
-		class welcomeText: RscStructuredTextMRTM
+		class A: RscToolboxMRTM
 		{
-			idc = 9005;
-			deletable = 0;
-			text = "Warlords Redux v2.6.10";
-			x = 0.288594 * safezoneW + safezoneX;
-			y = 0.225 * safezoneH + safezoneY;
-			w = 0.149531 * safezoneW;
-			h = 0.033 * safezoneH;
+			idc = -1;
+			style = ST_UPPERCASE;
+			
+			x = GUI_GRID_CENTER_X + 5 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_CENTER_H;
+			w = 10 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			checked_strings[] = {"[Entry 1]","[Entry 2]","[Entry 3]"};
+			strings[] = { "[Entry 1]","[Entry 2]","[Entry 3]" };
+			rows = 1;
+			columns = 3;
+
+			font = "PuristaLight";
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
 		};
+
+		// class welcomeText: RscStructuredTextMRTM
+		// {
+		// 	idc = 9005;
+		// 	deletable = 0;
+		// 	text = "Warlords Redux v2.6.10";
+		// 	x = 0.288594 * safezoneW + safezoneX;
+		// 	y = 0.225 * safezoneH + safezoneY;
+		// 	w = 0.149531 * safezoneW;
+		// 	h = 0.033 * safezoneH;
+		// };
 
 		class welcomeTextToRead: RscStructuredTextMRTM
 		{
@@ -167,37 +240,31 @@ class welcomeScreen
 			w = 0.190781 * safezoneW;
 			h = 0.286 * safezoneH;
 		};
-		class welcomeCloseButton: RscButtonMRTM
+
+		class MRTMCloseButton: RscButtonMenuMRTM
 		{
 			idc = 1;
-			type = CT_BUTTON;
-			text = "Close";
-			sizeEx = "0.021 / (getResolution select 5)";
-			colorText[] = {1,1,1,1};
-			colorDisabled[] = {0,0,0,0};
-			colorBackground[] = {0,0,0,0};
-			colorBackgroundDisabled[] = {0,0,0,0};
-			colorBackgroundActive[] = {0,0,0,0};
-			colorFocused[] = {0,0,0,0};
-			colorShadow[] = {0,0,0,0};
-			colorBorder[] = {1,1,1,0};
-			soundEnter[] = {"\A3\ui_f\data\Sound\RscButtonMenu\soundEnter", 0.09, 1};
-			soundPush[] = {"\A3\ui_f\data\Sound\RscButtonMenu\soundPush", 0.0, 0};
-			soundClick[] = {"\A3\ui_f\data\Sound\RscButtonMenu\soundClick", 0.07, 1};
-			soundEscape[] = {"\A3\ui_f\data\Sound\RscButtonMenu\soundEscape", 0.09, 1};
-			style = 2;
-			x = 0.678594 * safezoneW + safezoneX;
-			y = 0.794 * safezoneH + safezoneY;
-			w = 0.059531 * safezoneW;
-			h = 0.033 * safezoneH;
-			shadow = 0;
-			offsetX = 0.000;
-			offsetY = 0.000;
-			offsetPressedX = 0.002;
-			offsetPressedY = 0.002;
-			borderSize = 0;
-			onLoad =  "(_this # 0) ctrlEnable false;";
-			action = "[] call MRTM_fnc_updateViewDistance;";
+			text = "$STR_A3_WL2_welcome_screen_close";
+			style = ST_UPPERCASE;
+			
+			x = GUI_GRID_CENTER_X + 5 * GUI_GRID_CENTER_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
+			w = 5 * GUI_GRID_CENTER_W;
+			h = 1 * GUI_GRID_CENTER_H;
+			
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_CENTER_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_CENTER_H;
+			sizeEx = 1 * GUI_GRID_CENTER_H;
+
+			font = "PuristaLight";
+			action =  "(findDisplay 9000) closeDisplay 1;";
 		};
 	};
 };
@@ -369,8 +436,6 @@ class rearmMenu
 		};*/
 	};
 };
-
-#include "\a3\ui_f\hpp\definecommongrids.inc"
 
 class MRTM_settingsMenu
 {

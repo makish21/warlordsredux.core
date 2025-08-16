@@ -1723,3 +1723,95 @@ class RscTreeWL
 		scrollSpeed = 0.05;
 	};
 };
+
+class RscToolboxMRTM
+{
+	deletable = 0;
+	fade = 0;
+	access = 0;
+	type = CT_TOOLBOX;
+	style = ST_CENTER;
+	animTextureNormal = "#(argb,8,8,3)color(1,1,1,1)";
+	animTextureDisabled = "#(argb,8,8,3)color(1,1,1,1)";
+	animTextureOver = "#(argb,8,8,3)color(1,1,1,1)";
+	animTextureFocused = "#(argb,8,8,3)color(1,1,1,1)";
+	animTexturePressed = "#(argb,8,8,3)color(1,1,1,1)";
+	animTextureDefault = "#(argb,8,8,3)color(1,1,1,1)";
+	colorText[] = {0.95,0.95,0.95,1};
+	color[] = {0.95,0.95,0.95,1};
+	colorTextSelect[] = {0,0,0,1};
+	colorSelect[] = {0.95,0.95,0.95,1};
+	colorTextDisable[] = {0.4,0.4,0.4,1};
+	colorDisable[] = {0.4,0.4,0.4,1};
+	colorSelectedBg[] =
+	{
+		1,1,1,1
+	};
+
+
+	colorFocused[] =
+	{
+		0,
+		0,
+		0,
+		1
+	};
+	color2[] =
+	{
+		0,
+		0,
+		0,
+		1
+	};
+	colorDisabled[] =
+	{
+		1,
+		1,
+		1,
+		0.25
+	};
+	textSecondary = "";
+	colorSecondary[] =
+	{
+		1,
+		1,
+		1,
+		1
+	};
+	colorFocusedSecondary[] =
+	{
+		0,
+		0,
+		0,
+		1
+	};
+	color2Secondary[] =
+	{
+		0,
+		0,
+		0,
+		1
+	};
+	colorDisabledSecondary[] =
+	{
+		1,
+		1,
+		1,
+		0.25
+	};
+
+
+	shadow = 0;
+	strings[] =
+	{
+		"",
+		""
+	};
+	x = 0;
+	y = 0;
+	w = 0.3;
+	h = 0.025;
+	rows = 1;
+	columns = 2;
+	font = "RobotoCondensed";
+};

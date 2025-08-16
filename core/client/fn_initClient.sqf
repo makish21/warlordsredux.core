@@ -330,15 +330,15 @@ call WL2_fnc_pingFixInit;
 missionNamespace setVariable [format ["BIS_WL2_minesDB_%1", getPlayerUID player],
 	createHashMapFromArray [
 		// ***Automatic mines***/
-		["APERSMine_Range_Ammo", [10, []]],
-		["APERSTripMine_Wire_Ammo", [10, []]],
-		["APERSBoundingMine_Range_Ammo", [10, []]],
-		["ATMine_Range_Ammo", [10, []]],
-		["SLAMDirectionalMine_Wire_Ammo", [10, []]],
+		["APERSMine_Range_Ammo", [100, []]],
+		["APERSTripMine_Wire_Ammo", [100, []]],
+		["APERSBoundingMine_Range_Ammo", [100, []]],
+		["ATMine_Range_Ammo", [100, []]],
+		["SLAMDirectionalMine_Wire_Ammo", [100, []]],
 		// ***Manually Detonated***/
-		["ClaymoreDirectionalMine_Remote_Ammo", [5, []]],
-		["SatchelCharge_Remote_Ammo", [5, []]],
-		["DemoCharge_Remote_Ammo", [5, []]]
+		["ClaymoreDirectionalMine_Remote_Ammo", [50, []]],
+		["SatchelCharge_Remote_Ammo", [50, []]],
+		["DemoCharge_Remote_Ammo", [50, []]]
 		// ***Blacklisted***/
 		/*
 			["APERSMineDispenser_Mine_Ammo", [0, []]],

@@ -4,7 +4,7 @@ private _pttKey = actionKeysNames ["pushToTalk", 1, "Combo"];
 private _chatKey = actionKeysNames ["chat", 1, "Combo"];
 private _revealKey = actionKeysNames ["revealTarget", 1, "Combo"];
 private _infoMarkers = [
-	[localize "WL2_InfoText_1", "mil_box_noShadow", "ColorRed"],
+	// [localize "WL2_InfoText_1", "mil_box_noShadow", "ColorRed"],
 	[localize "WL2_InfoText_2", "mil_box_noShadow", "ColorRed"],
 	["https://discord.gg/FaK3RTMSph", "mil_box_noShadow", "ColorRed"],
 	[],

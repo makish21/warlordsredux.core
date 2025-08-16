@@ -51,5 +51,5 @@ if ("W" in _requirements) then {
 private _requirementsText = _requirementsList joinString ", ";
 
 _purchase_title_cost ctrlSetStructuredText parseText format ["<t size = '%2' align = 'center' shadow = '0'>%1</t>", _requirementsText, 1.25 call WL2_fnc_purchaseMenuGetUIScale];
-_purchase_request ctrlSetStructuredText parseText format ["<t font = 'PuristaLight' align = 'center' shadow = '2' size = '%1'>%2 (%3%4)", 1.5 call WL2_fnc_purchaseMenuGetUIScale, localize "STR_A3_WL_menu_request", _moneySign, _costDisplay];
+_purchase_request ctrlSetStructuredText parseText format ["<t font = 'PuristaLight' align = 'center' shadow = '2' size = '%1'>%2</t>", 1.5 call WL2_fnc_purchaseMenuGetUIScale, localize "STR_A3_WL_menu_request"];
 call WL2_fnc_purchaseMenuRefresh;

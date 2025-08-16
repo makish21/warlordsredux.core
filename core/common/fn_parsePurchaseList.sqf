@@ -408,14 +408,14 @@ private _strategyArr = [
 		localize "STR_A3_WL_feature_dismiss_selected",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
 		localize "STR_A3_WL_feature_dismiss_selected_info"
-	], [
+	], /*[
 		"WelcomeScreen",
 		0,
 		[],
 		localize "STR_A3_WL_infoScreen",
 		"identity\wd_redux.paa",
 		" "
-	], [
+	],*/ [
 		"ForfeitVote",
 		0,
 		[],
