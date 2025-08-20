@@ -61,10 +61,13 @@
 #define ST_TILE_PICTURE   0x90
 #define ST_WITH_RECT      0xA0
 #define ST_LINE           0xB0
+#define ST_UPPERCASE      0xC0
+#define ST_LOWERCASE      0xD0
 
-#define ST_SHADOW         0x100
-#define ST_NO_RECT        0x200
-#define ST_KEEP_ASPECT_RATIO  0x800
+#define ST_SHADOW             0x0100
+#define ST_NO_RECT            0x0200
+#define ST_KEEP_ASPECT_RATIO  0x0800
+#define ST_ADDITIONAL_INFO    ST_SHADOW + ST_NO_RECT + SL_HORZ + ST_KEEP_ASPECT_RATIO
 
 #define ST_TITLE          ST_TITLE_BAR + ST_CENTER
 
@@ -1577,7 +1580,7 @@ class RscButtonMenuMRTM: RscShortcutButton
 		1
 	};
 };
-class RscButtonMenuOKMRTM
+class RscButtonMenuOKMRTM: RscButtonMenuMRTM
 {
 	idc = 1;
 	shortcuts[] =
@@ -1596,7 +1599,7 @@ class RscButtonMenuOKMRTM
 		1
 	};
 };
-class RscButtonMenuCancelMRTM
+class RscButtonMenuCancelMRTM: RscButtonMenuMRTM
 {
 	idc = 2;
 	shortcuts[] =
@@ -1814,4 +1817,88 @@ class RscToolboxMRTM
 	rows = 1;
 	columns = 2;
 	font = "RobotoCondensed";
+};
+
+#include "\a3\ui_f\hpp\definecommongrids.inc"
+import RscListBox;
+class WlListBox: RscListBox {
+	rowHeight = 1.2 * GUI_GRID_H;
+	colorBackground[] = {0,0,0,0};
+};
+import RscListNBox;
+class WlListNBox: RscListNBox {
+	rowHeight = 1.2 * GUI_GRID_H;
+};
+
+class WlRequestButton: RscButtonMenuOKMRTM {
+	style = ST_CENTER + ST_UPPERCASE;
+	font = "PuristaLight";
+	size = 1.8 * GUI_GRID_H;
+	sizeEx = 1.8 * GUI_GRID_H;
+
+	text = $STR_A3_WL_menu_request;
+
+	color[] = { 1, 1, 1, 1 };
+	color2[] = { 1, 1, 1, 1 };
+	colorFocused[] = { 1, 1, 1, 1 };
+	colorText[] = { 1, 1, 1, 1 };
+	colorDisabled[] = { 1, 1, 1, 0.25 };
+	colorDisabledSecondary[] = { 1, 1, 1, 0.25 };
+	colorSecondary[] = { 1, 1, 1, 1 };
+	colorFocusedSecondary[] = { 0, 0, 0, 1 };
+	color2Secondary[] = { 0, 0, 0, 1 };
+};
+
+class WlRequestButtonWEST: WlRequestButton {
+	colorBackground[] = { 
+		"(profileNamespace getVariable ['Map_BLUFOR_R', 0])", 
+		"(profileNamespace getVariable ['Map_BLUFOR_G', 0])", 
+		"(profileNamespace getVariable ['Map_BLUFOR_B', 0])", 
+		"(profileNamespace getVariable ['Map_BLUFOR_A', 0])"
+	};
+	colorBackground2[] = { 
+		"(profileNamespace getVariable ['Map_BLUFOR_R', 0]) * 1.1) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_G', 0]) * 1.1) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_B', 0]) * 1.1) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_A', 0])"
+	};
+	colorBackgroundFocused[] = { 
+		"(profileNamespace getVariable ['Map_BLUFOR_R', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_G', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_B', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_A', 0])"
+	};
+	colorBackgroundActive[] = {
+		"(profileNamespace getVariable ['Map_BLUFOR_R', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_G', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_B', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_BLUFOR_A', 0])"
+	};
+};
+
+class WlRequestButtonEAST: WlRequestButton {
+	colorBackground[] = { 
+		"(profileNamespace getVariable ['Map_OPFOR_R', 0])", 
+		"(profileNamespace getVariable ['Map_OPFOR_G', 0])", 
+		"(profileNamespace getVariable ['Map_OPFOR_B', 0])", 
+		"(profileNamespace getVariable ['Map_OPFOR_A', 0])"
+	};
+	colorBackground2[] = { 
+		"(profileNamespace getVariable ['Map_OPFOR_R', 0]) * 1.1) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_G', 0]) * 1.1) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_B', 0]) * 1.1) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_A', 0])"
+	};
+	colorBackgroundFocused[] = { 
+		"(profileNamespace getVariable ['Map_OPFOR_R', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_G', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_B', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_A', 0])"
+	};
+	colorBackgroundActive[] = {
+		"(profileNamespace getVariable ['Map_OPFOR_R', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_G', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_B', 0]) * 1.25) min 1", 
+		"(profileNamespace getVariable ['Map_OPFOR_A', 0])"
+	};
 };

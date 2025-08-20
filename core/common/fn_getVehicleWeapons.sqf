@@ -60,15 +60,15 @@ private _turretPaths = _baseVehicle call BIS_fnc_vehicleCrewTurrets;
 
 
     if (_turretMagazineDisplay != "") then {
-        _turretMagazineDisplay = format ["<br/><t color='#dd5522' shadow='0'>%1</t>", _turretMagazineDisplay];
+        _turretMagazineDisplay = format ["<br/><t color='#ff5436' shadow='0'>%1</t>", _turretMagazineDisplay];
     };
 
     if (_turretWeaponsDisplay == "" && _turretMagazineDisplay == "") then {
         continue;
     };
 
-    private _scale = 1.05 call WL2_fnc_purchaseMenuGetUIScale;
-    private _turretDisplay = format ["<t color='#efbf04' shadow='0' size='%1'>%2</t> <t color='#2255dd' shadow='0' size='%1'>(%3)</t>%4", _scale, _turretName, _turretWeaponsDisplay, _turretMagazineDisplay];
+    private _scale = 1.2 call WL2_fnc_purchaseMenuGetUIScale;
+    private _turretDisplay = format ["<t color='#f0f234' shadow='0' size='%1'>%2</t> <t color='#7745ff' shadow='0' size='%1'>(%3)</t>%4", _scale, _turretName, _turretWeaponsDisplay, _turretMagazineDisplay];
 
     _allTurretWeapons pushBack _turretDisplay;
 } forEach _turretPaths;
@@ -90,8 +90,8 @@ if (count _pylonsInfo != 0) then {
         _x != "";
     };
     private _pylonNameDisplay = _pylonNamesFiltered joinString ", ";
-    private _scale = 1.05 call WL2_fnc_purchaseMenuGetUIScale;
-    private _pylonDisplay = format ["<t color='#efbf04' shadow='0' size='%1'>%3</t><br/><t color='#2255dd' shadow='0'>%2</t>", _scale, _pylonNameDisplay, localize "STR_A3_WL2_menu_title_pylon"];
+    private _scale = 1.2 call WL2_fnc_purchaseMenuGetUIScale;
+    private _pylonDisplay = format ["<t color='#f0f234' shadow='0' size='%1'>%3</t><br/><t color='#7745ff' shadow='0'>%2</t>", _scale, _pylonNameDisplay, localize "STR_A3_WL2_menu_title_pylon"];
     _allTurretWeapons pushBack _pylonDisplay;
 };
 

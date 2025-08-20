@@ -5,11 +5,8 @@ private _display = uiNamespace getVariable ["BIS_WL_purchaseMenuDisplay", displa
 private _purchase_category = _display displayCtrl 100;
 private _purchase_items = _display displayCtrl 101;
 private _purchase_pic = _display displayCtrl 102;
-private _purchase_info = _display displayCtrl 103;
 private _purchase_info_asset = _display displayCtrl 105;
-private _purchase_info_asset_container = _display displayCtrl 106;
 private _purchase_title_cost = _display displayCtrl 121;
-private _purchase_request = _display displayCtrl 107;
 
 private _curSel = (lbCurSel _purchase_items) max 0;
 
@@ -26,9 +23,9 @@ _assetDetails params [
 
 _requirements = call compile _requirements;
 
-_purchase_pic ctrlSetStructuredText parseText format ["<img image = '%1' size = '%2' align = 'center' shadow = '0'></img>", _picture, (7.693 call WL2_fnc_purchaseMenuGetUIScale)];
+_purchase_pic ctrlSetText _picture;
 _id = _purchase_category lbValue lbCurSel _purchase_category;
-_purchase_info_asset ctrlSetStructuredText parseText format ["<t align = 'left' size = '%2'>%1</t>", _text, 0.75 call WL2_fnc_purchaseMenuGetUIScale];
+_purchase_info_asset ctrlSetStructuredText parseText format ["<t align = 'left' size = '%2'>%1</t>", _text, 1 call WL2_fnc_purchaseMenuGetUIScale];
 _cost = _purchase_items lbValue lbCurSel _purchase_items;
 
 private _infoAssetHeight = ctrlTextHeight _purchase_info_asset;
@@ -50,6 +47,5 @@ if ("W" in _requirements) then {
 };
 private _requirementsText = _requirementsList joinString ", ";
 
-_purchase_title_cost ctrlSetStructuredText parseText format ["<t size = '%2' align = 'center' shadow = '0'>%1</t>", _requirementsText, 1.25 call WL2_fnc_purchaseMenuGetUIScale];
-_purchase_request ctrlSetStructuredText parseText format ["<t font = 'PuristaLight' align = 'center' shadow = '2' size = '%1'>%2</t>", 1.5 call WL2_fnc_purchaseMenuGetUIScale, localize "STR_A3_WL_menu_request"];
+_purchase_title_cost ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '0'>%1</t>", _requirementsText];
 call WL2_fnc_purchaseMenuRefresh;

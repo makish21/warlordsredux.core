@@ -6,10 +6,7 @@ if (isNull _display) exitWith {};
 
 private _purchase_category = _display displayCtrl 100;
 private _purchase_items = _display displayCtrl 101;
-private _purchase_pic = _display displayCtrl 102;
-private _purchase_info = _display displayCtrl 103;
 private _purchase_income = _display displayCtrl 104;
-private _purchase_info_asset = _display displayCtrl 105;
 private _purchase_request = _display displayCtrl 107;
 
 private _side = side player;
@@ -31,7 +28,7 @@ _incomeList pushBack (format [localize "STR_A3_WL_max_group_size", BIS_WL_matesA
 
 private _incomeText = _incomeList joinString ", ";
 
-_purchase_income ctrlSetStructuredText parseText format ["<t size = '%2' align = 'center' shadow = '2'>%1</t>", _incomeText, 1.5 call WL2_fnc_purchaseMenuGetUIScale];
+_purchase_income ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '2'>%1</t>", _incomeText];
 
 _i = 0;
 for "_i" from 0 to ((lbSize _purchase_items) - 1) do {
@@ -125,8 +122,10 @@ if (count _assetDetails > 0) then {
 			};
 		};
 	};
-	if (_availability # 0 && {ctrlEnabled _purchase_request}) then {
+	if (_availability # 0) then {
+		_purchase_request ctrlEnable true;
 		uiNamespace setVariable ["BIS_WL_purchaseMenuItemAffordable", TRUE];
+
 		if (uiNamespace getVariable ["BIS_WL_purchaseMenuButtonHover", FALSE]) then {
 			_color = BIS_WL_colorFriendly;
 			_purchase_request ctrlSetBackgroundColor [(_color # 0) * 1.25, (_color # 1) * 1.25, (_color # 2) * 1.25, _color # 3];
@@ -143,7 +142,9 @@ if (count _assetDetails > 0) then {
 			_purchase_request ctrlSetTooltipColorBox [1, 0, 0, 1];
 		};
 	} else {
+		_purchase_request ctrlEnable false;
 		uiNamespace setVariable ["BIS_WL_purchaseMenuItemAffordable", FALSE];
+
 		_purchase_request ctrlSetBackgroundColor [(_color # 0) * 0.5, (_color # 1) * 0.5, (_color # 2) * 0.5, _color # 3];
 		_purchase_request ctrlSetTextColor [0.5, 0.5, 0.5, 1];
 		_purchase_request ctrlSetTooltip ((_availability # 1) joinString "\n");

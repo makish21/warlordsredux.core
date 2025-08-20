@@ -1,19 +1,31 @@
 #include "..\..\warlords_constants.inc"
 
-_display = uiNamespace getVariable ["BIS_WL_purchaseMenuDisplay", displayNull];
-_purchase_category = _display displayCtrl 100;
+private _display = uiNamespace getVariable ["BIS_WL_purchaseMenuDisplay", displayNull];
+private _purchase_category = _display displayCtrl 100;
 private _purchase_items_list = _display displayCtrl 101;
+private _purchase_info = _display displayCtrl 103;
+
 lbClear _purchase_items_list;
 _id = lbCurSel _purchase_category;
 
+private _list = WL_PLAYER_REQUISITION_LIST # _id;
+private _maxDigits = 1 + floor ((count _list) / 9);
 {
+	private _zeroes = floor (_forEachIndex / 9);
+	private _digits = 1 + _zeroes;
+	private _spaces = (_maxDigits - _digits) * 2;
 	private _gearCode = "";
-	private _zeroes = _forEachIndex / 9;
+	for "_i" from 1 to (_spaces / 2) do {
+		_gearCode = _gearCode + " ";
+	};
 	for "_i" from 1 to _zeroes do {
 		_gearCode = _gearCode + "0";
 	};
 	private _tailNumber = _forEachIndex % 9 + 1;
 	_gearCode = _gearCode + str _tailNumber;
+	for "_i" from 1 to (_spaces / 2) do {
+		_gearCode = _gearCode + " ";
+	};
 
 	_x params [
 		"_className",
@@ -25,13 +37,13 @@ _id = lbCurSel _purchase_category;
 		["_offset", [0,0,0]]
 	];
 
-	_purchase_items_list lbAdd format ["%1 [%2]", _displayName, _gearCode];
+	_purchase_items_list lbAdd format ["[%1]  %2", _gearCode, _displayName];
 	if (_className == "RemoveUnits") then {uiNamespace setVariable ["BIS_WL_removeUnitsListID", -1 + lbSize _purchase_items_list]};
 	_purchase_items_list lbSetData [_forEachIndex, format ["%1|||%2|||%3|||%4|||%5|||%6", _className, _requirements, _displayName, _picture, _text, _offset]];
 	_purchase_items_list lbSetValue [_forEachIndex, _x # 1];
-} forEach (WL_PLAYER_REQUISITION_LIST # _id);
+} forEach _list;
 
-_purchase_items_list lbSetCurSel ((uiNamespace getVariable ["BIS_WL_purchaseMenuLastSelection", [0, 0, 0]]) # 1);;
+_purchase_items_list lbSetCurSel ((uiNamespace getVariable ["BIS_WL_purchaseMenuLastSelection", [0, 0, 0]]) # 1);
 _purchase_items = _display displayCtrl 1;
 
 private _maxSubordinates = missionNamespace getVariable [format ["BIS_WL_maxSubordinates_%1", BIS_WL_playerSide], 1];
@@ -54,7 +66,7 @@ for "_i" from 0 to count _aliveTimers - 1 do {
 		format ["<t color = '#00ff00'>%1</t>", localize "STR_A3_WL_subordinate_ready"];
 	} else {
 		private _timeString = [_timer, "MM:SS"] call BIS_fnc_secondsToString;
-		format ["<t color = '#ff0000'>%1</t>", _timeString];
+		format ["<t color = '#ff5436'>%1</t>", _timeString];
 	};
 	private _unitName = name _unit;
 	_slotsArray pushBack format ["%1 (%2)", _unitName, _timerText];
@@ -63,16 +75,16 @@ for "_i" from 0 to count _deadTimers - 1 do {
 	private _slot = _deadTimers # _i;
 	private _timer = _slot # 0 - serverTime;
 	private _timerText = [_timer, "MM:SS"] call BIS_fnc_secondsToString;
-	_slotsArray pushBack format ["%1 <t color = '#ff0000'>(%2)</t>", localize "STR_A3_WL_subordinate_waiting",  _timerText];
+	_slotsArray pushBack format ["%1 <t color = '#ff5436'>(%2)</t>", localize "STR_A3_WL_subordinate_waiting",  _timerText];
 };
 for "_i" from 1 to _maxSubordinates - count _slotsArray do {
 	_slotsArray pushBack format ["<t color = '#00ff00'>%1</t>", localize "STR_A3_WL_subordinate_ready"];
 };
 
 private _refreshTimerText = _slotsArray joinString ", ";
-private _slotsScale = 0.7 call WL2_fnc_purchaseMenuGetUIScale;
+private _slotsScale = 0.9 call WL2_fnc_purchaseMenuGetUIScale;
 
-(_display displayCtrl 103) ctrlSetStructuredText parseText format [
+_purchase_info ctrlSetStructuredText parseText format [
 	"<t align = 'left' size = '%2'>%1</t>",
 	[
 		format ["%1<br/><t size = '%2'>%3</t>", format [localize "STR_A3_WL_subordinates_status", _maxSubordinates], _slotsScale, _refreshTimerText],
@@ -87,6 +99,6 @@ private _slotsScale = 0.7 call WL2_fnc_purchaseMenuGetUIScale;
 	 	localize "STR_A3_WL_asset_gear_info",
 	 	""
 	] # _id,
-	(0.85 call WL2_fnc_purchaseMenuGetUIScale)
+	(1 call WL2_fnc_purchaseMenuGetUIScale)
 ];
 call WL2_fnc_purchaseMenuSetAssetDetails;
