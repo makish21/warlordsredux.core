@@ -205,6 +205,7 @@ class CfgFunctions {
 			class drawIncomingMissiles {};
 			class drawRadarName {};
 			class getDir {};
+			class getOSDUIScale {};
 			class getPos {};
 			class helmetInterface {};
 			class iconColor {};
@@ -249,6 +250,7 @@ class CfgFunctions {
 			class createInfoMarkers {};
 			class deleteAssetFromMap {};
 			class detectUnits {};
+			class getMapUIScale {};
 			class getRespawnMarkers {};
 			class getSideBase {};
 			class groupIconClickHandle {};
@@ -335,9 +337,9 @@ class CfgFunctions {
 			class checkTent {};
 			class checkTentAction {};
 			class checkUAVLimit {};
+			class getPurchaseMenuUIScale {};
 			class purchaseFromMenu {};
 			class purchaseMenuAssetAvailability {};
-			class purchaseMenuGetUIScale {};
 			class purchaseMenuHandleDLC {};
 			class purchaseMenuRefresh {};
 			class purchaseMenuSetAssetDetails {};

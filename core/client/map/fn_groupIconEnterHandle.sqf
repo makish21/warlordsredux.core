@@ -173,7 +173,7 @@ private _sectorInfoText = [
 
 _sectorInfoBox ctrlSetStructuredText parseText format [
 	"<t shadow='2' size='%1'>%2</t>",
-	1 call WL2_fnc_purchaseMenuGetUIScale,
+	1 call WL2_fnc_getMapUIScale,
 	_sectorInfoText joinString ""
 ];
 

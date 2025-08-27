@@ -51,7 +51,7 @@ addMissionEventHandler ["Map", {
 					_ctrlAssetInfoBox ctrlCommit 0;
 					_ctrlAssetInfoBox ctrlSetStructuredText parseText format [
 						"<t shadow='2' size='%1'>%2</t>",
-						1 call WL2_fnc_purchaseMenuGetUIScale,
+						1 call WL2_fnc_getMapUIScale,
 						format [
 							"Click for options:<br/><t color='#ff4b4b'>%1</t>",
 							if (isPlayer WL_AssetActionTarget) then {

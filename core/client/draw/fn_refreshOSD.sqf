@@ -5,14 +5,14 @@ params [["_fullRefresh", false, [false]]];
 call WL2_fnc_purchaseMenuRefresh;
 
 waitUntil {!isNull (uiNamespace getVariable ["BIS_WL_osd_action_voting_title", controlNull])};
-private _scale = (0.8 call WL2_fnc_purchaseMenuGetUIScale);
+private _scale = (0.8 call WL2_fnc_getOSDUIScale);
 private _side = BIS_WL_playerSide;
 private _maxSubordinates = missionNamespace getVariable [format ["BIS_WL_maxSubordinates_%1", _side], 1];
-(uiNamespace getVariable "BIS_WL_osd_cp_current") ctrlSetStructuredText parseText format ["<t color='#ffffff' shadow = '2' size = '%2'>%3%1</t>", ((missionNamespace getVariable "fundsDatabaseClients") get (getPlayerUID player)), 1 call WL2_fnc_purchaseMenuGetUIScale, [_side] call WL2_fnc_getMoneySign];
+(uiNamespace getVariable "BIS_WL_osd_cp_current") ctrlSetStructuredText parseText format ["<t color='#ffffff' shadow = '2' size = '%2'>%3%1</t>", ((missionNamespace getVariable "fundsDatabaseClients") get (getPlayerUID player)), 1 call WL2_fnc_getOSDUIScale, [_side] call WL2_fnc_getMoneySign];
 (uiNamespace getVariable "BIS_WL_osd_income_side_2") ctrlSetStructuredText parseText format ["<t size = '%3' shadow = '2'>%1/%2</t>", BIS_WL_matesAvailable, _maxSubordinates, _scale];
 
 if (_fullRefresh) then {
-	(uiNamespace getVariable "BIS_WL_osd_sectors_side_1") ctrlSetStructuredText parseText format ["<t size = '%2' align = 'center' shadow = '2'>%1</t>", count (BIS_WL_sectorsArray # 0), 0.6 call WL2_fnc_purchaseMenuGetUIScale];
+	(uiNamespace getVariable "BIS_WL_osd_sectors_side_1") ctrlSetStructuredText parseText format ["<t size = '%2' align = 'center' shadow = '2'>%1</t>", count (BIS_WL_sectorsArray # 0), 0.6 call WL2_fnc_getOSDUIScale];
 	(uiNamespace getVariable "BIS_WL_osd_income_side_1") ctrlSetStructuredText parseText format ["<t size = '%2' shadow = '2'>+%1</t>", BIS_WL_playerSide call WL2_fnc_income, _scale];
 };
 

@@ -82,7 +82,7 @@ for "_i" from 1 to _maxSubordinates - count _slotsArray do {
 };
 
 private _refreshTimerText = _slotsArray joinString ", ";
-private _slotsScale = 0.9 call WL2_fnc_purchaseMenuGetUIScale;
+private _slotsScale = 0.9 call WL2_fnc_getPurchaseMenuUIScale;
 
 _purchase_info ctrlSetStructuredText parseText format [
 	"<t align = 'left' size = '%2'>%1</t>",
@@ -99,6 +99,6 @@ _purchase_info ctrlSetStructuredText parseText format [
 	 	localize "STR_A3_WL_asset_gear_info",
 	 	""
 	] # _id,
-	(1 call WL2_fnc_purchaseMenuGetUIScale)
+	(1 call WL2_fnc_getPurchaseMenuUIScale)
 ];
 call WL2_fnc_purchaseMenuSetAssetDetails;

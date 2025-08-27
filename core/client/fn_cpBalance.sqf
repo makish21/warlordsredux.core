@@ -22,7 +22,7 @@ while {!BIS_WL_missionEnd} do {
 	} else {
 		(round _sidePercentage) min 100;
 	};
-	_cpBalanceCtrl ctrlSetStructuredText parseText format ["<t size = '%4' >%1%2%3</t>", (if (_sidePercentageFinal >0) then [{"+"},{""}]), _sidePercentageFinal, "%", (0.65 call WL2_fnc_purchaseMenuGetUIScale)];
+	_cpBalanceCtrl ctrlSetStructuredText parseText format ["<t size = '%4' >%1%2%3</t>", (if (_sidePercentageFinal >0) then [{"+"},{""}]), _sidePercentageFinal, "%", (0.65 call WL2_fnc_getOSDUIScale)];
 	_cpBalanceCtrl ctrlSetTextColor (if(_sidePercentageFinal > 0) then {[0,1,0,1]} else {if (_sidePercentageFinal < 0) then [{[1,0,0,1]}, {[1,1,1,1]}]});
 	_cpBalanceCtrl ctrlCommit 0;
 	sleep 5;

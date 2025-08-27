@@ -1,6 +1,6 @@
 params ["_killRewardMap"];
 
-private _scale = 0.75 call WL2_fnc_purchaseMenuGetUIScale;
+private _scale = 0.75 call WL2_fnc_getOSDUIScale;
 private _moneySign = [BIS_WL_playerSide] call WL2_fnc_getMoneySign;
 
 private _killFeed = "";

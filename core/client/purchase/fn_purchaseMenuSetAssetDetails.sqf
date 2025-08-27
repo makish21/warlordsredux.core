@@ -25,7 +25,7 @@ _requirements = call compile _requirements;
 
 _purchase_pic ctrlSetText _picture;
 _id = _purchase_category lbValue lbCurSel _purchase_category;
-_purchase_info_asset ctrlSetStructuredText parseText format ["<t align = 'left' size = '%2'>%1</t>", _text, 1 call WL2_fnc_purchaseMenuGetUIScale];
+_purchase_info_asset ctrlSetStructuredText parseText format ["<t align = 'left' size = '%2'>%1</t>", _text, 1 call WL2_fnc_getPurchaseMenuUIScale];
 _cost = _purchase_items lbValue lbCurSel _purchase_items;
 
 private _infoAssetHeight = ctrlTextHeight _purchase_info_asset;

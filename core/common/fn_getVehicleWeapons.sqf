@@ -67,7 +67,7 @@ private _turretPaths = _baseVehicle call BIS_fnc_vehicleCrewTurrets;
         continue;
     };
 
-    private _scale = 1.2 call WL2_fnc_purchaseMenuGetUIScale;
+    private _scale = 1.2 call WL2_fnc_getPurchaseMenuUIScale;
     private _turretDisplay = format ["<t color='#f0f234' shadow='0' size='%1'>%2</t> <t color='#7745ff' shadow='0' size='%1'>(%3)</t>%4", _scale, _turretName, _turretWeaponsDisplay, _turretMagazineDisplay];
 
     _allTurretWeapons pushBack _turretDisplay;
@@ -90,7 +90,7 @@ if (count _pylonsInfo != 0) then {
         _x != "";
     };
     private _pylonNameDisplay = _pylonNamesFiltered joinString ", ";
-    private _scale = 1.2 call WL2_fnc_purchaseMenuGetUIScale;
+    private _scale = 1.2 call WL2_fnc_getPurchaseMenuUIScale;
     private _pylonDisplay = format ["<t color='#f0f234' shadow='0' size='%1'>%3</t><br/><t color='#7745ff' shadow='0'>%2</t>", _scale, _pylonNameDisplay, localize "STR_A3_WL2_menu_title_pylon"];
     _allTurretWeapons pushBack _pylonDisplay;
 };

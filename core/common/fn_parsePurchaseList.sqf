@@ -185,7 +185,7 @@ private _savedLoadoutHandled = FALSE;
 					private _vehicleWeapons = [_className, _actualClassName] call WL2_fnc_getVehicleWeapons;
 					if (count _vehicleWeapons > 0) then {
 						private _weaponsFormatted = _vehicleWeapons joinString "<br/>";
-						private _scale = 1.1 call WL2_fnc_purchaseMenuGetUIScale;
+						private _scale = 1.1 call WL2_fnc_getPurchaseMenuUIScale;
 						_text = _text + format ["<br/><t color='#ffffff' shadow='0' size='%1'>%3</t><br/>%2", _scale, _weaponsFormatted, localize "STR_A3_WL2_menu_title_armament"];
 					};
 				};

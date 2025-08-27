@@ -26,7 +26,7 @@ if (_action == "voting") then {
 	_osd_progress_voting_background ctrlSetBackgroundColor [0, 0, 0, 0.25];
 	_osd_progress_voting ctrlSetTextColor BIS_WL_colorFriendly;
 	while {serverTime < _tEnd && !BIS_WL_terminateOSDEvent_voting} do {
-		_osd_action_voting_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%4'>%1%3: %2</t>", localize "STR_A3_WL_voting_hud_most_voted", ((missionNamespace getVariable _var) # 0) getVariable "BIS_WL_name", if (toLower language == "french") then {" "} else {""}, 1 call WL2_fnc_purchaseMenuGetUIScale];
+		_osd_action_voting_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%4'>%1%3: %2</t>", localize "STR_A3_WL_voting_hud_most_voted", ((missionNamespace getVariable _var) # 0) getVariable "BIS_WL_name", if (toLower language == "french") then {" "} else {""}, 1 call WL2_fnc_getOSDUIScale];
 		_osd_progress_voting progressSetPosition linearConversion [_tStart, _tEnd, serverTime, 0, 1];
 		sleep WL_TIMEOUT_MIN;
 	};
@@ -50,7 +50,7 @@ if (_action == "voting") then {
 		_osd_progress ctrlSetTextColor _color;
 
 		while {_captureProgress > 0 && _captureProgress < 1.0 && !BIS_WL_terminateOSDEvent_seizing} do {
-			_osd_action_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%2'>%1</t>", _sector getVariable "BIS_WL_name", 1 call WL2_fnc_purchaseMenuGetUIScale];
+			_osd_action_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%2'>%1</t>", _sector getVariable "BIS_WL_name", 1 call WL2_fnc_getOSDUIScale];
 			_osd_progress progressSetPosition _captureProgress;
 			sleep WL_TIMEOUT_MIN;
 
@@ -73,7 +73,7 @@ if (_action == "voting") then {
 			_osd_progress_background ctrlSetBackgroundColor [0, 0, 0, 0.25];
 			_osd_progress ctrlSetTextColor [1, 0, 0, 1];
 			while {serverTime < _tEnd && !BIS_WL_terminateOSDEvent_trespassing} do {
-				_osd_action_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%2'>%1</t>", localize "STR_A3_WL_osd_zone", 1 call WL2_fnc_purchaseMenuGetUIScale];
+				_osd_action_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%2'>%1</t>", localize "STR_A3_WL_osd_zone", 1 call WL2_fnc_getOSDUIScale];
 				_osd_progress progressSetPosition linearConversion [_tStart, _tEnd, serverTime, 0, 1];
 				sleep WL_TIMEOUT_MIN;
 			};
@@ -91,7 +91,7 @@ if (_action == "voting") then {
 				BIS_WL_terminateOSDEvent_seizingDisabled = FALSE;
 				_actionParams params ["_owner"];
 				_osd_progress_background ctrlSetBackgroundColor (BIS_WL_colorsArray # (BIS_WL_sidesArray find _owner));
-				_osd_action_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%2'>%1</t>", localize "STR_A3_to_editterrainobject23", 1 call WL2_fnc_purchaseMenuGetUIScale];
+				_osd_action_title ctrlSetStructuredText parseText format ["<t shadow = '2' align = 'center' size = '%2'>%1</t>", localize "STR_A3_to_editterrainobject23", 1 call WL2_fnc_getOSDUIScale];
 				while {!BIS_WL_terminateOSDEvent_seizingDisabled} do {
 					sleep WL_TIMEOUT_MIN;
 				};

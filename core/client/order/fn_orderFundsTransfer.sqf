@@ -84,7 +84,7 @@ _purchase_transfer_units lbSetCurSel 0;
 			uiNamespace setVariable ["BIS_WL_fundsTransferPossible", true];
 			private _transferText = format [
 				"<t align = 'center' shadow = '2' size = '%1'>%2 (%3%4)</t>",
-				1.25 call WL2_fnc_purchaseMenuGetUIScale,
+				1.25 call WL2_fnc_getPurchaseMenuUIScale,
 				localize "STR_A3_WL_button_transfer",
 				_moneySign,
 				_value
@@ -98,7 +98,7 @@ _purchase_transfer_units lbSetCurSel 0;
 			uiNamespace setVariable ["BIS_WL_fundsTransferPossible", false];
 			private _transferText = format [
 				"<t align = 'center' shadow = '2' size = '%1'>%2</t>",
-				1.25 call WL2_fnc_purchaseMenuGetUIScale,
+				1.25 call WL2_fnc_getPurchaseMenuUIScale,
 				localize "STR_A3_WL_button_transfer"
 			];
 			_purchase_transfer_ok ctrlSetStructuredText parseText _transferText;

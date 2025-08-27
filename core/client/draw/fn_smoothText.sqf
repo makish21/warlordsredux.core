@@ -61,7 +61,7 @@ if (count BIS_onScreenMessagesVisible > 1) then {
 };
 
 _announcerPositionRatio = if (profileNamespace getVariable ["MRTM_smallAnnouncerText", false]) then { 8 } else { 4 };
-_announcerSizeRatio = if (profileNamespace getVariable ["MRTM_smallAnnouncerText", false]) then {(30 call WL2_fnc_purchaseMenuGetUIScale)} else {(23 call WL2_fnc_purchaseMenuGetUIScale)};
+_announcerSizeRatio = if (profileNamespace getVariable ["MRTM_smallAnnouncerText", false]) then {(30 call WL2_fnc_getOSDUIScale)} else {(23 call WL2_fnc_getOSDUIScale)};
 
 _box ctrlSetPosition [_xDef, _yDef + (_hDef / _announcerPositionRatio), _wDef, _hDef / _announcerSizeRatio];
 _box ctrlSetBackgroundColor [0, 0, 0, 0];
@@ -85,7 +85,7 @@ _shadow = if (_shadow) then {2} else {0};
 	_colorArr pushBack _baseColorHTML;
 } forEach _textArr;
 
-_textStructured = "<t size = '" + str ((1.01 call WL2_fnc_purchaseMenuGetUIScale)) + "' align = 'center' shadow = '" + (str _shadow) + "'>" + _textStructured + "</t>";
+_textStructured = "<t size = '" + str ((1.01 call WL2_fnc_getOSDUIScale)) + "' align = 'center' shadow = '" + (str _shadow) + "'>" + _textStructured + "</t>";
 _textStructuredFormat = [_textStructured];
 
 _done = FALSE;

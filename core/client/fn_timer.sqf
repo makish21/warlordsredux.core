@@ -7,7 +7,7 @@ _displayW = _blockW * 180;
 _displayH = _blockH * 54;
 _displayX = safeZoneW + safeZoneX - _displayW - (_blockW * 10);
 _displayY = safeZoneH + safeZoneY - _displayH - (_blockH * 50);
-_scale = (0.8 call WL2_fnc_purchaseMenuGetUIScale);
+_scale = (0.8 call WL2_fnc_getOSDUIScale);
 _start = missionNamespace getVariable "gameStart";
 
 

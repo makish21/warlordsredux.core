@@ -301,8 +301,8 @@ if (_displayClass == "OSD") then {
 		_purchase_title_details ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '2'>%1</t>", localize "STR_A3_WL_purchase_menu_title_detail"];
 		_purchase_title_deployment ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '2'>%1</t>", localize "STR_A3_WL_purchase_menu_title_deployment"];
 		_purchase_request ctrlSetStructuredText parseText format ["<t font = 'PuristaLight' align = 'center' shadow = '2'>%1</t>", toUpper localize "STR_A3_WL_menu_request"];
-		_purchase_transfer_ok ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '2' size = '%2'>%1</t>", localize "STR_A3_WL_button_transfer", (1.25 call WL2_fnc_purchaseMenuGetUIScale)];
-		_purchase_transfer_cancel ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '2' size = '%2'>%1</t>", localize "STR_disp_cancel", (1.25 call WL2_fnc_purchaseMenuGetUIScale)];
+		_purchase_transfer_ok ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '2' size = '%2'>%1</t>", localize "STR_A3_WL_button_transfer", (1.25 call WL2_fnc_getPurchaseMenuUIScale)];
+		_purchase_transfer_cancel ctrlSetStructuredText parseText format ["<t align = 'center' shadow = '2' size = '%2'>%1</t>", localize "STR_disp_cancel", (1.25 call WL2_fnc_getPurchaseMenuUIScale)];
 
 		private _list = [
 			localize "STR_A3_cfgmarkers_nato_inf",
