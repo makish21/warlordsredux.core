@@ -114,7 +114,7 @@ if (_action == "lastLoadout") exitWith {
 };
 
 if (_action == "savedLoadout") exitWith {
-	_cost = (getMissionConfigValue ["BIS_WL_savedLoadoutCost", 350]);
+	_cost = (getMissionConfigValue ["BIS_WL_savedLoadoutCost", 300]);
 	_hasFunds = (playerFunds >= _cost);
 	if (_hasFunds) then {
 		(-_cost) call WL2_fnc_fundsDatabaseWrite;
@@ -285,7 +285,7 @@ if (_action == "scan") exitWith {
 };
 
 if (_action == "orderFTVehicle") exitWith {
-	_cost = (getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 200]);
+	_cost = (getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 500]);
 	_hasFunds = (playerFunds >= _cost);
 	if (_hasFunds) then {
 		(-_cost) call WL2_fnc_fundsDatabaseWrite;
@@ -310,7 +310,7 @@ if (_action == "orderFTVehicle") exitWith {
 };
 
 if (_action == "orderFTPod") exitWith {
-	_cost = (getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 200]);
+	_cost = (getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 500]);
 	_hasFunds = (playerFunds >= _cost);
 	if (_hasFunds) then {
 		(-_cost) call WL2_fnc_fundsDatabaseWrite;
@@ -397,12 +397,12 @@ if (_action == "orderAI") exitWith {
 };
 
 if (_action == "buildABear") exitWith {
-	_cost = 350;
+	_cost = 300;
 	(-_cost) call WL2_fnc_fundsDatabaseWrite;
 };
 
 if (_action == "orderRespawnBag") exitWith {
-	_cost = 50;
+	_cost = 300;
 	_hasFunds = (playerFunds >= _cost);
 	if (_hasFunds) then {
 		(-_cost) call WL2_fnc_fundsDatabaseWrite;

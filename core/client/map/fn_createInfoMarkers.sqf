@@ -3,22 +3,30 @@ private _pingKey = actionKeysNames ["TacticalPing", 1, "Combo"];
 private _pttKey = actionKeysNames ["pushToTalk", 1, "Combo"];
 private _chatKey = actionKeysNames ["chat", 1, "Combo"];
 private _revealKey = actionKeysNames ["revealTarget", 1, "Combo"];
+private _prevChannel = actionKeysNames ["prevChannel", 1, "Combo"];
+private _nextChannel = actionKeysNames ["nextChannel", 1, "Combo"];
+
 private _infoMarkers = [
 	// [localize "WL2_InfoText_1", "mil_box_noShadow", "ColorRed"],
 	[localize "WL2_InfoText_2", "mil_box_noShadow", "ColorRed"],
 	["https://discord.gg/FaK3RTMSph", "mil_box_noShadow", "ColorRed"],
 	[],
-	["   " + localize "WL2_InfoText_3", "loc_talk", "ColorGreen"],
+	[localize "WL2_InfoText_3", "mil_box_noShadow", "ColorGreen"],
 	[format [localize "WL2_InfoText_4", _menuKey], "mil_box_noShadow", "ColorYellow"],
-	[format [localize "WL2_InfoText_5", _menuKey], "mil_box_noShadow", "ColorYellow"],
-	[format [localize "WL2_InfoText_6", _pingKey], "mil_box_noShadow", "ColorYellow"],
-	[format [localize "WL2_InfoText_7", _pttKey, _chatKey], "mil_box_noShadow", "ColorYellow"],
-	[],
-	["   " + localize "WL2_InfoText_8", "loc_talk", "ColorGreen"],
+	[format [localize "WL2_InfoText_5", _pingKey], "mil_box_noShadow", "ColorYellow"],
+	[format [localize "WL2_InfoText_6", _pttKey, _chatKey], "mil_box_noShadow", "ColorYellow"],
+	[format [localize "WL2_InfoText_7", _prevChannel, _nextChannel], "mil_box_noShadow", "ColorYellow"],
+	[localize "WL2_InfoText_8", "mil_box_noShadow", "ColorYellow"],
 	[localize "WL2_InfoText_9", "mil_box_noShadow", "ColorYellow"],
 	[localize "WL2_InfoText_10", "mil_box_noShadow", "ColorYellow"],
-	[format [localize "WL2_InfoText_11", _revealKey], "mil_box_noShadow", "ColorYellow"]
+	[format [localize "WL2_InfoText_11", _revealKey], "mil_box_noShadow", "ColorYellow"],
+	[],
+	[localize "WL2_InfoText_12", "mil_box_noShadow", "ColorRed"],
+	[localize "WL2_InfoText_13", "mil_box_noShadow", "ColorYellow"],
+	[localize "WL2_InfoText_14", "mil_box_noShadow", "ColorYellow"],
+	[localize "WL2_InfoText_15", "mil_box_noShadow", "ColorYellow"]
 ];
+
 {
 	if (count _x == 0) then {
 		continue;

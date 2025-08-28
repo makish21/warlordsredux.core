@@ -36,7 +36,7 @@ private _savedLoadoutHandled = FALSE;
 			};
 
 			if (_category == "Infantry") then {
-				private _buildABear = ["BuildABear", 350, [], localize "STR_A3_WL_CustomizedUnit", "\A3\Data_F_Warlords\Data\preview_loadout.jpg", localize "STR_A3_WL_CustomizedUnit_info"];
+				private _buildABear = ["BuildABear", 300, [], localize "STR_A3_WL_CustomizedUnit", "\A3\Data_F_Warlords\Data\preview_loadout.jpg", localize "STR_A3_WL_CustomizedUnit_info"];
 				_data insert [0, [_buildABear]];
 			};
 
@@ -58,6 +58,11 @@ private _savedLoadoutHandled = FALSE;
 			if (_category == "Gear" && !_savedLoadoutHandled) then {
 				_savedLoadoutHandled = TRUE;
 				_data pushBack ["SavedLoadout", (getMissionConfigValue ["BIS_WL_savedLoadoutCost", 350]), [], (localize "STR_A3_WL_saved_loadout"), "\A3\Data_F_Warlords\Data\preview_loadout.jpg", format [localize "STR_A3_WL_saved_loadout_info", "<br/>"]];
+			};
+
+			if (_category == "Gear" && !_saveLoadoutHandled) then {
+				_saveLoadoutHandled = TRUE;
+				_data pushBack ["SaveLoadout", 0, [], (localize "STR_A3_WL_save_loadout"), "\A3\Data_F_Warlords\Data\preview_loadout.jpg", localize "STR_A3_WL_save_loadout_info"];
 			};
 
 			private _descriptionMap = missionNamespace getVariable ["WL2_descriptions", createHashMap];
@@ -196,11 +201,6 @@ private _savedLoadoutHandled = FALSE;
 				_data pushBack [_className, _cost, _requirements, _displayName, _picture, _text, _offset, _notForAIUse];
 			} forEach (configProperties [_preset >> str _side >> _category, "isClass _x"]);
 
-			if (_category == "Gear" && !_saveLoadoutHandled) then {
-				_saveLoadoutHandled = TRUE;
-				_data pushBack ["SaveLoadout", 0, [], (localize "STR_A3_WL_save_loadout"), "\A3\Data_F_Warlords\Data\preview_loadout.jpg", localize "STR_A3_WL_save_loadout_info"];
-			};
-
 			_sortedArray set [_index, _data];
 		} forEach WL_REQUISITION_CATEGORIES;
 	} else {
@@ -218,14 +218,14 @@ private _fastTravelArr = [
 		localize "STR_A3_WL_menu_fasttravel_info"
 	], [
 		"FTConflict",
-		getMissionConfigValue ["BIS_WL_fastTravelCostContested", 200],
+		getMissionConfigValue ["BIS_WL_fastTravelCostContested", 150],
 		[],
 		localize "STR_A3_WL_menu_fasttravel_conflict",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
 		localize "STR_A3_WL_menu_fasttravel_info"
 	], [
 		"FTAirAssault",
-		getMissionConfigValue ["WL_airAssaultCost", 100],
+		getMissionConfigValue ["WL_airAssaultCost", 300],
 		[],
 		localize "STR_A3_WL_menu_fast_travel_air_assault",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
@@ -253,7 +253,7 @@ private _fastTravelArr = [
 		localize "STR_A3_WL_menu_fast_travel_pod_info"
 	], [
 		"FTSquadLeader",
-		getMissionConfigValue ["BIS_WL_fastTravelCostSquadLeader", 10],
+		getMissionConfigValue ["BIS_WL_fastTravelCostSquadLeader", 0],
 		[],
 		localize "STR_SQUADS_fastTravelToSquadLeader",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
@@ -274,21 +274,21 @@ private _fastTravelArr = [
 		""
 	], [
 		"RespawnVic",
-		getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 200],
+		getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 500],
 		[],
 		localize "STR_A3_WL_respawn_vicFT_order",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
 		localize "STR_A3_WL_menu_fast_travel_truck_info"
 	], [
 		"RespawnPod",
-		getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 200],
+		getMissionConfigValue ["BIS_WL_orderFTVehicleCost", 500],
 		[],
 		localize "STR_A3_WL_menu_fast_travel_pod_purchase",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
 		localize "STR_A3_WL_menu_fast_travel_pod_purchase_info"
 	], [
 		"RespawnBag",
-		50,
+		300,
 		[],
 		localize "STR_A3_WL_menu_fast_travel_tent_purchase",
 		"\A3\Data_F_Warlords\Data\preview_ft_conflict.jpg",
@@ -387,14 +387,14 @@ private _strategyArr = [
 		localize "STR_A3_WL2_feature_prune_assets",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
 		localize "STR_A3_WL2_feature_prune_assets_info"
-	], [
+	], /*[
 		"WipeMap",
 		0,
 		[],
 		localize "STR_A3_WL_feature_wipe_map",
 		"\A3\Data_F_Warlords\Data\preview_empty.jpg",
 		localize "STR_A3_WL_feature_wipe_map_info"
-	], [
+	],*/ [
 		"AIGetIn",
 		50,
 		[],

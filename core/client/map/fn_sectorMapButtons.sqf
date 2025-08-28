@@ -77,7 +77,7 @@ private _fastTravelConflictExecute = {
     true,
     "fastTravelConflict",
     [
-        getMissionConfigValue ["BIS_WL_fastTravelCostContested", 200],
+        getMissionConfigValue ["BIS_WL_fastTravelCostContested", 150],
         "FTConflict",
         "Fast Travel"
     ]
@@ -102,7 +102,7 @@ private _airAssaultExecute = {
     true,
     "airAssault",
     [
-        getMissionConfigValue ["WL_airAssaultCost", 100],
+        getMissionConfigValue ["WL_airAssaultCost", 300],
         "FTAirAssault",
         "Fast Travel"
     ]
