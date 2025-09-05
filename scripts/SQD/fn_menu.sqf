@@ -61,8 +61,10 @@ disableSerialization;
                     _playerName = format ["%1 (SL)", _playerName];
                 };
 
+#if WLC_ENABLED
                 private _playerLevel = _player getVariable ["WL_playerLevel", "Recruit"];
                 _playerName = format ["[%1] %2", _playerLevel, _playerName];
+#endif  // WLC_ENABLED
 
                 private _playerItem = tvAdd [TREE, [_squadItem], _playerName];
                 tvSetData [TREE, [_squadItem, _playerItem], format ["%1", _playerId]];
@@ -132,8 +134,12 @@ disableSerialization;
 
         {
             private _player = _x;
+            
+            private _playerName = name _player;
+#if WLC_ENABLED
             private _playerLevel = _player getVariable ["WL_playerLevel", "Recruit"];
             private _playerName = format ["[%1] %2", _playerLevel, name _player];
+#endif  // WLC_ENABLED
 
             private _playerItem = lbAdd [PLAYER_LIST, _playerName];
             lbSetData [PLAYER_LIST, _playerItem, format ["%1", getPlayerID _player]];
