@@ -397,7 +397,7 @@ if (_asset isKindOf "Man") then {
 
 	if (getNumber (configFile >> "CfgVehicles" >> typeOf _asset >> "transportAmmo") > 0) then {
 		[_asset, 0] remoteExec ["setAmmoCargo", 0];
-		_amount = 1000;
+		_amount = 3000;
 		if (typeOf _asset in ["B_Truck_01_ammo_F", "B_T_Truck_01_ammo_F", "O_Truck_03_ammo_F", "O_T_Truck_02_Ammo_F", "Land_Pod_Heli_Transport_04_ammo_F", "B_Slingload_01_Ammo_F"]) then {
 			_amount = ((getNumber (configfile >> "CfgVehicles" >> typeof _asset >> "transportAmmo")) min 30000);
 		};
