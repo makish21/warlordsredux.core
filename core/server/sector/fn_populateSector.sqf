@@ -212,65 +212,61 @@ if (!_connectedToBase && {"H" in (_sector getVariable "BIS_WL_services")}) then 
 };
 [_units, _sector] spawn WL2_fnc_assetRelevanceCheck;
 
-private _spawnPosArr = [_sector, 0, true] call WL2_fnc_findSpawnPositions;
-if (count _spawnPosArr == 0) exitWith {};
 
-private _garrisonSize = (_sector getVariable "BIS_WL_value") * 2.3; // * x: the bigger x the more ai
-private _unitsPool = serverNamespace getVariable ["WL2_populateUnitPoolList", []];
-private _infantryUnits = [];
-private _infantryGroups = [];
-_i = 0;
-while {_i < _garrisonSize} do {
-	private _pos = selectRandom _spawnPosArr;
-	/*
-	//***Spawning Diag code, visual tool for spawn points***
-	{
-       	private _posNumber = str _x;
-    	_mrkr = createMarkerLocal [_posNumber, _x];
-		_mrkr setMarkerColorLocal "ColorRed";
-    	_mrkr setMarkerTypeLocal "loc_LetterX";
-    	_mrkr setMarkerSizeLocal [1, 1];
-    } forEach _spawnPosArr;
+if (_sector getVariable ["BIS_WL_autoPopulateInfantry", true]) then {
+	private _spawnPosArr = [_sector, 0, true] call WL2_fnc_findSpawnPositions;
+	if (count _spawnPosArr == 0) exitWith {};
 
-    private _posNumber = str _i;
-    _mrkr = createMarkerLocal [_posNumber, _pos];
-    _mrkr setMarkerTypeLocal "mil_dot_noShadow";
-    _mrkr setMarkerSizeLocal [1.5, 1.5];
-	//***end diag code block***
-	*/
-	private _newGrp = createGroup _owner;
-	_infantryGroups pushBack _newGrp;
-	private _grpSize = WL_POPULATE_GROUP_SIZE;
-	private _cnt = (count allPlayers) max 1;
+	private _garrisonSize = (_sector getVariable "BIS_WL_value") * 2.3; // * x: the bigger x the more ai
+	private _unitsPool = serverNamespace getVariable ["WL2_populateUnitPoolList", []];
+	private _infantryUnits = [];
+	private _infantryGroups = [];
+	_i = 0;
+	while {_i < _garrisonSize} do {
+		private _pos = selectRandom _spawnPosArr;
+		/*
+		//***Spawning Diag code, visual tool for spawn points***
+		{
+	       	private _posNumber = str _x;
+	    	_mrkr = createMarkerLocal [_posNumber, _x];
+			_mrkr setMarkerColorLocal "ColorRed";
+	    	_mrkr setMarkerTypeLocal "loc_LetterX";
+	    	_mrkr setMarkerSizeLocal [1, 1];
+	    } forEach _spawnPosArr;
 
-	private _i2 = 0;
-	for "_i2" from 0 to _grpSize do {
-		private _newUnit = _newGrp createUnit [selectRandom _unitsPool, _pos, [], 100, "NONE"];
-		private _posAboveGround = getPosATL _newUnit;
-		_posAboveGround set [2, 100];
-		_newUnit setVehiclePosition [_posAboveGround, [], 0, "CAN_COLLIDE"];
-		_newUnit call WL2_fnc_newAssetHandle;
-		_infantryUnits pushBack _newUnit;
+	    private _posNumber = str _i;
+	    _mrkr = createMarkerLocal [_posNumber, _pos];
+	    _mrkr setMarkerTypeLocal "mil_dot_noShadow";
+	    _mrkr setMarkerSizeLocal [1.5, 1.5];
+		//***end diag code block***
+		*/
+		private _newGrp = createGroup _owner;
+		_infantryGroups pushBack _newGrp;
+		private _grpSize = WL_POPULATE_GROUP_SIZE;
+		private _cnt = (count allPlayers) max 1;
 
-		_i = _i + (((_cnt/50) max 0.6) min 2);
-		if (_i >= _garrisonSize) exitwith {};
+		private _i2 = 0;
+		for "_i2" from 0 to _grpSize do {
+			private _newUnit = _newGrp createUnit [selectRandom _unitsPool, _pos, [], 100, "NONE"];
+			private _posAboveGround = getPosATL _newUnit;
+			_posAboveGround set [2, 100];
+			_newUnit setVehiclePosition [_posAboveGround, [], 0, "CAN_COLLIDE"];
+			_newUnit call WL2_fnc_newAssetHandle;
+			_infantryUnits pushBack _newUnit;
+
+			_i = _i + (((_cnt/50) max 0.6) min 2);
+			if (_i >= _garrisonSize) exitwith {};
+		};
+
+		_newGrp setBehaviour "COMBAT";
+		_newGrp setSpeedMode "LIMITED";
+		[_newGrp, 0] setWaypointPosition [_pos, 0];
+		_newGrp deleteGroupWhenEmpty true;
+
+		_newWP = _newGrp addWaypoint [_pos, 0];
+		_newWP setWaypointType "HOLD";
+		sleep 0.001;
 	};
-
-	_newGrp setBehaviour "COMBAT";
-	_newGrp setSpeedMode "LIMITED";
-	[_newGrp, 0] setWaypointPosition [_pos, 0];
-	_newGrp deleteGroupWhenEmpty true;
-
-	_newWP = _newGrp addWaypoint [_pos, 0];
-	_newWP setWaypointType "HOLD";
-	sleep 0.001;
 };
-
-// {
-// 	private _infantryUnit = _x;
-// 	{
-// 		_x reveal [_infantryUnit, 4];
-// 	} forEach _infantryGroups
-// } forEach _infantryUnits;
 
 [_infantryUnits, _sector] spawn WL2_fnc_assetRelevanceCheck;
