@@ -39,6 +39,7 @@ private _overrideMagazineNames = createHashMapFromArray [
     // ["40Rnd_40mm_APFSDS_Tracer_Green_shells", "40 mm APFSDS Green"],
     // ["40Rnd_40mm_APFSDS_Tracer_Yellow_shells", "40 mm APFSDS Yellow"],
     ["SmokeLauncherMag", localize "STR_ammo_override_smokes"],
+    ["SmokeLauncherMag_Single", localize "STR_ammo_override_smokes"],
     ["SmokeLauncherMag_boat", localize "STR_ammo_override_smokes"],
     ["168Rnd_CMFlare_Chaff_Magazine", localize "STR_ammo_override_countermeasures"],
     ["240Rnd_CMFlare_Chaff_Magazine", localize "STR_ammo_override_countermeasures"],

@@ -1258,7 +1258,7 @@ class MRTM_settingsMenu
 				class MRTMOtherText12: RscStructuredTextMRTM
 				{
 					idc = -1;
-					text = "Map Refresh Rate:";
+					text = "$STR_A3_WL_settings_general_map_refresh_rate";
 
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 37.5 * GUI_GRID_CENTER_H;
@@ -1392,7 +1392,7 @@ class MRTM_settingsMenu
 					onSliderPosChanged = "[9, _this select 1] call MRTM_fnc_onSliderChanged;";
 
 					x = OPTION_CONTROL_X;
-					y = 37.25 * GUI_GRID_CENTER_H;
+					y = 37.5 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
 					h = 1 * GUI_GRID_CENTER_H;
 				};
@@ -1402,9 +1402,18 @@ class MRTM_settingsMenu
 					onEditChanged = "[_this select 0, 'mapRefresh', 2] call MRTM_fnc_onChar;";
 					
 					x = SLIDER_EDIT_X;
-					y = 37.25 * GUI_GRID_CENTER_H;
+					y = 37.5 * GUI_GRID_CENTER_H;
 					w = SLIDER_EDIT_W;
 					h = 1 * GUI_GRID_CENTER_H;
+				};
+				class BottomPadding: RscTextMRTM
+				{
+					idc = -1;
+
+					x = 0;
+					y = 38.5 * GUI_GRID_CENTER_H;
+					w = 0;
+					h = 0.25 * GUI_GRID_CENTER_H;
 				};
 			};
 		};
