@@ -50,35 +50,43 @@ if ((_targets findIf {_unit inArea (_x getVariable "objectAreaComplete")}) != -1
 #if WL_SQUAD_ASSISTS_ENABLED
 private _playerId = getPlayerID _responsibleLeader;
 private _squadmatesIDs = ["getSquadmates", [_playerId]] call SQD_fnc_server;
-private _squadReward = round (_killReward * 0.5 / (sqrt (count _squadmatesIDs) max 1));
+private _squadReward = round ((_killReward * 0.5 / (sqrt (count _squadmatesIDs) max 1)) * WL_INCOME_MULTIPLIER);
 {
 	private _userInfo = getUserInfo _x;
 	if (count _userInfo < 3) then {
 		continue;
 	};
 	_uid = _userInfo # 2;
-	_squadReward call WL2_fnc_fundsDatabaseWrite;
+	[_squadReward, _uid] call WL2_fnc_fundsDatabaseWrite;
 	[_unit, _squadReward, "Squad assist", "#228b22"] remoteExec ["WL2_fnc_killRewardClient", (getUserInfo _x) # 1];
 } forEach _squadmatesIDs;
 #endif  // WL_SQUAD_ASSISTS_ENABLED
 
 _uid = getPlayerUID _responsibleLeader;
-_killReward = round _killReward;
-_killReward call WL2_fnc_fundsDatabaseWrite;
+_killReward = round (_killReward * WL_INCOME_MULTIPLIER);
+[_killReward, _uid] call WL2_fnc_fundsDatabaseWrite;
 
 [_unit, _killReward, _customText, "#de0808", _assetActualType] remoteExec ["WL2_fnc_killRewardClient", _responsibleLeader];
 
 ["earnPoints", [_uid, _killReward]] call SQD_fnc_server;
 
 // Vehicle crew reward
-private _reward = round (_killReward / 4);
+private _reward = round ((_killReward / 4) * WL_INCOME_MULTIPLIER);
 private _vehicle = objectParent _responsibleLeader;
 private _crew = (crew _vehicle) select {
-	_x in [gunner _vehicle, commander _vehicle, driver _vehicle] && _x != _responsibleLeader && isPlayer _x
+	private _isCommander = _x isEqualTo (commander _vehicle);
+	private _isDriver = _x isEqualTo (driver _vehicle);
+	private _isGunner = _x isEqualTo (gunner _vehicle);
+	private _isOnTurret = count (_vehicle unitTurret _x) > 0;
+
+	private _isLeader = _x == _responsibleLeader; // already rewarded
+	private _isPlayer = isPlayer _x;
+
+	_isPlayer && !_isLeader && (_isCommander || _isDriver || _isGunner || _isOnTurret);
 };
 {
 	_uid = getPlayerUID _x;
-	_reward call WL2_fnc_fundsDatabaseWrite;
+	[_reward, _uid] call WL2_fnc_fundsDatabaseWrite;
 	[_unit, _reward] remoteExec ["WL2_fnc_killRewardClient", _x];
 
 	["earnPoints", [_uid, _reward]] call SQD_fnc_server;

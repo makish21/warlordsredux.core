@@ -47,6 +47,9 @@ private _requisitionPresets = BIS_WL_purchaseListTemplate;
 			{
 				private _requisitionName = configName _x;
 				private _requisitionNameOverride = getText (_x >> "name");
+				if (_requisitionNameOverride find "$" == 0) then {
+					_requisitionNameOverride = localize _requisitionNameOverride;
+				};
 				private _requisitionDescription = getText (_x >> "description");
 				private _requisitionSpawn = getText (_x >> "spawn");
 				private _requisitionVariant = getNumber (_x >> "variant");

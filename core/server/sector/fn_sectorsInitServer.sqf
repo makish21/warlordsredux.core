@@ -107,9 +107,9 @@ waitUntil {!isNil "BIS_WL_base1" && {!isNil "BIS_WL_base2"}};
 	_size = _a * _b * (if (_isRectangle) then {4} else {pi});
 
 	if (_sector in [_firstBase, _secondBase]) then {
-		_sector setVariable ["BIS_WL_value", (getMissionConfigValue ["BIS_WL_baseValue", 50])];
+		_sector setVariable ["BIS_WL_value", round (getMissionConfigValue ["BIS_WL_baseValue", 50] * WL_INCOME_MULTIPLIER)];
 	} else {
-		_sector setVariable ["BIS_WL_value", round (_size / 13000)];
+		_sector setVariable ["BIS_WL_value", round (_size / 13000 * WL_INCOME_MULTIPLIER)];
 	};
 
 	private _sectorVehicles = vehicles inAreaArray (_sector getVariable "objectAreaComplete");

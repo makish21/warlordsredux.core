@@ -117,4 +117,6 @@
 
 #define WL_SIDE_CAPTURE_MODIFIER_LIMIT 3
 
+#define WL_INCOME_MULTIPLIER 1
+
 #include "..\..\mission_constants.ext"

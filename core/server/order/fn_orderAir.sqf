@@ -59,7 +59,7 @@ if (count _spawnPos == 0) exitWith {
 	_sender setVariable ["BIS_WL_isOrdering", false, [2, _owner]];
 
 	// refund if nothing spawned
-	(_cost) call WL2_fnc_fundsDatabaseWrite;
+	[_cost, _uid] call WL2_fnc_fundsDatabaseWrite;
 };
 
 private _isUav = getNumber (configFile >> "CfgVehicles" >> _class >> "isUav") == 1;

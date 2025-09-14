@@ -15,10 +15,10 @@ if !(_owner in _previousOwners) then {
 		_neighborList sort true;
 		if (count _neighborList > 0) then {
 			private _closestNeighborDistance = (_neighborList # 0) # 0;
-			private _reward = ((round (_closestNeighborDistance / 3)) min 1000) max 100;
+			private _reward = round ((((_closestNeighborDistance / 3) min 1000) max 100) * WL_INCOME_MULTIPLIER);
 			{
 				private _uid = getPlayerUID _x;
-				_reward call WL2_fnc_fundsDatabaseWrite;
+				[_reward, _uid] call WL2_fnc_fundsDatabaseWrite;
 				[objNull, _reward, "Sector captured", "#228b22"] remoteExec ["WL2_fnc_killRewardClient", _x];
 			} forEach (allPlayers select {side group _x == _owner});
 		};

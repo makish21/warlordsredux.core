@@ -1,3 +1,5 @@
+#include "..\warlords_constants.inc"
+
 _countFaction0 = playersNumber west;
 _fac0Percentage = 0.1;
 if ((count allPlayers) > 0) then {
@@ -20,7 +22,7 @@ publicVariable "blanceMultilplierOpf";
 	};
 
 	private _incomeStandard = _x call WL2_fnc_income;
-	private _actualIncome = round (_incomeStandard * _multiplier);
+	private _actualIncome = round (_incomeStandard * WL_INCOME_MULTIPLIER * _multiplier);
 	switch (_x) do {
 		case (west): {
 			serverNamespace setVariable ["actualIncomeBlu", _actualIncome]

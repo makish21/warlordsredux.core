@@ -80,6 +80,9 @@ private _savedLoadoutHandled = FALSE;
 				if (_displayName == "") then {
 					_displayName = getText (_class >> "displayName");
 				};
+				if (_displayName find "$" == 0) then {
+					_displayName = localize _displayName;
+				};
 				_picture = getText (_class >> "editorPreview");
 				_text = "";
 

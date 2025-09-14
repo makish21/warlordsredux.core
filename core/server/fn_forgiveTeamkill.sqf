@@ -18,21 +18,19 @@ if (!_forgive) then {
 
 	private _compensation = round (_itemCost min _teamkillerFunds);
 	private _uid = _teamkillerUid;
-	(-_compensation) call WL2_fnc_fundsDatabaseWrite;
+	[-_compensation, _uid] call WL2_fnc_fundsDatabaseWrite;
 	_uid = getPlayerUID _forgiver;
-	(round (_compensation * 0.5)) call WL2_fnc_fundsDatabaseWrite;
+	private _compensationForgiver = round (_compensation * 0.5);
+	[_compensationForgiver, _uid] call WL2_fnc_fundsDatabaseWrite;
 
 	private _assetType = if (isPlayer [_victim]) then {
 		name _victim
 	} else {
 		[_victim] call WL2_fnc_getAssetTypeName;
 	};
-	private _displayMsgTeamkiller = format ["You have been punished for killing friendly %1. [-%2]", _assetType, _compensation];
-	[_displayMsgTeamkiller] remoteExec ["systemChat", _teamkillerOwner];
-	[["a3\dubbing_f_bootcamp\boot_m04\50_friendly\boot_m04_50_friendly_ada_0.ogg"]] remoteExec ["playSoundUI", _teamkillerOwner];
+	[_assetType, _compensation] remoteExec ["WL2_fnc_teamkillPunishment", _teamkillerOwner];
 
-	private _displayMsgForgiver = format ["You have been compensated for teamkill. [+%1]", round (_compensation * 0.5)];
-	[_displayMsgForgiver] remoteExec ["systemChat", _forgiver];
+	[_compensationForgiver] remoteExec ["WL2_fnc_teamkillCompensation", _forgiver];
 
 	private _friendlyFireVar = format ["WL2_friendlyFire_%1", _teamkillerUid];
 	private _friendlyFireIncidents = serverNamespace getVariable [_friendlyFireVar, []];

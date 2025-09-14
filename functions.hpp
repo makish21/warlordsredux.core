@@ -146,6 +146,7 @@ class CfgFunctions {
 			class updateLevelDisplay {};
 			class wasMain {};
 			class welcome {};
+			class wlacHandle {};
 		};
 		class ClientAction {
 			file = "src\core\client\action";
@@ -233,7 +234,9 @@ class CfgFunctions {
 			class friendlyFireHandleClient {};
 			class handleKillFeedUpdate {};
 			class killRewardClient {};
+			class teamkillCompensation {};
 			class teamkillerMessage {};
+			class teamkillPunishment {};
 			class updateKillFeed {};
 		};
 		class ClientMap {
@@ -307,6 +310,7 @@ class CfgFunctions {
 			class checkCarrierLimits {};
 			class checkCommTower {};
 			class checkDead {};
+			class checkDeviceLimit {};
 			class checkFastTravelRespawn {};
 			class checkFastTravelSL {};
 			class checkFastTravelSquad {};

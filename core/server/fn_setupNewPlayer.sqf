@@ -59,12 +59,6 @@ if (isNil "_playerList") exitWith {
     ["Cannot find playerList. Aborting."] call _initLog;
 };
 
-private _playerFunds = _playerFundsDB getOrDefault [_uid, -1];
-if (_playerFunds == -1) then {
-    1000 call WL2_fnc_fundsDatabaseWrite;
-};
-[_playerFundsDB] call WL2_fnc_fundsDatabaseUpdate;
-
 private _teamBlockVar = format ["WL2_teamBlocked_%1", _uid];
 private _balanceBlockVar = format ["WL2_balanceBlocked_%1", _uid];
 private _friendlyFireVar = format ["WL2_friendlyFire_%1", _uid];
@@ -111,3 +105,9 @@ if (_lockedToTeam != sideUnknown) then {
 };
 
 call WL2_fnc_calcImbalance;
+
+private _playerFunds = _playerFundsDB getOrDefault [_uid, -1];
+if (_playerFunds == -1) then {
+    [1000, _uid] call WL2_fnc_fundsDatabaseWrite;
+};
+[_playerFundsDB, _uid] call WL2_fnc_fundsDatabaseUpdate;

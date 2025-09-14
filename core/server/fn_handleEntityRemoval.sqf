@@ -77,9 +77,9 @@ if (!isNull _responsiblePlayer && { isPlayer [_responsiblePlayer] }) then {
             _killRewardMap getOrDefault [_assetActualType, 0];
         };
 
-        private _spotReward = round (_killReward / 8.0);
+        private _spotReward = round ((_killReward / 8.0) * WL_INCOME_MULTIPLIER);
         _uid = getPlayerUID _lastSpotted;
-        _spotReward call WL2_fnc_fundsDatabaseWrite;
+        [_spotReward, _uid] call WL2_fnc_fundsDatabaseWrite;
         [_unit, _spotReward, "Spot assist", "#228b22"] remoteExec ["WL2_fnc_killRewardClient", _lastSpotted];
     };
 };

@@ -267,6 +267,6 @@ if (_sector getVariable ["BIS_WL_autoPopulateInfantry", true]) then {
 		_newWP setWaypointType "HOLD";
 		sleep 0.001;
 	};
-};
 
-[_infantryUnits, _sector] spawn WL2_fnc_assetRelevanceCheck;
+	[_infantryUnits, _sector] spawn WL2_fnc_assetRelevanceCheck;
+};
