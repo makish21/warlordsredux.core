@@ -15,6 +15,11 @@ while {!_terminate && {serverTime < ((missionNamespace getVariable [_varName, -1
 
 	if (_votedYes >= _limit) then {
 		_terminate = true;
+		private _sector = missionNamespace getVariable [format ["BIS_WL_currentTarget_%1", _side], objNull];
+		if (!isNull _sector && _sector getVariable ["BIS_WL_baseUnderAttack", false]) then {
+			_sector setVariable ["BIS_WL_baseUnderAttack", false, true];
+		};
+
 		missionNamespace setVariable [format ["BIS_WL_recentTargetReset_%1", _side], true, true];
 		missionNamespace setVariable [format ["BIS_WL_currentTarget_%1", _side], objNull, true];
 		["server", true] call WL2_fnc_updateSectorArrays;

@@ -93,9 +93,9 @@ if (_sector getVariable ["BIS_WL_autoPopulateVehicles", true]) then {
 			_sam call WL2_fnc_newAssetHandle;
 			_units pushBack _sam;
 		};
-	};	
+	};
 };
-	
+
 
 if (count (_sector getVariable ["BIS_WL_vehiclesToSpawn", []]) > 0) then {
 	{
@@ -127,16 +127,16 @@ if (count (_sector getVariable ["BIS_WL_vehiclesToSpawn", []]) > 0) then {
 	} forEach (_sector getVariable "BIS_WL_vehiclesToSpawn");
 };
 _sector setVariable ["BIS_WL_vehiclesToSpawn", nil];
-	
+
 
 if (count (_sector getVariable ["BIS_WL_groupsToSpawn", []]) > 0) then {
 	{
 		_groupInfo = _x;
 		_groupInfo params ["_side", "_waypoints", "_groupUnits"];
-		
+
 		private _newGrp = createGroup _side;
 		private _startPos = [];
-		
+
 		{
 			_unitInfo = _x;
 			_unitInfo params ["_type", "_pos", "_skill", "_loadout"];
@@ -145,10 +145,10 @@ if (count (_sector getVariable ["BIS_WL_groupsToSpawn", []]) > 0) then {
 			_newUnit = _newGrp createUnit [_type, _pos, [], 0, "CAN_COLLIDE"];
 			_newUnit setUnitLoadout _loadout;
 			_newUnit call WL2_fnc_newAssetHandle;
-			
+
 			_units pushBack _newUnit;
 		} forEach _groupUnits;
-		
+
 		_newGrp setBehaviour "COMBAT";
 		_newGrp setSpeedMode "LIMITED";
 		_newGrp deleteGroupWhenEmpty true;
@@ -167,10 +167,10 @@ if (count (_sector getVariable ["BIS_WL_groupsToSpawn", []]) > 0) then {
 			[_newGrp, 0] setWaypointPosition [_startPos, 100];
 			_newGrp setBehaviour "COMBAT";
 			_newGrp deleteGroupWhenEmpty true;
-			
+
 			_wp = _newGrp addWaypoint [_startPos, 100];
 			_wp setWaypointType "SAD";
-			
+
 			_wp1 = _newGrp addWaypoint [_startPos, 100];
 			_wp1 setWaypointType "CYCLE";
 		};
@@ -178,8 +178,7 @@ if (count (_sector getVariable ["BIS_WL_groupsToSpawn", []]) > 0) then {
 };
 
 
-_connectedToBase = count ((profileNamespace getVariable "BIS_WL_lastBases") arrayIntersect (_sector getVariable "BIS_WL_connectedSectors")) > 0;
-if (!_connectedToBase && {"H" in (_sector getVariable "BIS_WL_services")}) then {
+if ("H" in (_sector getVariable "BIS_WL_services")) then {
 	private _neighbors = (_sector getVariable "BIS_WL_connectedSectors") select {(_x getVariable "BIS_WL_owner") == _owner};
 
 	if (count _neighbors > 0) then {

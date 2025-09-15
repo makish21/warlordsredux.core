@@ -1,3 +1,5 @@
+#include "..\..\core\warlords_constants.inc"
+
 params ["_shooter", "_dazzled"];
 
 private _reward = if (_dazzled) then {
