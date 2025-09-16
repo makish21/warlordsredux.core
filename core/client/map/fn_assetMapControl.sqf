@@ -53,7 +53,8 @@ addMissionEventHandler ["Map", {
 						"<t shadow='2' size='%1'>%2</t>",
 						1 call WL2_fnc_getMapUIScale,
 						format [
-							"Click for options:<br/><t color='#ff4b4b'>%1</t>",
+							"%1<br/><t color='#ff4b4b'>%2</t>",
+							localize "STR_A3_WL2_map_click_for_options",
 							if (isPlayer WL_AssetActionTarget) then {
 								name WL_AssetActionTarget
 							} else {

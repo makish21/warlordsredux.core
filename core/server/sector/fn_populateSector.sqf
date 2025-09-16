@@ -48,14 +48,14 @@ if (_sector getVariable ["BIS_WL_autoPopulateVehicles", true]) then {
 			_vehicleArray = [_pos, _dir, _vehicleToSpawn, _owner] call BIS_fnc_spawnVehicle;
 			_vehicleArray params ["_vehicle", "_crew", "_group"];
 
-			_vehicle call WL2_fnc_newAssetHandle;
-
 			_units pushBack _vehicle;
 
 			{
 				_x call WL2_fnc_newAssetHandle;
 				_units pushBack _x;
 			} forEach _crew;
+
+			[_vehicle, driver _vehicle, typeof _vehicle] call WL2_fnc_processOrder;
 
 			[_group, 0] setWaypointPosition [position _vehicle, 100];
 			_group setBehaviour "COMBAT";
@@ -104,13 +104,14 @@ if (count (_sector getVariable ["BIS_WL_vehiclesToSpawn", []]) > 0) then {
 		_vehicleArray = [_pos, _dir, _type, _owner] call BIS_fnc_spawnVehicle;
 		_vehicleArray params ["_vehicle", "_crew", "_group"];
 
-		_vehicle call WL2_fnc_newAssetHandle;
 		_units pushBack _vehicle;
 
 		{
 			_x call WL2_fnc_newAssetHandle;
 			_units pushBack _x;
 		} forEach _crew;
+
+		[_vehicle, driver _vehicle, typeof _vehicle] call WL2_fnc_processOrder;
 
 		_posVic = position _vehicle;
 		[_group, 0] setWaypointPosition [_posVic, 100];
@@ -185,13 +186,14 @@ if ("H" in (_sector getVariable "BIS_WL_services")) then {
 		_vehicleArray = [position selectRandom _neighbors, 0, selectRandom (serverNamespace getVariable "WL2_populateAircraftPoolList"), _owner] call BIS_fnc_spawnVehicle;
 		_vehicleArray params ["_vehicle", "_crew", "_group"];
 
-		_vehicle call WL2_fnc_newAssetHandle;
 		_units pushBack _vehicle;
 
 		{
 			_x call WL2_fnc_newAssetHandle;
 			_units pushBack _x;
 		} forEach _crew;
+
+		[_vehicle, driver _vehicle, typeof _vehicle] call WL2_fnc_processOrder;
 
 		[_group, 0] setWaypointPosition [position _vehicle, 300];
 		_group setBehaviour "COMBAT";

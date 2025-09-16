@@ -1,7 +1,7 @@
 params ["_unit", "_actionId"];
 
 private _parachuteActionId = _unit addAction [
-    "<t color='#00ff00'>Open Parachute</t>",
+    format ["<t color='#00ff00'>%1</t>", localize "STR_A3_WL2_open_parachute_action"],
     WL2_fnc_parachuteAction,
     [],
     100

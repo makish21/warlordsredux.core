@@ -3,7 +3,7 @@ params ["_asset"];
 
 [
 	_asset,
-	"<t color = '#ff4b4b'>Claim Vehicle</t>",
+	format ["<t color = '#ff4b4b'>%1</t>", localize "STR_WL2_claim_vehicle_action"],
 	"\a3\ui_f\data\igui\cfg\HoldActions\holdAction_unbind_ca.paa",
 	"\a3\ui_f\data\igui\cfg\HoldActions\holdAction_unbind_ca.paa",
 	"[_target, _this] call WL2_fnc_claimEligibility",
@@ -20,7 +20,7 @@ params ["_asset"];
 		_this params ["_asset", "_caller", "_actionId"];
 
 		private _displayName = [_asset] call WL2_fnc_getAssetTypeName;
-		systemChat format ["%1 has been claimed.", _displayName];
+		systemChat format [localize "STR_WL2_vehicle_claimed", _displayName];
 		playSound3D ["\a3\sounds_f_decade\assets\props\linkterminal_01_node_1_f\terminal_captured.wss", _asset, false, getPosASL _asset, 2, 1, 200];
 
 		_asset setVariable ["BIS_WL_ownerAsset", getPlayerUID _caller, true];
