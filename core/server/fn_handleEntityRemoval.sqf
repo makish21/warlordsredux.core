@@ -24,20 +24,21 @@ if (isNull _responsiblePlayer || { _responsiblePlayer == _unit }) then {
 if (isNull _responsiblePlayer) exitWith {};
 
 if (_isUnitPlayer && _unit isKindOf "Man" && !_killedByGame) then {
+    private _params = [name _unit];
     _unit addPlayerScores [0, 0, 0, 0, 1];
-    private _killMessage = if (isPlayer [_responsiblePlayer]) then {
-        private _ffText = if (side group _unit == side group _responsiblePlayer) then {
+    if (isPlayer [_responsiblePlayer]) then {
+        private _isFriendlyFire = side group _unit == side group _responsiblePlayer;
+        _params pushBack (name _responsiblePlayer);
+        _params pushBack _isFriendlyFire;
+
+        if (_isFriendlyFire) then {
             _responsiblePlayer addPlayerScores [-1, 0, 0, 0, 0];
-            localize "STR_A3_WL_chat_player_killed_friendly_fire"
         } else {
             _responsiblePlayer addPlayerScores [1, 0, 0, 0, 0];
-            ""
         };
-        format[localize "STR_A3_WL_chat_player_killed_by", name _unit, name _responsiblePlayer, _ffText];
-    } else {
-        format[localize "STR_A3_WL_chat_player_killed", name _unit];
     };
-    [_killMessage] remoteExec ["systemChat", 0];
+
+    _params remoteExec ["WL2_fnc_killFeedHandleClient", 0];
 };
 
 private _assetActualType = _unit getVariable ["WL2_orderedClass", typeOf _unit];

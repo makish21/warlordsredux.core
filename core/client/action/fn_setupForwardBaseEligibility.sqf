@@ -84,7 +84,7 @@ if (_upgrading && typeof _cursorObject == "RuggedTerminal_01_communications_hub_
             _result = [true, "This forward base is already at maximum level."];
         };
         case (_playerFunds < WL_FOB_UPGRADE_COST): {
-            _result = [true, format ["%1%2 required to upgrade.", [BIS_WL_playerSide] call WL2_fnc_getMoneySign, WL_FOB_UPGRADE_COST]];
+            _result = [true, format ["%1 %2 required to upgrade.", WL_FOB_UPGRADE_COST, [BIS_WL_playerSide] call WL2_fnc_getMoneySign]];
         };
         default {
             _result = [true, ""];

@@ -83,11 +83,11 @@ _purchase_transfer_units lbSetCurSel 0;
 		if (_value <= _maxTransfer && _value > 0) then {
 			uiNamespace setVariable ["BIS_WL_fundsTransferPossible", true];
 			private _transferText = format [
-				"<t align = 'center' shadow = '2' size = '%1'>%2 (%3%4)</t>",
+				"<t align = 'center' shadow = '2' size = '%1'>%2 (%3 %4)</t>",
 				1.25 call WL2_fnc_getPurchaseMenuUIScale,
 				localize "STR_A3_WL_button_transfer",
-				_moneySign,
-				_value
+				_value,
+				_moneySign
 			];
 			_purchase_transfer_ok ctrlSetStructuredText parseText _transferText;
 

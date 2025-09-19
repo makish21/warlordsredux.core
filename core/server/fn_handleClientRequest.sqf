@@ -428,7 +428,7 @@ if (_action == "fundsTransfer") exitWith {
 
 			serverNamespace setVariable [format ["BIS_WL_isTransferring_%1", _uid], false];
 
-			private _sentMoney = format ["%1%2", [_side] call WL2_fnc_getMoneySign, _transferAmount];
+			private _sentMoney = format ["%1 %2", _transferAmount, [_side] call WL2_fnc_getMoneySign];
 			private _message = format [localize "STR_A3_WL_donate_cp", name _sender, name _recipient, _sentMoney];
 
 			[_side, _message] call _broadcastActionToSide;

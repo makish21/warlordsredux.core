@@ -8,7 +8,7 @@ private _costDisplay = _display displayCtrl WLC_COST_TEXT;
 private _moneySign = [BIS_WL_playerSide] call WL2_fnc_getMoneySign;
 private _levelText = format ["Unlock: Level %1", _level];
 private _costText = if (_cost > 0) then {
-    format ["Cost: %1%2", _moneySign, _cost];
+    format ["Cost: %1 %2", _cost, _moneySign];
 } else {
     "";
 };
@@ -38,4 +38,4 @@ private _affordColor = if (_funds >= _sumCost) then {
 } else {
     "#FF0000";
 };
-_costDisplay ctrlSetStructuredText parseText format ["<t align='right'>Total Cost: <t color='%1'>%2%3</t></t>", _affordColor, _moneySign, _sumCost];
+_costDisplay ctrlSetStructuredText parseText format ["<t align='right'>Total Cost: <t color='%1'>%2 %3</t></t>", _affordColor, _sumCost, _moneySign];

@@ -134,7 +134,7 @@ disableSerialization;
 
         {
             private _player = _x;
-            
+
             private _playerName = name _player;
 #if WLC_ENABLED
             private _playerLevel = _player getVariable ["WL_playerLevel", "Recruit"];

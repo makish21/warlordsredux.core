@@ -30,7 +30,7 @@ private _costText = if (count _costCondition > 0) then {
     private _cost = _costCondition # 0;
     if (_cost > 0) then {
         private _moneySign = [BIS_WL_playerSide] call WL2_fnc_getMoneySign;
-        format [" (%1%2)", _moneySign, _costCondition # 0];
+        format [" (%1 %2)", _costCondition # 0, _moneySign];
     } else {
         format [" (%1)", toUpper localize "STR_A3_WL_map_action_cost_free"];
     };

@@ -1,16 +1,3 @@
 params ["_team"];
 
-switch (_team) do {
-    case WEST: {
-        "$"
-    };
-    case EAST: {
-        "¥"
-    };
-    case INDEPENDENT: {
-        "$"
-    };
-    default {
-        "$"
-    };
-};
+localize "str_a3_wl_unit_cp";

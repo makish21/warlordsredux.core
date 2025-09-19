@@ -52,7 +52,7 @@ private _sumCost = 0;
 
         private _cost = _customization getOrDefault ["cost", 0];
         private _displayName = if (_cost > 0) then {
-            format ["%1 [%2%3]", _name, _moneySign, _cost];
+            format ["%1 [%2 %3]", _name, _cost, _moneySign];
             // continue;
         } else {
             _name;
@@ -70,7 +70,7 @@ private _sumCost = 0;
             _select lbSetText [_index, format ["(Lvl %1) %2", _requiredLevel, _displayName]];
         };
 
-        private _tooltip = format ["%1\nUnlock: Level %2\nCost: %3%4", _name, _requiredLevel, _moneySign, _cost];
+        private _tooltip = format ["%1\nUnlock: Level %2\nCost: %3 %4", _name, _requiredLevel, _cost, _moneySign];
         _select lbSetTooltip [_index, _tooltip];
     } forEach _customizationList;
     _select lbSortBy ["VALUE", false];
@@ -105,7 +105,7 @@ private _affordColor = if (_funds >= _sumCost) then {
     "#FF0000";
 };
 private _costDisplay = _display displayCtrl WLC_COST_TEXT;
-_costDisplay ctrlSetStructuredText parseText format ["<t align='right'>Total Cost: <t color='%1'>%2%3</t></t>", _affordColor, _moneySign, _sumCost];
+_costDisplay ctrlSetStructuredText parseText format ["<t align='right'>Total Cost: <t color='%1'>%2 %3</t></t>", _affordColor, _sumCost, _moneySign];
 
 private _buttonMap = createHashMapFromArray [
     [WLC_PRIMARY_SELECT_BUTTON, WLC_PRIMARY_SELECT],

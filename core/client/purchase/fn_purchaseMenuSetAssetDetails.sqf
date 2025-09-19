@@ -35,7 +35,7 @@ _purchase_info_asset ctrlCommit 0;
 private _side = side player;
 private _moneySign = [_side] call WL2_fnc_getMoneySign;
 private _costDisplay = (_cost call BIS_fnc_numberText) regexReplace [" ", ","];
-private _requirementsList = [format ["%1%2: %3%4", localize "STR_A3_WL_menu_cost", if (toLower language == "french") then {" "} else {""}, _cost, _moneySign]];
+private _requirementsList = [format ["%1%2: %3 %4", localize "STR_A3_WL_menu_cost", if (toLower language == "french") then {" "} else {""}, _cost, _moneySign]];
 if ("A" in _requirements) then {
 	_requirementsList pushBack (localize "STR_A3_WL_param32_title");
 };

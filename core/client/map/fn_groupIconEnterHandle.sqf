@@ -135,8 +135,9 @@ private _sectorName = _sector getVariable ["BIS_WL_name", "Sector"];
 
 private _sectorIncome = if (_sectorName != "Wait") then {
 	[
-		[_side] call WL2_fnc_getMoneySign,
 		_sector getVariable "BIS_WL_value",
+		" ",
+		[_side] call WL2_fnc_getMoneySign,
 		"/",
 		localize "STR_A3_rscmpprogress_min",
 		_linebreak

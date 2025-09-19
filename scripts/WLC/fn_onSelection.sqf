@@ -139,7 +139,7 @@ if (_type in ["Primary", "Secondary", "Launcher"]) then {
         private _loadoutLevel = _loadoutEntry getOrDefault ["level", 0];
 
         private _displayName = if (_loadoutCost > 0) then {
-            format ["%1 [%2%3]", _loadoutName, _moneySign, _loadoutCost];
+            format ["%1 [%2 %3]", _loadoutName, _loadoutCost, _moneySign];
         } else {
             _loadoutName;
         };

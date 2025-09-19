@@ -85,7 +85,7 @@ private _setupActionId = player addAction [
 
 private _moneySign = [BIS_WL_playerSide] call WL2_fnc_getMoneySign;
 private _upgradeActionId = player addAction [
-    format ["<t color='#00ff00'>Upgrade Forward Base (Cost: %1%2)</t>", _moneySign, WL_FOB_UPGRADE_COST],
+    format ["<t color='#00ff00'>Upgrade Forward Base (Cost: %1 %2)</t>",  WL_FOB_UPGRADE_COST, _moneySign],
     {
 		private _eligibility = [player, player, true] call WL2_fnc_setupForwardBaseEligibility;
 		if (_eligibility # 1 != "") exitWith {
@@ -140,7 +140,7 @@ private _upgradeActionId = player addAction [
 			} else {
 				player setUserActionText [
 					_upgradeActionId,
-					format ["<t color='#00ff00'>Upgrade Forward Base (Cost: %1%2)</t>", _moneySign, WL_FOB_UPGRADE_COST]
+					format ["<t color='#00ff00'>Upgrade Forward Base (Cost: %1 %2)</t>", WL_FOB_UPGRADE_COST, _moneySign]
 				];
 			};
 		};

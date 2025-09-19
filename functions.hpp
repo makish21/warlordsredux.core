@@ -233,6 +233,7 @@ class CfgFunctions {
 			class deathInfo {};
 			class friendlyFireHandleClient {};
 			class handleKillFeedUpdate {};
+			class killFeedHandleClient {};
 			class killRewardClient {};
 			class teamkillCompensation {};
 			class teamkillerMessage {};

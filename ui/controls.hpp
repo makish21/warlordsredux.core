@@ -630,7 +630,7 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_view_distance_in_vehicle";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 3 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
@@ -649,7 +649,7 @@ class MRTM_settingsMenu
 					idc = 8005;
 					text = "";
 					onSliderPosChanged = "[1, _this select 1] call MRTM_fnc_onSliderChanged;";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 3 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
@@ -659,7 +659,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8006;
 					onKeyUp = "[_this select 0, 'ground', 0] call MRTM_fnc_onChar;";
-					
+
 					x = SLIDER_EDIT_X;
 					y = 3 * GUI_GRID_CENTER_H;
 					w = SLIDER_EDIT_W;
@@ -669,7 +669,7 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_view_distance_in_aircraft";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 4.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
@@ -708,7 +708,7 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_view_distance_in_uav";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 6 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
@@ -727,7 +727,7 @@ class MRTM_settingsMenu
 					idc = 8009;
 					text = "";
 					onSliderPosChanged = "[4, _this select 1] call MRTM_fnc_onSliderChanged;";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 6 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
@@ -747,7 +747,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8011;
 					text = "$STR_A3_WL_settings_view_distance_sync_objects";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 7.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
@@ -775,7 +775,7 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_view_distance_objects";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 9 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
@@ -794,7 +794,7 @@ class MRTM_settingsMenu
 					idc = 8012;
 					text = "";
 					onSliderPosChanged = "[3, _this select 1] call MRTM_fnc_onSliderChanged;";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 9 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
@@ -815,7 +815,7 @@ class MRTM_settingsMenu
 					idc = -1;
 					text = "$STR_A3_WL_settings_RWR_title";
 					colorBackground[] = {0.3,0.3,0.3,0.7};
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 10.5 * GUI_GRID_CENTER_H;
 					w = CTRLS_GROUP_WIDTH;
@@ -831,7 +831,7 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 11.5 * GUI_GRID_CENTER_H;
 					w = CTRLS_GROUP_WIDTH;
@@ -845,12 +845,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_RWR_enable_voice";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 12 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -873,12 +873,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_RWR_pull_up_volume";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 13.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -892,7 +892,7 @@ class MRTM_settingsMenu
 					idc = 8015;
 					text = "";
 					onSliderPosChanged = "[5, _this select 1] call MRTM_fnc_onSliderChanged;";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 13.5 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
@@ -912,12 +912,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_RWR_altitude_volume";
-										
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 15 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -931,7 +931,7 @@ class MRTM_settingsMenu
 					idc = 8017;
 					text = "";
 					onSliderPosChanged = "[6, _this select 1] call MRTM_fnc_onSliderChanged;";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 15 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
@@ -951,12 +951,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_RWR_warning_volume";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 16.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -971,7 +971,7 @@ class MRTM_settingsMenu
 					text = "";
 					onSliderPosChanged = "[7, _this select 1] call MRTM_fnc_onSliderChanged;";
 					toolTip = "$STR_A3_WL_settings_RWR_warning_volume_tooltip";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 16.5 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
@@ -991,12 +991,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_RWR_other_volume";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 18 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1010,7 +1010,7 @@ class MRTM_settingsMenu
 					idc = 8021;
 					text = "";
 					onSliderPosChanged = "[8, _this select 1] call MRTM_fnc_onSliderChanged;";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 18 * GUI_GRID_CENTER_H;
 					w = SLIDER_W;
@@ -1031,7 +1031,7 @@ class MRTM_settingsMenu
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_title";
 					colorBackground[] = {0.3,0.3,0.3,0.7};
-										
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 19.5 * GUI_GRID_CENTER_H;
 					w = CTRLS_GROUP_WIDTH;
@@ -1047,7 +1047,7 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 20.5 * GUI_GRID_CENTER_H;
 					w = CTRLS_GROUP_WIDTH;
@@ -1061,12 +1061,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					onLoad = "(_this # 0) ctrlSetText format [localize 'STR_A3_WL_settings_general_3rd_person', [BIS_WL_playerSide] call WL2_fnc_getMoneySign];";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 21 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1079,12 +1079,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_voice_informer";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 22.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1097,12 +1097,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_kill_sound";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 24 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1115,12 +1115,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_autonomous_mode";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 25.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1133,12 +1133,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_small_announcer_font";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 27 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1151,12 +1151,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_empty_vehicles";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 28.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1169,12 +1169,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_missile_camera";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 30 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1187,12 +1187,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_user_markers";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 31.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1205,12 +1205,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_no_voice_speaker";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 33 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1223,12 +1223,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_tasks_notifications";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 34.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1241,12 +1241,12 @@ class MRTM_settingsMenu
 				{
 					idc = -1;
 					text = "$STR_A3_WL_settings_general_parachute_auto_deploy";
-					
+
 					x = 0 * GUI_GRID_CENTER_W;
 					y = 36 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1264,7 +1264,7 @@ class MRTM_settingsMenu
 					y = 37.5 * GUI_GRID_CENTER_H;
 					w = OPTION_TEXT_W;
 					h = 1 * GUI_GRID_CENTER_H;
-					
+
 					size = 0.9 * GUI_GRID_CENTER_H;
 
 					class Attributes
@@ -1279,7 +1279,7 @@ class MRTM_settingsMenu
 					onLoad = "[(_this # 0), 'MRTM_3rdPersonDisabled'] call MRTM_fnc_onLoad;";
 					onCheckedChanged = "[(_this # 0), 'MRTM_3rdPersonDisabled', 60] call MRTM_fnc_onCheckedChanged;";
 					onUnload = "[(_this # 0)] call MRTM_fnc_onUnload;";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 20.75 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1299,7 +1299,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8026;
 					action = "profileNamespace setVariable ['MRTM_playKillSound', !(profileNamespace getVariable ['MRTM_playKillSound', true])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 23.75 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1309,7 +1309,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8027;
 					action = "profileNamespace setVariable ['MRTM_enableAuto', !(profileNamespace getVariable ['MRTM_enableAuto', true])]";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 25.25 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1319,7 +1319,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8028;
 					action = "profileNamespace setVariable ['MRTM_smallAnnouncerText', !(profileNamespace getVariable ['MRTM_smallAnnouncerText', false])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 26.75 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1329,7 +1329,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8029;
 					action = "profileNamespace setVariable ['MRTM_spawnEmpty', !(profileNamespace getVariable ['MRTM_spawnEmpty', false])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 28.25 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1339,7 +1339,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8030;
 					action = "profileNamespace setVariable ['MRTM_disableMissileCameras', !(profileNamespace getVariable ['MRTM_disableMissileCameras', false])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 29.75 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1349,7 +1349,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8031;
 					action = "profileNamespace setVariable ['MRTM_showMarkers', !(profileNamespace getVariable ['MRTM_showMarkers', true])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 31.25 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1359,7 +1359,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8032;
 					action = "profileNamespace setVariable ['MRTM_noVoiceSpeaker', !(profileNamespace getVariable ['MRTM_noVoiceSpeaker', false])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 32.75 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1369,7 +1369,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8033;
 					action = "profileNamespace setVariable ['MRTM_muteTaskNotifications', !(profileNamespace getVariable ['MRTM_muteTaskNotifications', false])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 34.25 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1379,7 +1379,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8034;
 					action = "profileNamespace setVariable ['MRTM_parachuteAutoDeploy', !(profileNamespace getVariable ['MRTM_parachuteAutoDeploy', true])];";
-					
+
 					x = OPTION_CONTROL_X;
 					y = 35.75 * GUI_GRID_CENTER_H;
 					w = 1.5 * GUI_GRID_CENTER_W;
@@ -1400,7 +1400,7 @@ class MRTM_settingsMenu
 				{
 					idc = 8036;
 					onEditChanged = "[_this select 0, 'mapRefresh', 2] call MRTM_fnc_onChar;";
-					
+
 					x = SLIDER_EDIT_X;
 					y = 37.5 * GUI_GRID_CENTER_H;
 					w = SLIDER_EDIT_W;
@@ -1423,12 +1423,12 @@ class MRTM_settingsMenu
 			idc = 1604;
 			text = "$STR_A3_WL_settings_button_close";
 			style = ST_UPPERCASE;
-			
+
 			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_CENTER_W;
 			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
 			w = 5 * GUI_GRID_CENTER_W;
 			h = 1 * GUI_GRID_CENTER_H;
-			
+
 			class TextPos
 			{
 				left = 0.25 * GUI_GRID_W;
@@ -1486,7 +1486,7 @@ class MRTM_settingsMenu
 			idc = 1609;
 			text = "$STR_A3_WL_settings_button_report";
 			style = ST_UPPERCASE;
-			
+
 			x = GUI_GRID_CENTER_X + 35 * GUI_GRID_CENTER_W;
 			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
 			w = 5 * GUI_GRID_CENTER_W;
@@ -1668,7 +1668,7 @@ class Fxr_ReportDialog
 		{
 			idc = 73002;
 			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
-			
+
 			x = GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W;
 			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_CENTER_H;
 			w = 20 * GUI_GRID_CENTER_W;
@@ -1679,14 +1679,14 @@ class Fxr_ReportDialog
 			idc = 73003;
 			text = "$STR_A3_WL_report_menu_title";
 			colorBackground[] = {0,0,0,0};
-			
+
 			x = GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W;
 			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_CENTER_H;
 			w = 20 * GUI_GRID_CENTER_W;
 			h = 1 * GUI_GRID_CENTER_H;
 
 			size = 0.9 * GUI_GRID_CENTER_H;
-			
+
 			class Attributes
 			{
 				font = "PuristaMedium";
@@ -1703,7 +1703,7 @@ class Fxr_ReportDialog
 			canDrag = 0;
 			color[] = {0,1,0,1};
 			type = CT_LISTBOX;
-			
+
 			x = GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W;
 			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_CENTER_H;
 			w = 20 * GUI_GRID_CENTER_W;
@@ -1726,12 +1726,12 @@ class Fxr_ReportDialog
 			idc = 73005;
 			text = "$STR_A3_WL_report_menu_button_close";
 			style = ST_UPPERCASE;
-			
+
 			x = GUI_GRID_CENTER_X + 10 * GUI_GRID_CENTER_W;
 			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_CENTER_H;
 			w = 5 * GUI_GRID_CENTER_W;
 			h = 1 * GUI_GRID_CENTER_H;
-			
+
 			class TextPos
 			{
 				left = 0.25 * GUI_GRID_W;

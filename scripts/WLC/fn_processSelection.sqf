@@ -336,7 +336,7 @@ if (count (backpackItems _unit) == 0) then {
 
 private _message = if (_totalCost > 0) then {
     private _moneySign = [_side] call WL2_fnc_getMoneySign;
-    format ["Equipment and customizations applied for %1%2.", _moneySign, _totalCost];
+    format ["Equipment and customizations applied for %1 %2.", _totalCost, _moneySign];
 } else {
      "Equipment and customizations applied for free.";
 };

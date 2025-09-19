@@ -16,7 +16,7 @@ while {!BIS_WL_missionEnd} do {
 			serverNamespace getVariable [variable, 40];
 		};
 
-		[_calculatedIncome max 50, _uid] call WL2_fnc_fundsDatabaseWrite;
+		[_calculatedIncome max 0, _uid] call WL2_fnc_fundsDatabaseWrite;
 	} forEach _notBlocked;
 
 	private _blocked = allPlayers select {(_x getVariable ["BIS_WL_incomeBlocked", false])};

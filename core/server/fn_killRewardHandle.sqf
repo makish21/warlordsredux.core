@@ -46,6 +46,9 @@ if (_responsibleLeader getVariable ["MRTM_3rdPersonDisabled", false]) then {
 if ((_targets findIf {_unit inArea (_x getVariable "objectAreaComplete")}) != -1) then {
 	_killReward = _killReward * 1.2;
 };
+if (_unitSide != independent && _unitSide != sideUnknown) then {
+	_killReward = _killReward * WL_OPPONENT_KILL_REWARD_MULTIPLIER;
+};
 
 #if WL_SQUAD_ASSISTS_ENABLED
 private _playerId = getPlayerID _responsibleLeader;
