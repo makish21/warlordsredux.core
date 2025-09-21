@@ -173,10 +173,18 @@ private _activeVehicles = vehicles select {
 	isEngineOn _x
 };
 
-private _ewNetworkUnits = _activeVehicles + ("Land_MobileRadar_01_radar_F" allObjects 0) select {
-	(_x getVariable ["WL_ewNetActive", false] ||
-	_x getVariable ["WL_ewNetActivating", false]) &&
-	alive _x
+private _uav = getConnectedUAV player;
+
+private _ewNetworkUnits = if !(isNull _uav) then {
+	_activeVehicles + ("Land_MobileRadar_01_radar_F" allObjects 0) select {
+		(_x getVariable ["WL_ewNetActive", false] ||
+		_x getVariable ["WL_ewNetActivating", false]) &&
+		alive _x &&
+		(([_x] call WL2_fnc_getAssetSide) == _side ||
+		_uav distance _x < _x getVariable ["WL_ewNetRange", 0])
+	}
+} else {
+	[];
 };
 
 {
@@ -333,8 +341,8 @@ private _draw = (ctrlMapScale _map) < 0.3;
 		_size,
 		_size,
 		call WL2_fnc_getDir,
-		if (_draw) then {		
-#if WLC_ENABLED 
+		if (_draw) then {
+#if WLC_ENABLED
 			private _levelDisplay = _x getVariable ["WL_playerLevel", localize "STR_A3_WL_map_player_level_recruit"];
 			private _displayName = format ["%1 [%2]", name _x, _levelDisplay];
 			_displayName
@@ -489,7 +497,7 @@ private _laserIcons = [];
     if ([_responsiblePlayer] call WL2_fnc_getAssetSide != _side) then {
         continue;
     };
-	
+
 	_drawIcons pushBack [
 		/*texture=*/"\A3\ui_f\data\IGUI\RscCustomInfo\Sensors\Targets\LaserTarget_ca.paa",
 		/*color=*/[1, 0, 0, 1],

@@ -28,11 +28,9 @@ private _customText = "";
 
 private _noRewardList = ["B_UAV_AI", "O_UAV_AI", "I_UAV_AI"];
 if (_unit isKindOf "Man" && !(_unit in _noRewardList)) then {
+	_killReward = 30;
 	if (isPlayer _unit) then {
-		_killReward = 60;
 		_customText = "Enemy player killed";
-	} else {
-		_killReward = 30;
 	};
 } else {
 	if (_killReward == 0) exitWith {};

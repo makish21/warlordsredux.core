@@ -210,9 +210,7 @@ private _side = side _owner;
                 };
             };
         };
-        _filmGrain ppEffectCommit 0.1;
-        sleep 0.1;
-
+        _filmGrain ppEffectCommit 0;
         private _exploitActive = !(ppEffectCommitted _filmGrain);
         if (_exploitActive) then {
             _filmGrain = call _initFilmGrain;
@@ -246,6 +244,7 @@ private _side = side _owner;
             _asset setVehicleReportOwnPosition true;
             _asset setVehicleReportRemoteTargets true;
         };
+        sleep 0.1;
     };
 
     _indicator ctrlSetText "";

@@ -43,7 +43,7 @@ if (_isUnitPlayer && _unit isKindOf "Man" && !_killedByGame) then {
 
 private _assetActualType = _unit getVariable ["WL2_orderedClass", typeOf _unit];
 private _unitCost = if (_unit isKindOf "Man") then {
-    if (_isUnitPlayer) then { 60 } else { 30 };
+    if (_isUnitPlayer) then { 30 * WL_OPPONENT_KILL_REWARD_MULTIPLIER } else { 30 };
 } else {
     private _costMap = missionNamespace getVariable ["WL2_costs", createHashMap];
     _costMap getOrDefault [_assetActualType, 0];
