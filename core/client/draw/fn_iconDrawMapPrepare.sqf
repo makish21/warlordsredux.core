@@ -173,18 +173,15 @@ private _activeVehicles = vehicles select {
 	isEngineOn _x
 };
 
-private _uav = getConnectedUAV player;
-
-private _ewNetworkUnits = if !(isNull _uav) then {
-	_activeVehicles + ("Land_MobileRadar_01_radar_F" allObjects 0) select {
-		(_x getVariable ["WL_ewNetActive", false] ||
-		_x getVariable ["WL_ewNetActivating", false]) &&
-		alive _x &&
-		(([_x] call WL2_fnc_getAssetSide) == _side ||
-		_uav distance _x < _x getVariable ["WL_ewNetRange", 0])
-	}
-} else {
-	[];
+private _ewNetworkUnits = _activeVehicles + ("Land_MobileRadar_01_radar_F" allObjects 0) select {
+	call {
+		if !(alive _x) exitWith { false };
+		if !(_x getVariable ["WL_ewNetActive", false] || _x getVariable ["WL_ewNetActivating", false]) exitWith { false };
+		if (([_x] call WL2_fnc_getAssetSide) == _side) exitWith { true };
+		private _uav = getConnectedUAV player;
+		if (isNull _uav) exitWith { false };
+		_uav distance _x < _x getVariable ["WL_ewNetRange", 0];
+	};
 };
 
 {
