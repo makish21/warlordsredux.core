@@ -1,4 +1,5 @@
 class CfgSounds {
+    #define RWR_ROOT src\scripts\RWR
     #include "scripts\RWR\sounds.hpp"
 
     class hitmarker {

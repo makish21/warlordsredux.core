@@ -26,9 +26,9 @@ XIAO_altitudeTracker = {
 			// pull up warning branch
 
 			if !(asin (vectorDir _aircraft select 2) < - ((_altitude * 40) / speed _aircraft)) then { sleep 0.2; continue };
-			
+
 			if (_aircraft getVariable ["isXiaoBusy", true]) then { sleep 0.2; continue }; // xiao saying something
-			
+
 			_aircraft setVariable ["isXiaoBusy", true];
 			["xiaoPullUp", "MRTM_rwr1"] call XIAO_sayWait;
 			_aircraft setVariable ["isXiaoBusy", false];
@@ -78,7 +78,7 @@ XIAO_missileTracker = {
 		_aircraft setVariable ["incoming", _aliveIncoming];
 
 		if (count _aliveIncoming == 0) then { sleep 1; continue };
-		
+
 		if (_aircraft getVariable ["isXiaoBusy", true]) then { sleep 0.2; continue }; // xiao saying something
 		_aircraft setVariable ["isXiaoBusy", true];
 		["xiaoWarning", "MRTM_rwr3"] call XIAO_sayWait;
@@ -102,7 +102,7 @@ XIAO_missileTracker = {
 				180
 			};
 		};
-		
+
 		private _dirSound = format ["xiao_%1", _dirName];
 		[_dirSound, "MRTM_rwr3"] call XIAO_sayWait;
 
@@ -133,7 +133,7 @@ XIAO_gForceTracker = {
 
 		// Get initial position and velocity
 		private _vel1 = velocity _aircraft;
-		
+
 		sleep 0.1;
 
 		// Get final position and velocity
@@ -236,9 +236,9 @@ XIAO_cleanup = {
 XIAO_deleteScript = {
 	params ["_script"];
 
-	private _idx = XIAO_activeScripts find _thisScript;
+	private _idx = XIAO_activeScripts find _script;
 	if (_idx == -1) exitWith {};
-	
+
 	XIAO_activeScripts deleteAt _idx;
 };
 
@@ -253,7 +253,7 @@ player addEventHandler ["GetInMan", {
 
 	private _gearEhIdx = _vehicle addEventHandler ["Gear", {
 		params ["_vehicle", "_gearState"];
-		
+
 		_vehicle setVariable ["landingGear", _gearState];
 
 		if !(_gearState) exitWith {};
@@ -263,7 +263,7 @@ player addEventHandler ["GetInMan", {
 
 		XIAO_activeScripts pushBack ([_vehicle] spawn {
 			params ["_v"];
-			
+
 			waitUntil { sleep 0.2; !(_v getVariable ["isXiaoBusy", true]) };
 			_v setVariable ["isXiaoBusy", true];
 			["xiaoGear", "MRTM_rwr3"] call XIAO_sayWait;
@@ -295,13 +295,13 @@ player addEventHandler ["GetInMan", {
 
 			XIAO_activeScripts pushBack ([_unit] spawn {
 				params ["_v"];
-				
+
 				waitUntil { sleep 0.2; !(_v getVariable ["isXiaoBusy", true])};
 
 				_v setVariable ["isXiaoBusy", true];
 				["xiaoEject", "MRTM_rwr3"] call XIAO_sayWait;
 				_v setVariable ["isXiaoBusy", false];
-				
+
 				[_thisScript] call XIAO_deleteScript;
 			});
 		};
@@ -310,7 +310,7 @@ player addEventHandler ["GetInMan", {
 			if (_damage < 0.7) exitWith {
 				_unit setVariable ["engineNotified", false]; // in case if aircraft was reparied
 			};
-			
+
 			if (_unit getVariable ["engineNotified", false]) exitWith {}; // already notified
 			_v setVariable ["engineNotified", true];
 
@@ -322,7 +322,7 @@ player addEventHandler ["GetInMan", {
 				_v setVariable ["isXiaoBusy", true];
 				["xiaoLeftEngine", "MRTM_rwr3"] call XIAO_sayWait;
 				_v setVariable ["isXiaoBusy", false];
-				
+
 				[_thisScript] call XIAO_deleteScript;
 			});
 		};
@@ -331,7 +331,7 @@ player addEventHandler ["GetInMan", {
 			if (_damage < 0.7) exitWith {
 				_unit setVariable ["engine2Notified", false]; // in case if aircraft was reparied
 			};
-			
+
 			if (_unit getVariable ["engine2Notified", false]) exitWith {}; // already notified
 			_unit setVariable ["engine2Notified", true];
 
@@ -352,7 +352,7 @@ player addEventHandler ["GetInMan", {
 		};
 	}];
 	XIAO_eventHandlers set ["Dammaged", _dammagedEhIdx];
-	
+
 	private _killedEhIdx = _vehicle addEventHandler ["Killed", {
 		params ["_unit", "_killer", "_instigator", "_useEffects"];
 

@@ -1,4 +1,11 @@
-RITA_vics = ["O_Plane_Fighter_02_F", "O_Plane_Fighter_02_Stealth_F", "O_Plane_Fighter_02_Cluster_F", "O_Plane_CAS_02_dynamicLoadout_F", "O_Plane_CAS_02_Cluster_F", "O_Heli_Attack_02_dynamicLoadout_F"];
+RITA_vics = [
+	"O_Plane_Fighter_02_F",
+	"O_Plane_Fighter_02_Stealth_F",
+	"O_Plane_Fighter_02_Cluster_F",
+	"O_Plane_CAS_02_dynamicLoadout_F",
+	"O_Plane_CAS_02_Cluster_F",
+	"O_Heli_Attack_02_dynamicLoadout_F"
+];
 
 RITA_sayWait = {
 	params ["_soundName", "_volumeParam"];
@@ -26,12 +33,12 @@ RITA_altitudeTracker = {
 			// pull up warning branch
 
 			if !(asin (vectorDir _aircraft select 2) < - ((_altitude * 40) / speed _aircraft)) then { sleep 0.2; continue };
-			
+
 			private _pitchBank = _aircraft call BIS_fnc_getPitchBank;
 			_pitchBank params ["_pitch", "_bank"];
 
 			if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
-			
+
 			_aircraft setVariable ["isRitaBusy", true];
 			switch true do {
 				case (_bank < -75): { ["ritaRollRight", "MRTM_rwr1"] call RITA_sayWait };
@@ -95,7 +102,7 @@ RITA_missileTracker = {
 		_aircraft setVariable ["incoming", _aliveIncoming];
 
 		if (count _aliveIncoming == 0) then { sleep 1; continue };
-		
+
 		if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
 		_aircraft setVariable ["isRitaBusy", true];
 		["ritaMissile", "MRTM_rwr3"] call RITA_sayWait;
@@ -119,7 +126,7 @@ RITA_missileTracker = {
 				180
 			};
 		};
-		
+
 		private _dirSound = format ["rita_%1", _dirName];
 		[_dirSound, "MRTM_rwr3"] call RITA_sayWait;
 
@@ -150,7 +157,7 @@ RITA_gForceTracker = {
 
 		// Get initial position and velocity
 		private _vel1 = velocity _aircraft;
-		
+
 		sleep 0.1;
 
 		// Get final position and velocity
@@ -204,7 +211,7 @@ RITA_targetLockTracker = {
 		["ritaLock", "MRTM_rwr4"] call RITA_sayWait;
 		_aircraft setVariable ["isRitaBusy", false];
 
-		waitUntil { 
+		waitUntil {
 			sleep 0.5;
 
 			playerTargetLock params ["_target", "_lock", "_cfg"];
@@ -236,6 +243,33 @@ RITA_speedTracker = {
 
 
 RITA_activeScripts = [];
+RITA_deleteScript = {
+	params ["_script"];
+
+	private _idx = RITA_activeScripts find _script;
+	if (_idx == -1) exitWith { nil };
+
+	RITA_activeScripts deleteAt _idx;
+};
+
+
+RITA_airbrakeOn = {
+	params ["_aircraft"];
+
+	scriptName format ["Rita_airbrake_%1", typeOf _aircraft];
+
+	// delay to prevent RWR on short clicks and wait airbrake animation to finish
+	sleep 1;
+
+	if (_aircraft getVariable ["isRitaBusy", true]) then { sleep 0.2; continue }; // rita saying something
+
+	_aircraft setVariable ["isRitaBusy", true];
+	["ritaAirbrakeOn", "MRTM_rwr4"] call RITA_sayWait;
+	_aircraft setVariable ["isRitaBusy", false];
+
+	[_thisScript] call RITA_deleteScript;
+};
+
 RITA_eventHandlers = createHashMap;
 
 RITA_cleanup = {
@@ -251,15 +285,6 @@ RITA_cleanup = {
 	} forEach RITA_eventHandlers;
 };
 
-RITA_deleteScript = {
-	params ["_script"];
-
-	private _idx = RITA_activeScripts find _thisScript;
-	if (_idx == -1) exitWith {};
-	
-	RITA_activeScripts deleteAt _idx;
-};
-
 player addEventHandler ["GetInMan", {
 	params ["_unit", "_role", "_vehicle", "_turret"];
 
@@ -271,7 +296,7 @@ player addEventHandler ["GetInMan", {
 
 	private _gearEhIdx = _vehicle addEventHandler ["Gear", {
 		params ["_vehicle", "_gearState"];
-		
+
 		_vehicle setVariable ["landingGear", _gearState];
 
 		if !(_gearState) exitWith {};
@@ -281,7 +306,7 @@ player addEventHandler ["GetInMan", {
 
 		RITA_activeScripts pushBack ([_vehicle] spawn {
 			params ["_v"];
-			
+
 			waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true]) };
 			_v setVariable ["isRitaBusy", true];
 			["ritaGear", "MRTM_rwr3"] call RITA_sayWait;
@@ -309,14 +334,14 @@ player addEventHandler ["GetInMan", {
 
 		RITA_activeScripts pushBack ([_unit] spawn {
 			params ["_v"];
-			if (_v getVariable ["isRitaBusy", true]) exitWith {	
+			if (_v getVariable ["isRitaBusy", true]) exitWith {
 				[_thisScript] call RITA_deleteScript;
 			};
 
 			_v setVariable ["isRitaBusy", true];
 			["ritaCas", "MRTM_rwr4"] call RITA_sayWait;
 			_v setVariable ["isRitaBusy", false];
-			
+
 			[_thisScript] call RITA_deleteScript;
 		});
 	}];
@@ -326,22 +351,22 @@ player addEventHandler ["GetInMan", {
 		params ["_unit", "_hitSelection", "_damage", "_hitPartIndex", "_hitPoint", "_shooter", "_projectile"];
 
 		if (["hithull", _hitPoint, false] call BIS_fnc_inString) then {
-			if (_damage < 0.9) exitWith { 
+			if (_damage < 0.9) exitWith {
 				_unit setVariable ["ejectNotified", false]; // in case if aircraft was reparied
-			}; 
+			};
 
 			if (_unit getVariable ["ejectNotified", false]) exitWith {}; // already notified
 			_unit setVariable ["ejectNotified", true];
 
 			RITA_activeScripts pushBack ([_unit] spawn {
 				params ["_v"];
-				
+
 				waitUntil { sleep 0.2; !(_v getVariable ["isRitaBusy", true])};
 
 				_v setVariable ["isRitaBusy", true];
 				["ritaEject", "MRTM_rwr3"] call RITA_sayWait;
 				_v setVariable ["isRitaBusy", false];
-				
+
 				[_thisScript] call RITA_deleteScript;
 			});
 		};
@@ -350,7 +375,7 @@ player addEventHandler ["GetInMan", {
 			if (_damage < 0.2) exitWith {
 				_unit setVariable ["engineNotified", false]; // in case if aircraft was reparied
 			};
-			
+
 			if (_unit getVariable ["engineNotified", false]) exitWith {}; // already notified
 			_v setVariable ["engineNotified", true];
 
@@ -370,7 +395,7 @@ player addEventHandler ["GetInMan", {
 				_v setVariable ["isRitaBusy", true];
 				[_soundName, "MRTM_rwr3"] call RITA_sayWait;
 				_v setVariable ["isRitaBusy", false];
-				
+
 				[_thisScript] call RITA_deleteScript;
 			});
 		};
@@ -379,7 +404,7 @@ player addEventHandler ["GetInMan", {
 			if (_damage < 0.2) exitWith {
 				_unit setVariable ["engine2Notified", false]; // in case if aircraft was reparied
 			};
-			
+
 			if (_unit getVariable ["engine2Notified", false]) exitWith {}; // already notified
 			_unit setVariable ["engine2Notified", true];
 
@@ -400,7 +425,7 @@ player addEventHandler ["GetInMan", {
 		};
 	}];
 	RITA_eventHandlers set ["Dammaged", _dammagedEhIdx];
-	
+
 	private _killedEhIdx = _vehicle addEventHandler ["Killed", {
 		params ["_unit", "_killer", "_instigator", "_useEffects"];
 
@@ -426,3 +451,36 @@ player addEventHandler ["GetOutMan", {
 	[_vehicle] call RITA_cleanup;
 }];
 
+
+RITA_airbrakeScriptHandle = nil;
+private _display = (findDisplay 46);
+_display displayAddEventHandler ["KeyDown", {
+	params ["_display", "_key", "_shift", "_ctrl", "_alt"];
+
+	call {
+		if !(_key in actionKeys "AirPlaneBrake") exitWith {}; // not an airbrake key
+		private _aircraft = vehicle player;
+		if !((typeOf _aircraft) in RITA_vics) exitWith {}; // invalid vehicle
+		if (_aircraft isKindOf "Helicopter") exitWith {};
+		if !(profileNamespace getVariable ["MRTM_EnableRWR", true]) exitWith {}; // RWR disabled in settings
+		if !(isNil "RITA_airbrakeScriptHandle") exitWith {}; // already spawned
+
+		private _handle = [_aircraft] spawn RITA_airbrakeOn;
+		RITA_airbrakeScriptHandle = _handle;
+		RITA_activeScripts pushBack _handle;
+	};
+
+	false;
+}];
+
+_display displayAddEventHandler ["KeyUp", {
+	params ["_display", "_key", "_shift", "_ctrl", "_alt"];
+
+	call {
+		if !(_key in actionKeys "AirPlaneBrake") exitWith {}; // not an airbrake key
+		if (isNil "RITA_airbrakeScriptHandle") exitWith {}; // already done/terminated
+
+		terminate ([RITA_airbrakeScriptHandle] call RITA_deleteScript);
+		RITA_airbrakeScriptHandle = nil;
+	};
+}];

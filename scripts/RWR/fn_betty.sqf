@@ -1,4 +1,13 @@
-BETTY_vics = ["B_Plane_Fighter_01_F", "B_Plane_Fighter_01_Stealth_F", "B_Plane_CAS_01_dynamicLoadout_F", "B_Heli_Attack_01_dynamicLoadout_F", "B_Heli_Attack_01_pylons_dynamicLoadout_F", "B_T_VTOL_01_armed_F", "B_T_VTOL_01_vehicle_F", "B_T_VTOL_01_infantry_F"];
+BETTY_vics = [
+	"B_Plane_Fighter_01_F",
+	"B_Plane_Fighter_01_Stealth_F",
+	"B_Plane_CAS_01_dynamicLoadout_F",
+	"B_Heli_Attack_01_dynamicLoadout_F",
+	"B_Heli_Attack_01_pylons_dynamicLoadout_F",
+	"B_T_VTOL_01_armed_F",
+	"B_T_VTOL_01_vehicle_F",
+	"B_T_VTOL_01_infantry_F"
+];
 
 BETTY_sayWait = {
 	params ["_soundName", "_volumeParam"];
@@ -27,9 +36,9 @@ BETTY_altitudeTracker = {
 			// pull up warning branch
 
 			if !(asin (vectorDir _aircraft select 2) < - ((_altitude * 40) / speed _aircraft)) then { sleep 0.2; continue };
-			
+
 			if (_aircraft getVariable ["isBettyBitching", true]) then { sleep 0.2; continue };
-			
+
 			_aircraft setVariable ["isBettyBitching", true];
 			["bettyPullUp", "MRTM_rwr1"] call BETTY_sayWait;
 			_aircraft setVariable ["isBettyBitching", false];
@@ -98,7 +107,7 @@ BETTY_missileTracker = {
 				180
 			};
 		};
-		
+
 		if (_aircraft getVariable ["isBettyBitching", true]) then { sleep 0.2; continue };
 		_aircraft setVariable ["isBettyBitching", true];
 		private _dirSound = format ["bettyIncMissile_%1", _dirName];
@@ -157,9 +166,9 @@ BETTY_cleanup = {
 BETTY_deleteScript = {
 	params ["_script"];
 
-	private _idx = BETTY_activeScripts find _thisScript;
+	private _idx = BETTY_activeScripts find _script;
 	if (_idx == -1) exitWith {};
-	
+
 	BETTY_activeScripts deleteAt _idx;
 };
 
@@ -175,7 +184,7 @@ player addEventHandler ["GetInMan", {
 
 	private _gearEhIdx = _vehicle addEventHandler ["Gear", {
 		params ["_vehicle", "_gearState"];
-		
+
 		_vehicle setVariable ["landingGear", _gearState];
 	}];
 	BETTY_eventHandlers set ["Gear", _gearEhIdx];
