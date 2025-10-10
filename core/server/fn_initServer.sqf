@@ -135,15 +135,3 @@ if (_systemTime # 1 == 4 && _systemTime # 2 <= 2) then {
 	missionNamespace setVariable ["WL_easterEggOverride", true, true];
 };
 #endif
-
-
-// make some buildings indestructible
-{
-	_x allowDamage false;
-	_x enableSimulation true;
-} forEach nearestObjects  [
-	/*position=*/[worldSize / 2, worldSize / 2],
-	/*types=*/["Land_WIP_F"],
-	/*radius=*/worldSize * sqrt 2 / 2,
-	/*2Dmode=*/true
-];

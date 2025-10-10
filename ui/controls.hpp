@@ -1576,7 +1576,7 @@ class MRTM_debugMenu
 		class MRTMExecEdit: RscEditMRTM
 		{
 			idc = 2002;
-			font = "PuristaMedium";
+			font = "EtelkaMonospacePro";
 			colorBackground[] = {0,0,0,0};
 			autocomplete = "scripting";
 			type = CT_EDIT;
@@ -1598,13 +1598,13 @@ class MRTM_debugMenu
 			h = 0.033 * safezoneH;
 			class Attributes
 			{
-				font = "PuristaMedium";
+				font = "EtelkaMonospacePro";
 			};
 		};
 		class MRTMReturnReadOnly: RscEditMRTM
 		{
 			idc = 2003;
-			font = "PuristaMedium";
+			font = "EtelkaMonospacePro";
 			canModify = 0;
 			colorBackground[] = {0,0,0,0};
 			autocomplete = "";

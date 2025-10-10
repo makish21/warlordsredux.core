@@ -58,6 +58,31 @@ if (isServer) then {
 	} forEach BIS_WL_allSectors;
 };
 
+// make some buildings indestructible
+private _indestructibleBuildings = nearestObjects [
+	/*position=*/[worldSize / 2, worldSize / 2],
+	/*types=*/["Land_WIP_F"],
+	/*radius=*/worldSize * sqrt 2 / 2,
+	/*2Dmode=*/true
+];
+
+if isServer then {
+	{
+		_x allowDamage false;
+		_x enableSimulationGlobal true;
+	} forEach _indestructibleBuildings;
+} else {
+	{
+		_x addEventHandler ["Local", {
+			params ["_entity", "_isLocal"];
+
+			if _isLocal then {
+				_entity allowDamage false;
+			};
+		}];
+	} forEach _indestructibleBuildings;
+};
+
 if (!isDedicated && hasInterface) then {
 	call WL2_fnc_initClient
 };
