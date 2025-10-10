@@ -66,22 +66,19 @@ private _indestructibleBuildings = nearestObjects [
 	/*2Dmode=*/true
 ];
 
-if isServer then {
-	{
+{
+	if local _x then {
 		_x allowDamage false;
-		_x enableSimulationGlobal true;
-	} forEach _indestructibleBuildings;
-} else {
-	{
-		_x addEventHandler ["Local", {
-			params ["_entity", "_isLocal"];
+	};
 
-			if _isLocal then {
-				_entity allowDamage false;
-			};
-		}];
-	} forEach _indestructibleBuildings;
-};
+	_x addEventHandler ["Local", {
+		params ["_entity", "_isLocal"];
+
+		if _isLocal then {
+			_entity allowDamage false;
+		};
+	}];
+} forEach _indestructibleBuildings;
 
 if (!isDedicated && hasInterface) then {
 	call WL2_fnc_initClient
