@@ -3,6 +3,8 @@
 ________________	GF Earplugs Script - Mod	________________
 https://forums.bohemia.net/forums/topic/215844-gf-earplugs-script-mod/
 */
+#include "\a3\ui_f\hpp\definedikcodes.inc"
+
 
 disableSerialization;
 
@@ -14,7 +16,7 @@ waitUntil {
 private _display = findDisplay 46;
 _display displayAddEventHandler ["KeyDown", {
 	params ["_displayorcontrol", "_key", "_shift", "_ctrl", "_alt"];
-	if (_key == 0xD2) then {
+	if (_key == DIK_INSERT) then {
 		["TaskEarplugs"] call WLT_fnc_taskComplete;
 		if (soundVolume != 0.1) then {
 			"GF_Earplugs" cutRsc ["Rsc_GF_Earplugs", "PLAIN"];
@@ -27,7 +29,7 @@ _display displayAddEventHandler ["KeyDown", {
 		};
 	};
 
-	if (_key == 0xD3) then {
+	if (_key == DIK_DELETE) then {
 		private _oldValue = player getVariable ["WL_ViewRangeReduced", false];
 		if (_oldValue) then {
 			"ViewRange" cutText ["", "PLAIN"];

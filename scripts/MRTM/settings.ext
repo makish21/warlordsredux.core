@@ -1,0 +1,1245 @@
+#include "\a3\ui_f\hpp\definecommongrids.inc"
+#include "\a3\ui_f\hpp\definedikcodes.inc"
+#include "constants.inc"
+
+#define ST_UPPERCASE 0xC0
+
+class MRTM_settingsMenu
+{
+	idd = 8000;
+
+	class controls
+	{
+		class MRTMHeaderBackground: IGUIBackMRTM
+		{
+			idc = -1;
+			colorBackground[] = {"(profilenamespace getvariable ['GUI_BCG_RGB_R',0.3])", "(profilenamespace getvariable ['GUI_BCG_RGB_G',0.7])", "(profilenamespace getvariable ['GUI_BCG_RGB_B',0.8])", "(profilenamespace getvariable ['GUI_BCG_RGB_A',0.7])"};
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_H;
+			w = 40 * GUI_GRID_W;
+			h = 1 * GUI_GRID_H;
+		};
+		class MRTMHeaderTextLeft: RscStructuredTextMRTM
+		{
+			idc = -1;
+			text = "$STR_A3_WL_settings_title";
+			colorBackground[] = {0,0,0,0};
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_H;
+			w = 20 * GUI_GRID_W;
+			h = 1 * GUI_GRID_H;
+
+			size = 0.9 * GUI_GRID_H;
+
+			class Attributes
+			{
+				font = "PuristaMedium";
+				color = "#ffffff";
+				colorLink = "#D09B43";
+				align = "left";
+				shadow = 1;
+			};
+		};
+		class MRTMHeaderTextRight: RscStructuredTextMRTM
+		{
+			idc = SETTINGS_HEADER_TEXT_RIGHT_IDC;
+			colorBackground[] = {0,0,0,0};
+			x = GUI_GRID_CENTER_X + 20 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 0 * GUI_GRID_H;
+			w = 20 * GUI_GRID_W;
+			h = 1 * GUI_GRID_H;
+
+			size = 0.9 * GUI_GRID_H;
+
+			class Attributes
+			{
+				font = "PuristaMedium";
+				color = "#ffffff";
+				colorLink = "#D09B43";
+				align = "right";
+				shadow = 1;
+			};
+		};
+		class MRTMBackground: IGUIBackMRTM
+		{
+			idc = -1;
+			colorBackground[] = {0,0,0,0.8};
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_H;
+			w = 40 * GUI_GRID_W;
+			h = 22.8 * GUI_GRID_H;
+		};
+		// class MRTMdiscordImg: RscPictureMRTM
+		// {
+		// 	idc = -1;
+		// 	text = "src\img\discord_ca.paa";
+		// 	style = ST_MULTI + ST_TITLE_BAR;
+		// 	x = 0.493344 * safezoneW + safezoneX;
+		// 	y = 0.236 * safezoneH + safezoneY;
+		// 	w = 0.014244 * safezoneW;
+		// 	h = 0.022 * safezoneH;
+		// };
+		class MRTMMainCtrlsGroup: RscControlsGroupMRTM
+		{
+#define CTRLS_GROUP_WIDTH (40 * GUI_GRID_W)
+#define CTRLS_GROUP_CENTER (CTRLS_GROUP_WIDTH * 0.5)
+#define CTRLS_GROUP_OFFSET (-0.25 * GUI_GRID_H)
+
+			type = CT_CONTROLS_GROUP;
+			idc = SETTINGS_MAIN_GROUP_IDC;
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 1.1 * GUI_GRID_H;
+			w = CTRLS_GROUP_WIDTH;
+			h = 22.8 * GUI_GRID_H;
+
+			style = ST_MULTI;
+
+			deletable = 0;
+			fade = 0;
+			class VScrollbar: ScrollBar
+			{
+				color[] = {1,1,1,1};
+				height = 0.5;
+				width = 0.021;
+				autoScrollEnabled = 1;
+			};
+
+			class HScrollbar: ScrollBar
+			{
+				color[] = {1,1,1,1};
+				height = 0;
+				width = 0;
+			};
+
+			class Controls
+			{
+#define SPACE_W (0.2 * GUI_GRID_W)
+#define OPTION_TEXT_W (CTRLS_GROUP_CENTER - SPACE_W * 0.5)
+#define OPTION_CONTROL_X (CTRLS_GROUP_CENTER + SPACE_W * 0.5)
+
+#define SLIDER_W (7 * GUI_GRID_W)
+#define SLIDER_EDIT_X (OPTION_CONTROL_X + SLIDER_W + SPACE_W)
+#define SLIDER_EDIT_W (3.5 * GUI_GRID_W)
+
+#define GROUP_HEADER_H (1 * GUI_GRID_H)
+#define GROUP_PADDING (0.25 * GUI_GRID_H)
+
+#define OPTION_H (1.5 * GUI_GRID_H)
+#define TEXT_SLIDER_H (1 * GUI_GRID_H)
+#define TEXT_SLIDER_OFFSET ((OPTION_H - TEXT_SLIDER_H) * 0.5)
+
+// #define CTRLS_GROUP_OFFSET (GROUP_HEADER_H + GROUP_PADDING)
+__COUNTER_RESET__
+__EXEC(_idx = __COUNTER__;)
+
+				class MRTMViewHeaderText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_view_distance_title";
+					colorBackground[] = {0.3,0.3,0.3,0.7};
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = CTRLS_GROUP_WIDTH;
+					h = GROUP_HEADER_H;
+
+					size = 1 * GUI_GRID_H;
+
+					class Attributes {
+						shadow = 0;
+					};
+				};
+				class RscLine: RscTextMRTM
+				{
+					idc = -1;
+					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET + GROUP_HEADER_H);
+					w = CTRLS_GROUP_WIDTH;
+					h = 0.01 * GUI_GRID_H;
+
+					text = "";
+					colorBackground[] = {0,0,0,0};
+					colorText[] = {1,1,1,1};
+				};
+
+// ON FOOT
+__EXEC(_idx = __COUNTER__;)
+				class MRTMViewInfText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_view_distance_on_foot";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMViewInfSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_INF_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['inf', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMViewInfEdit: RscEditMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_INF_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'inf', 0] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// IN VEHICLE
+__EXEC(_idx = __COUNTER__;)
+				class MRTMViewGroundText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_view_distance_in_vehicle";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMViewGroundlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_VIC_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['ground', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMViewVehiclesEdit: RscEditMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_VIC_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'ground', 0] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// IN AIRCRAFT
+__EXEC(_idx = __COUNTER__;)
+				class MRTMViewAirText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_view_distance_in_aircraft";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMViewAirSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_AIR_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['air', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMViewAirEdit: RscEditMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_AIR_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'air', 0] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// IN DRONES
+__EXEC(_idx = __COUNTER__;)
+				class MRTMViewDronesText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_view_distance_in_uav";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMViewDronesSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_UAV_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['drones', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMViewDronesEdit: RscEditMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_UAV_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'drones', 0] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// CQB MODE
+__EXEC(_idx = __COUNTER__;)
+				class MRTMViewCQBText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = __EVAL(format [localize "$STR_A3_WL_settings_view_distance_cqb", keyName DIK_DELETE]);
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMViewCQBSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_CQB_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['cqb', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMViewCQBEdit: RscEditMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_CQB_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'drones', 0] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// SYNC OBJECTS WITH RENDER DISTANCE
+__EXEC(_idx = __COUNTER__;)
+				class MRTMObjectsButtonText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_view_distance_sync_objects";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMObjectsButton: RscCheckboxMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_SYNC_OBJECTS_IDC;
+					action = "profileNamespace setVariable ['MRTM_syncObjects', !(profileNamespace getVariable 'MRTM_syncObjects')]; 0 spawn MRTM_fnc_openMenu;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// OBJECTS RENDER DISTANCE
+__EXEC(_idx = __COUNTER__;)
+				class MRTMViewObjectsText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_view_distance_objects";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMViewObjectsSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_OBJ_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['objects', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMViewObjectsEdit: RscEditMRTM
+				{
+					idc = SETTINGS_VIEW_DISTANCE_OBJ_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'objects', 0] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+
+// GENERAL GROUP
+__EXEC(_idx = __COUNTER__;)
+				class MRTMGeneralSettingsHeaderText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_title";
+					colorBackground[] = {0.3,0.3,0.3,0.7};
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + GROUP_PADDING);
+					w = CTRLS_GROUP_WIDTH;
+					h = GROUP_HEADER_H;
+
+					size = 1 * GUI_GRID_H;
+
+					class Attributes {
+						shadow = 0;
+					};
+				};
+				class RscLine3: RscTextMRTM
+				{
+					idc = -1;
+					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + GROUP_PADDING + GROUP_HEADER_H);
+					w = CTRLS_GROUP_WIDTH;
+					h = 0.01 * GUI_GRID_H;
+
+					text = "";
+					colorBackground[] = {0,0,0,0};
+					colorText[] = {1,1,1,1};
+				};
+
+// DISABLE 3RD PERSON VIEW
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText1: RscStructuredTextMRTM
+				{
+					idc = -1;
+					onLoad = "(_this # 0) ctrlSetText format [localize 'STR_A3_WL_settings_general_3rd_person', [BIS_WL_playerSide] call WL2_fnc_getMoneySign];";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherButton1: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_3RD_PERSON_IDC;
+					onLoad = "[(_this # 0), 'MRTM_3rdPersonDisabled'] call MRTM_fnc_onLoad;";
+					onCheckedChanged = "[(_this # 0), 'MRTM_3rdPersonDisabled', 60] call MRTM_fnc_onCheckedChanged;";
+					onUnload = "[(_this # 0)] call MRTM_fnc_onUnload;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// MISSILE CAMERA
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText7: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_missile_camera";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherButton7: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_MISSILE_CAMERA_IDC;
+					action = "profileNamespace setVariable ['MRTM_disableMissileCameras', !(profileNamespace getVariable ['MRTM_disableMissileCameras', false])];";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// INSTANT DEATH
+__EXEC(_idx = __COUNTER__;)
+				class MRTMInstantDeathText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_instant_death";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMInstantDeathButton: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_INSTANT_DEATH_IDC;
+					toolTip = "$STR_A3_WL_settings_general_instant_death_tooltip";
+					action = "profileNamespace setVariable ['MRTM_instantDeath', !(profileNamespace getVariable ['MRTM_instantDeath', false])];";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// MAP REFRESH RATE
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText12: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_map_refresh_rate";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherSlider12: RscXSliderHMRTM
+				{
+					idc = SETTINGS_GENERAL_MAP_REFRESH_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['mapRefresh', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMOtherEdit12: RscEditMRTM
+				{
+					idc = SETTINGS_GENERAL_MAP_REFRESH_EDIT_IDC;
+					onEditChanged = "[_this select 0, 'mapRefresh', 2] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// APS VOLUME
+__EXEC(_idx = __COUNTER__;)
+				class MRTMApsVolumeText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_aps_volume";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMApsVolumeSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_GENERAL_APS_VOLUME_SLIDER_IDC;
+					ext = "";
+					onSliderPosChanged = "['apsVolume', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMApsVolumeEdit: RscEditMRTM
+				{
+					idc = SETTINGS_GENERAL_APS_VOLUME_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'apsVolume', 1] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// KILL REWARD VOLUME
+__EXEC(_idx = __COUNTER__;)
+				class MRTMKillRewardText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_kill_sound";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMKillRewardSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_GENERAL_KILL_VOLUME_SLIDER_IDC;
+					ext = "";
+					onSliderPosChanged = "['killVolume', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMKillRewardEdit: RscEditMRTM
+				{
+					idc = SETTINGS_GENERAL_KILL_VOLUME_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'killVolume', 1] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// VOICE INFORMER VOLUME
+__EXEC(_idx = __COUNTER__;)
+				class MRTMVoiceInformerText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_voice_informer";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMVoiceInformerSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_GENERAL_INFORMER_VOLUME_SLIDER_IDC;
+					ext = "";
+					onSliderPosChanged = "['informerVolume', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMVoiceInformerEdit: RscEditMRTM
+				{
+					idc = SETTINGS_GENERAL_INFORMER_VOLUME_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'informerVolume', 1] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// USER MARKERS
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText8: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_user_markers";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherButton8: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_USER_MARKERS_IDC;
+					action = "profileNamespace setVariable ['MRTM_showMarkers', !(profileNamespace getVariable ['MRTM_showMarkers', true])];";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// AUTONOMOUS MODE
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText4: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_autonomous_mode";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherButton4: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_AUTONOMOUS_MODE_IDC;
+					action = "profileNamespace setVariable ['MRTM_enableAuto', !(profileNamespace getVariable ['MRTM_enableAuto', true])]";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// UNIT VOICE
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText9: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_no_voice_speaker";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherButton9: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_UNIT_VOICE_IDC;
+					action = "profileNamespace setVariable ['MRTM_noVoiceSpeaker', !(profileNamespace getVariable ['MRTM_noVoiceSpeaker', false])];";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// SMALL ANNOUNCER FONT
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText5: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_small_announcer_font";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherButton5: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_SMALL_ANNOUNCER_FONT_IDC;
+					action = "profileNamespace setVariable ['MRTM_smallAnnouncerText', !(profileNamespace getVariable ['MRTM_smallAnnouncerText', false])];";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// EMPTY VEHICLES
+__EXEC(_idx = __COUNTER__;)
+				class MRTMOtherText6: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_general_empty_vehicles";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMOtherButton6: RscCheckboxMRTM
+				{
+					idc = SETTINGS_GENERAL_SPAWN_EMPTY_VICS_IDC;
+					action = "profileNamespace setVariable ['MRTM_spawnEmpty', !(profileNamespace getVariable ['MRTM_spawnEmpty', false])];";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+
+// RWR GROUP
+__EXEC(_idx = __COUNTER__;)
+				class MRTMRWRHeaderText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_RWR_title";
+					colorBackground[] = {0.3,0.3,0.3,0.7};
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = CTRLS_GROUP_WIDTH;
+					h = 1 * GUI_GRID_H;
+
+					size = 1 * GUI_GRID_H;
+
+					class Attributes {
+						shadow = 0;
+					};
+				};
+				class RscLine2: RscTextMRTM
+				{
+					idc = -1;
+					style = ST_MULTI + ST_TITLE_BAR + ST_HUD_BACKGROUND;
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + GROUP_PADDING + 1 * GUI_GRID_H);
+					w = CTRLS_GROUP_WIDTH;
+					h = 0.01 * GUI_GRID_H;
+
+					text = "";
+					colorBackground[] = {0,0,0,0};
+					colorText[] = {1,1,1,1};
+				};
+
+// ENABLE RWR
+__EXEC(_idx = __COUNTER__;)
+				class MRTMRWRSettingText: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_RWR_enable_voice";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMRWRButton: RscCheckboxMRTM
+				{
+					idc = SETTINGS_RWR_VOICE_IDC;
+					action = "profileNamespace setVariable ['MRTM_EnableRWR', !(profileNamespace getVariable ['MRTM_EnableRWR', true])]; 0 spawn MRTM_fnc_openMenu;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 1.5 * GUI_GRID_W;
+					h = OPTION_H;
+				};
+
+// RWR PULL UP VOLUME
+__EXEC(_idx = __COUNTER__;)
+				class MRTMRWRText1: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_RWR_pull_up_volume";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMRWRPullUpSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_RWR_PULL_UP_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['rwr1', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMRWREdit1: RscEditMRTM
+				{
+					idc = SETTINGS_RWR_PULL_UP_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'rwr1', 1] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// RWR ALTITUDE VOLUME
+__EXEC(_idx = __COUNTER__;)
+				class MRTMRWRText2: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_RWR_altitude_volume";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMRWRAltSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_RWR_ALTITUDE_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['rwr2', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMRWREdit2: RscEditMRTM
+				{
+					idc = SETTINGS_RWR_ALTITUDE_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'rwr2', 1] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// RWR WARNINGS VOLUME
+__EXEC(_idx = __COUNTER__;)
+				class MRTMRWRText3: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_RWR_warning_volume";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMRWRWarningSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_RWR_WARNINGS_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['rwr3', _this select 1] call MRTM_fnc_onSliderChanged;";
+					toolTip = "$STR_A3_WL_settings_RWR_warning_volume_tooltip";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMRWREdit3: RscEditMRTM
+				{
+					idc = SETTINGS_RWR_WARNINGS_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'rwr3', 1] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+// RWR OTHERS VOLUME
+__EXEC(_idx = __COUNTER__;)
+				class MRTMRWRText4: RscStructuredTextMRTM
+				{
+					idc = -1;
+					text = "$STR_A3_WL_settings_RWR_other_volume";
+
+					x = 0 * GUI_GRID_W;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = OPTION_TEXT_W;
+					h = TEXT_SLIDER_H;
+
+					size = 0.9 * GUI_GRID_H;
+
+					class Attributes
+					{
+						align = "right";
+						shadow = 0;
+					};
+				};
+				class MRTMRWROtherSlider: RscXSliderHMRTM
+				{
+					idc = SETTINGS_RWR_OTHERS_SLIDER_IDC;
+					text = "";
+					onSliderPosChanged = "['rwr4', _this select 1] call MRTM_fnc_onSliderChanged;";
+
+					x = OPTION_CONTROL_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_W;
+					h = TEXT_SLIDER_H;
+				};
+				class MRTMRWREdit4: RscEditMRTM
+				{
+					idc = SETTINGS_RWR_OTHERS_EDIT_IDC;
+					onKeyUp = "[_this select 0, 'rwr4', 1] call MRTM_fnc_onChar;";
+
+					x = SLIDER_EDIT_X;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H + TEXT_SLIDER_OFFSET);
+					w = SLIDER_EDIT_W;
+					h = TEXT_SLIDER_H;
+				};
+
+__EXEC(_idx = __COUNTER__;)
+				class BottomPadding: RscTextMRTM
+				{
+					idc = -1;
+
+					x = 0;
+					y = __EVAL(CTRLS_GROUP_OFFSET + _idx * OPTION_H);
+					w = 0;
+					h = 0.25 * GUI_GRID_H;
+				};
+			};
+		};
+
+		class MRTMCloseButton: RscButtonMenuMRTM
+		{
+			idc = 1604;
+			text = "$STR_A3_WL_settings_button_close";
+			style = ST_UPPERCASE;
+
+			x = GUI_GRID_CENTER_X + 0 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_H;
+			w = 5 * GUI_GRID_W;
+			h = 1 * GUI_GRID_H;
+
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_H;
+			sizeEx = 1 * GUI_GRID_H;
+
+			font = "PuristaLight";
+			action =  "(findDisplay 8000) closeDisplay 1;";
+		};
+		// class MRTMGroupsButton: RscButtonMRTM
+		// {
+		// 	idc = 1605;
+		// 	text = "$STR_A3_WL_settings_button_squads";
+		// 	sizeEx = "0.021 / (getResolution select 5)";
+		// 	x = 0.327969 * safezoneW + safezoneX;
+		// 	y = 0.786 * safezoneH + safezoneY;
+		// 	w = 0.0567187 * safezoneW;
+		// 	h = 0.022 * safezoneH;
+		// 	font = "PuristaMedium";
+		// 	action =  "(findDisplay 8000) closeDisplay 1; [true] call SQD_fnc_menu;";
+		// };
+		class MRTMDebugButton: RscButtonMenuMRTM
+		{
+			idc = 1609;
+			text = "$STR_A3_WL_settings_button_debug";
+			style = ST_UPPERCASE;
+			onLoad = "(_this # 0) ctrlShow (getPlayerUID player in getArray (missionConfigFile >> 'adminIDs'));";
+
+			x = GUI_GRID_CENTER_X + 29.85 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_H;
+			w = 5 * GUI_GRID_W;
+			h = 1 * GUI_GRID_H;
+
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_H;
+			sizeEx = 1 * GUI_GRID_H;
+
+			font = "PuristaLight";
+			action =  "(findDisplay 8000) closeDisplay 1; 0 spawn MRTM_fnc_openDebugMenu;";
+		};
+		class MRTMReportButton: RscButtonMenuMRTM
+		{
+			idc = 1609;
+			text = "$STR_A3_WL_settings_button_report";
+			style = ST_UPPERCASE;
+
+			x = GUI_GRID_CENTER_X + 35 * GUI_GRID_W;
+			y = GUI_GRID_CENTER_Y + 24 * GUI_GRID_H;
+			w = 5 * GUI_GRID_W;
+			h = 1 * GUI_GRID_H;
+
+			class TextPos
+			{
+				left = 0.25 * GUI_GRID_W;
+				top = (GUI_GRID_H - 1 * GUI_GRID_H) / 2;
+				right = 0.005;
+				bottom = 0;
+			};
+
+			size = 1 * GUI_GRID_H;
+			sizeEx = 1 * GUI_GRID_H;
+
+			font = "PuristaLight";
+			action =  "(findDisplay 8000) closeDisplay 1; 0 spawn FXR_fnc_openReportMenu;";
+		};
+	};
+};

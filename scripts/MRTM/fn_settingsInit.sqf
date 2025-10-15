@@ -3,6 +3,7 @@ if !(profileNamespace getVariable ["viewSettingsInitialzed", false]) then {
 	profileNamespace setVariable ["MRTM_ground", 3000];
 	profileNamespace setVariable ["MRTM_air", 4000];
 	profileNamespace setVariable ["MRTM_drones", 4000];
+	profileNamespace setVariable ["MRTM_cqb", 150];
 	profileNamespace setVariable ["MRTM_objects", 2000];
 	profileNamespace setVariable ["MRTM_syncObjects", true];
 	profileNamespace setVariable ["viewSettingsInitialzed", true];
@@ -19,8 +20,6 @@ if !(profileNamespace getVariable ["warningSettingsInitialzed", false]) then {
 
 if !(profileNamespace getVariable ["preferencesInitialzed", false]) then {
 	profileNamespace setVariable ["MRTM_3rdPersonDisabled", true];
-	profileNamespace setVariable ["MRTM_playKillSound", true];
-	profileNamespace setVariable ["MRTM_muteVoiceInformer", false];
 	profileNamespace setVariable ["MRTM_EnableRWR", true];
 	profileNamespace setVariable ["MRTM_smallAnnouncerText", false];
 	profileNamespace setVariable ["MRTM_spawnEmpty", false];
@@ -28,8 +27,6 @@ if !(profileNamespace getVariable ["preferencesInitialzed", false]) then {
 	profileNamespace setVariable ["MRTM_disableMissileCameras", false];
 	profileNamespace setVariable ["MRTM_showMarkers", true];
 	profileNamespace setVariable ["MRTM_noVoiceSpeaker", false];
-	profileNamespace setVariable ["MRTM_muteTaskNotifications", false];
-	profileNamespace setVariable ["MRTM_parachuteAutoDeploy", true];
 	profileNamespace setVariable ["preferencesInitialzed", true];
 };
 player setVariable ["MRTM_3rdPersonDisabled", (profileNamespace getVariable ["MRTM_3rdPersonDisabled", true]), [2, clientOwner]];

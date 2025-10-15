@@ -90,7 +90,7 @@ player addEventHandler ["HandleDamage", {
 		if (_inHomeBase && !_baseUnderAttack) then {
 			0;
 		} else {
-			if (_damage >= 1) then {
+			if (_damage >= 1 && !(profileNamespace getVariable ["MRTM_instantDeath", false])) then {
 				moveOut _unit;
 				switchCamera player;
 

@@ -4,11 +4,11 @@
 	Description: Updates the view distance.
 */
 
-_dist = 0;
-_exit = false;
+private _dist = 0;
+private _exit = false;
 
 if (player getVariable ["WL_ViewRangeReduced", false]) then {
-	_dist = 150;
+	_dist = profileNamespace getVariable ["MRTM_cqb", 150];
 	setViewDistance _dist;
 	_exit = true;
 };

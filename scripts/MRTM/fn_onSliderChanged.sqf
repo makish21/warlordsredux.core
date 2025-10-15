@@ -3,33 +3,46 @@
 
 	Description: Triggers when the slider pos is changed and updates view distance.
 */
+#include "constants.inc"
 
-params [["_mode", -1, [0]], ["_value", -1, [0]]];
-if((_mode isEqualTo -1) || (_value isEqualTo -1)) exitWith {};
+
+private _valid = params [["_name", "", [""]], ["_value", -1, [0]]];
+if !_valid exitWith {};
+if (_name isEqualTo "") exitWith {};
+if (_value isEqualTo -1) exitWith {};
+
 disableSerialization;
 
-private _varData = [
-	["MRTM_inf", 8004],
-	["MRTM_ground", 8006],
-	["MRTM_air", 8008],
-	["MRTM_objects", 8014],
-	["MRTM_drones", 8010],
-	["MRTM_rwr1", 8016],
-	["MRTM_rwr2", 8018],
-	["MRTM_rwr3", 8020],
-	["MRTM_rwr4", 8022],
-	["MRTM_mapRefresh", 8036]
-] select _mode;
+private _map = createHashMapFromArray [
+	["inf",            SETTINGS_VIEW_DISTANCE_INF_EDIT_IDC],
+	["ground",         SETTINGS_VIEW_DISTANCE_VIC_EDIT_IDC],
+	["air",            SETTINGS_VIEW_DISTANCE_AIR_EDIT_IDC],
+	["drones",         SETTINGS_VIEW_DISTANCE_UAV_EDIT_IDC],
+	["cqb",            SETTINGS_VIEW_DISTANCE_CQB_EDIT_IDC],
+	["objects",        SETTINGS_VIEW_DISTANCE_OBJ_EDIT_IDC],
+	["apsVolume",      SETTINGS_GENERAL_APS_VOLUME_EDIT_IDC],
+	["killVolume",     SETTINGS_GENERAL_KILL_VOLUME_EDIT_IDC],
+	["informerVolume", SETTINGS_GENERAL_INFORMER_VOLUME_EDIT_IDC],
+	["mapRefresh",     SETTINGS_GENERAL_MAP_REFRESH_EDIT_IDC],
+	["rwr1",           SETTINGS_RWR_PULL_UP_EDIT_IDC],
+	["rwr2",           SETTINGS_RWR_ALTITUDE_EDIT_IDC],
+	["rwr3",           SETTINGS_RWR_WARNINGS_EDIT_IDC],
+	["rwr4",           SETTINGS_RWR_OTHERS_EDIT_IDC]
+];
 
-profileNamespace setVariable [_varData # 0, _value];
-ctrlSetText [_varData # 1, str (profileNamespace getVariable [_varData # 0, 0])];
+private _ctrlIdc = _map getOrDefault [_name, -1];
+if (_ctrlIdc == -1) exitWith {};
+
+private _property = "MRTM_" + _name;
+profileNamespace setVariable [_property, _value];
+ctrlSetText [_ctrlIdc, str (profileNamespace getVariable [_property, 0])];
 [] call MRTM_fnc_updateViewDistance;
 
 private _objectsDistance = profileNamespace getVariable ["MRTM_objects", 2000];
-if(_mode isEqualTo 3) then {
+if(_property isEqualTo "MRTM_objects") then {
 	setObjectViewDistance [_objectsDistance, 50];
 };
 if (profileNamespace getVariable ["MRTM_syncObjects", true]) then {
-	sliderSetPosition[8012, _objectsDistance];
-	ctrlSetText[8014, str _objectsDistance];
+	sliderSetPosition[SETTINGS_VIEW_DISTANCE_OBJ_SLIDER_IDC, _objectsDistance];
+	ctrlSetText[SETTINGS_VIEW_DISTANCE_OBJ_EDIT_IDC, str _objectsDistance];
 };

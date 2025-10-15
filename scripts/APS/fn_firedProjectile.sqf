@@ -42,7 +42,7 @@ private _interception = {
 		0 spawn {
 			sleep 0.5;
 
-			playSoundUI ["alarm", 2];
+			playSoundUI ["alarm", profileNamespace getVariable ["MRTM_apsVolume", 0.4]];
 			hint localize "STR_A3_WL_aps_friendly_warning";
 		};
 	} else {

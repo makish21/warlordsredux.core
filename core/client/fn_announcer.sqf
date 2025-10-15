@@ -6,7 +6,7 @@ if (isNil "BIS_WL_soundMsgBuffer") then {
 			_msg = BIS_WL_soundMsgBuffer # 0;
 			_length = getNumber (configFile >> "CfgSounds" >> _msg >> "duration");
 			if (_length == 0) then {_length = 2};
-			playSound (BIS_WL_soundMsgBuffer # 0);
+			playSoundUI [(BIS_WL_soundMsgBuffer # 0), profileNamespace getVariable ["MRTM_informerVolume", 0.4]];
 			BIS_WL_soundMsgBuffer deleteAt 0;
 			sleep (_length + 0.5);
 		};
@@ -14,6 +14,4 @@ if (isNil "BIS_WL_soundMsgBuffer") then {
 	};
 };
 
-if !(profileNamespace getVariable ["MRTM_muteVoiceInformer", false]) then {
-	BIS_WL_soundMsgBuffer pushBack format ["BIS_WL_%1_%2", _this, BIS_WL_sidesArray # ((BIS_WL_sidesArray find BIS_WL_playerSide) min 1)];
-};
+BIS_WL_soundMsgBuffer pushBack format ["BIS_WL_%1_%2", _this, BIS_WL_sidesArray # ((BIS_WL_sidesArray find BIS_WL_playerSide) min 1)];

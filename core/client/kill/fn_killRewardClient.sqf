@@ -50,14 +50,12 @@ uiNamespace setVariable ["WL_killRewardMap", _killRewardMap];
 
 WAS_score = true;
 
-if (profileNamespace getVariable ["MRTM_playKillSound", true] && _customColor == "#de0808") then {
-	playSoundUI ["AddItemOK", 1, 1];
-	if (missionNamespace getVariable ["WL_easterEggOverride", false]) then {
-		private _killsInRow = missionNamespace getVariable ["WL_killsInRow", 0];
-		_killsInRow = _killsInRow + 1;
-		[_killsInRow] call KST_fnc_actions;
-		missionNamespace setVariable ["WL_killsInRow", _killsInRow];
-	};
+playSoundUI ["AddItemOK", profileNamespace getVariable ["MRTM_killVolume", 0.4], 1];
+if (missionNamespace getVariable ["WL_easterEggOverride", false]) then {
+	private _killsInRow = missionNamespace getVariable ["WL_killsInRow", 0];
+	_killsInRow = _killsInRow + 1;
+	[_killsInRow] call KST_fnc_actions;
+	missionNamespace setVariable ["WL_killsInRow", _killsInRow];
 };
 
 // WLC

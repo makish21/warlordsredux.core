@@ -31,7 +31,11 @@ if (_assetApsType == 3) then {
 	_text = _text + "<br/>" + format[localize "STR_A3_WL2_aps_charges", _apsAmmo, _vehicle call APS_fnc_getMaxAmmo];
 
 	if (_apsAmmo == 0 && _indicator) then {
-		playSoundUI ["a3\sounds_f\vehicles\air\noises\heli_alarm_rotor_low.wss", 1, 0.5];
+		playSoundUI [
+			"a3\sounds_f\vehicles\air\noises\heli_alarm_rotor_low.wss",
+			/*volume=*/profileNamespace getVariable ["MRTM_apsVolume", 0.4],
+			/*pitch=*/0.5
+		];
 	};
 };
 
@@ -51,7 +55,7 @@ if (_angle < 1) then{
 };
 
 if (_indicator) then {
-	playSound"Alarm";
+	playSoundUI ["Alarm", profileNamespace getVariable ["MRTM_apsVolume", 0.4]];
 
 	_indicatorDanger ctrlSetText "\a3\ui_f\data\IGUI\Cfg\Radar\danger_ca.paa";
 
